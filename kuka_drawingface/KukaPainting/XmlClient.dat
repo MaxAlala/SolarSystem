@@ -1,0 +1,19 @@
+&ACCESS RVO
+&REL 303
+&PARAM SensorITMASK = *
+&PARAM TEMPLATE = C:\KRC\Roboter\Template\vorgabe
+&PARAM DISKPATH = KRC:\R1\Program
+DEFDAT  XmlClient
+;FOLD EXTERNAL DECLARATIONS;%{PE}%MKUKATPBASIS,%CEXT,%VCOMMON,%P
+;FOLD BASISTECH EXT;%{PE}%MKUKATPBASIS,%CEXT,%VEXT,%P
+EXT  BAS (BAS_COMMAND  :IN,REAL  :IN )
+DECL INT SUCCESS
+;ENDFOLD (BASISTECH EXT)
+;FOLD USER EXT;%{E}%MKUKATPUSER,%CEXT,%VEXT,%P
+;Make your modifications here
+
+;ENDFOLD (USER EXT)
+;ENDFOLD (EXTERNAL DECLARATIONS)
+DECL BASIS_SUGG_T LAST_BASIS={POINT1[] "HOME                    ",POINT2[] "HOME                    ",CP_PARAMS[] "CPDAT0                  ",PTP_PARAMS[] "PDATHOME                ",CONT[] "                        ",CP_VEL[] "2                       ",PTP_VEL[] "100                     ",SYNC_PARAMS[] "SYNCDAT                 ",SPL_NAME[] "S0                      "}
+DECL PDAT PPDATHOME={VEL 100.0,ACC 100.0,APO_DIST 1.0,APO_MODE #CDIS,GEAR_JERK 50.0}
+ENDDAT
