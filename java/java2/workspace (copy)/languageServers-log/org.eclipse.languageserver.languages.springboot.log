@@ -1,0 +1,173 @@
+
+LSP4E to org.eclipse.languageserver.languages.springboot:Content-Length: 719
+
+
+LSP4E to org.eclipse.languageserver.languages.springboot:{"jsonrpc":"2.0","id":"1","method":"initialize","params":{"processId":17608,"rootPath":"/C:/Users/BETELGEIZE/Workspace/ChatProject/","rootUri":"file:///C:/Users/BETELGEIZE/Workspace/ChatProject/","capabilities":{"workspace":{"applyEdit":true,"symbol":{},"executeCommand":{"dynamicRegistration":true},"workspaceFolders":true},"textDocument":{"synchronization":{"willSave":true,"willSaveWaitUntil":true,"didSave":true},"completion":{"completionItem":{"snippetSupport":true}},"hover":{},"signatureHelp":{},"references":{},"documentHighlight":{},"documentSymbol":{},"formatting":{},"rangeFormatting":{},"definition":{},"codeAction":{},"codeLens":{},"documentLink":{},"rename":{}}},"clientName":"Eclipse IDE","trace":"off"}}
+org.eclipse.languageserver.languages.springboot to LSP4E:{"jsonrpc":"2.0","id":"1","result":{"capabilities":{"textDocumentSync":2,"hoverProvider":true,"completionProvider":{"resolveProvider":false},"referencesProvider":true,"documentHighlightProvider":true,"documentSymbolProvider":true,"workspaceSymbolProvider":true,"codeLensProvider":{"resolveProvider":false},"workspace":{"workspaceFolders":{"supported":true,"changeNotifications":"a0299aa3-12aa-40e5-b397-c50e1eaaf39f"}}}}}
+LSP4E to org.eclipse.languageserver.languages.springboot:Content-Length: 52
+
+
+LSP4E to org.eclipse.languageserver.languages.springboot:{"jsonrpc":"2.0","method":"initialized","params":{}}
+LSP4E to org.eclipse.languageserver.languages.springboot:Content-Length: 187
+
+
+LSP4E to org.eclipse.languageserver.languages.springboot:{"jsonrpc":"2.0","method":"workspace/didChangeWorkspaceFolders","params":{"event":{"added":[{"uri":"file:/C:/Users/BETELGEIZE/Workspace/ChatProject","name":"ChatProject"}],"removed":[]}}}
+LSP4E to org.eclipse.languageserver.languages.springboot:Content-Length: 124
+
+
+LSP4E to org.eclipse.languageserver.languages.springboot:{"jsonrpc":"2.0","method":"workspace/didChangeConfiguration","params":{"settings":{"boot-java":{"boot-hints":{"on":true}}}}}
+LSP4E to org.eclipse.languageserver.languages.springboot:Content-Length: 2760
+
+
+LSP4E to org.eclipse.languageserver.languages.springboot:{"jsonrpc":"2.0","method":"textDocument/didOpen","params":{"textDocument":{"uri":"file:///C:/Users/BETELGEIZE/Workspace/ChatProject/src/com/vse/network/TCPConnection.java","languageId":"java","version":1,"text":"package com.vse.network;\r\n\r\nimport java.io.BufferedReader;\r\nimport java.io.BufferedWriter;\r\nimport java.io.IOException;\r\nimport java.io.InputStreamReader;\r\nimport java.io.OutputStreamWriter;\r\nimport java.net.Socket;\r\nimport java.nio.charset.Charset;\r\n\r\npublic class TCPConnection {\r\n\tprivate final Socket socket;\r\n\tprivate final Thread rxThread;\r\n\tprivate final BufferedReader in;\r\n\tprivate final BufferedWriter out;\r\n\tprivate final TCPConnectionListener eventListener;\r\n\t\r\n\t\r\n\tpublic TCPConnection(TCPConnectionListener eventListener, String ipAddr, int port) throws IOException {\r\n\t\tthis(new Socket(ipAddr, port), eventListener);\t\r\n\t}\r\n\t\r\n\r\n\tpublic TCPConnection(Socket socket, TCPConnectionListener eventListener) throws IOException {\r\n\t\tthis.eventListener \u003d eventListener;\r\n\t\tthis.socket \u003d socket;\r\n\t\tin \u003d new BufferedReader(new InputStreamReader(socket.getInputStream(), Charset.forName(\"UTF-8\")));\r\n\t\tout \u003d new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(), Charset.forName(\"UTF-8\")));\r\n\t\trxThread \u003d new Thread(new Runnable() {\r\n\r\n\t\t\t@Override\r\n\t\t\tpublic void run() {\r\n\t\t\t\ttry {\r\n\t\t\t\t\teventListener.onConnectionReady(TCPConnection.this);\r\n\t\t\t\t\twhile (!rxThread.isInterrupted()) {\r\n//\t\t\t\t\tString msg \u003d in.readLine();\r\n\t\t\t\t\t\teventListener.onReceiveString(TCPConnection.this, in.readLine());\r\n\t\t\t\t\t}\r\n\r\n\t\t\t\t} catch (Exception e) {\r\n\r\n\t\t\t\t} finally {\r\n\t\t\t\t\teventListener.onDisconnect(TCPConnection.this);\r\n\t\t\t\t}\r\n\r\n\t\t\t}\r\n\t\t});\r\n\t\trxThread.start();\r\n\t}\r\n\r\n\tpublic synchronized void sendString(String value) {\r\n\t\ttry {\r\n\t\t\tout.write(value + \"\\r\\n\"); // \\r\\n \u003d for end of a line // standart windows end of a line\r\n\t\t\tout.flush();\r\n\t\t} catch (Exception e) {\r\n\t\t\tSystem.out.println(\"2\");\r\n\t\t\teventListener.onException(TCPConnection.this, e);\r\n\t\t\tdisconnect();\r\n\t\t}\r\n\t}\r\n\r\n\tpublic synchronized void disconnect() {\r\n\t\trxThread.interrupt();\r\n\t\ttry {\r\n\t\t\tSystem.out.println(\"1\");\r\n\t\t\tsocket.close();\r\n\r\n\t\t} catch (Exception e) {\r\n\t\t\t// TODO: handle exception\r\n\t\t\tSystem.out.println(\"1\");\r\n\t\t\teventListener.onException(TCPConnection.this, e);\r\n\r\n\t\t}\r\n\t}\r\n\t@Override\r\n\tpublic String toString() {\r\n\t\treturn \"TCPConnection: \" + socket.getInetAddress() + \": \" + socket.getPort();\r\n\t}\r\n}\r\n"}}}
+org.eclipse.languageserver.languages.springboot to LSP4E:{"jsonrpc":"2.0","id":"1","method":"client/registerCapability","params":{"registrations":[{"id":"a0299aa3-12aa-40e5-b397-c50e1eaaf39f","method":"workspace/didChangeWorkspaceFolders"}]}}
+LSP4E to org.eclipse.languageserver.languages.springboot:Content-Length: 40
+
+
+LSP4E to org.eclipse.languageserver.languages.springboot:{"jsonrpc":"2.0","id":"1","result":null}
+org.eclipse.languageserver.languages.springboot to LSP4E:{"jsonrpc":"2.0","id":"2","method":"client/registerCapability","params":{"registrations":[{"id":"3c91a87e-7242-46a0-a967-4e7e733591e6","method":"workspace/executeCommand","registerOptions":{"commands":["sts4.classpath.XDArvfxO"]}}]}}
+LSP4E to org.eclipse.languageserver.languages.springboot:Content-Length: 40
+
+
+LSP4E to org.eclipse.languageserver.languages.springboot:{"jsonrpc":"2.0","id":"2","result":null}
+org.eclipse.languageserver.languages.springboot to LSP4E:{"jsonrpc":"2.0","id":"3","method":"sts/addClasspathListener","params":{"callbackCommandId":"sts4.classpath.XDArvfxO"}}
+LSP4E to org.eclipse.languageserver.languages.springboot:Content-Length: 115
+
+
+LSP4E to org.eclipse.languageserver.languages.springboot:{"jsonrpc":"2.0","id":"3","error":{"code":-32601,"message":"Unsupported request method: sts/addClasspathListener"}}
+LSP4E to org.eclipse.languageserver.languages.springboot:Content-Length: 184
+
+
+LSP4E to org.eclipse.languageserver.languages.springboot:{"jsonrpc":"2.0","id":"2","method":"textDocument/codeLens","params":{"textDocument":{"uri":"file:///C:/Users/BETELGEIZE/Workspace/ChatProject/src/com/vse/network/TCPConnection.java"}}}
+org.eclipse.languageserver.languages.springboot to LSP4E:{"jsonrpc":"2.0","id":"2","result":[]}
+LSP4E to org.eclipse.languageserver.languages.springboot:Content-Length: 184
+
+
+LSP4E to org.eclipse.languageserver.languages.springboot:{"jsonrpc":"2.0","id":"3","method":"textDocument/codeLens","params":{"textDocument":{"uri":"file:///C:/Users/BETELGEIZE/Workspace/ChatProject/src/com/vse/network/TCPConnection.java"}}}
+org.eclipse.languageserver.languages.springboot to LSP4E:{"jsonrpc":"2.0","id":"3","result":[]}
+LSP4E to org.eclipse.languageserver.languages.springboot:Content-Length: 184
+
+
+LSP4E to org.eclipse.languageserver.languages.springboot:{"jsonrpc":"2.0","id":"4","method":"textDocument/codeLens","params":{"textDocument":{"uri":"file:///C:/Users/BETELGEIZE/Workspace/ChatProject/src/com/vse/network/TCPConnection.java"}}}
+org.eclipse.languageserver.languages.springboot to LSP4E:{"jsonrpc":"2.0","id":"4","result":[]}
+LSP4E to org.eclipse.languageserver.languages.springboot:Content-Length: 2404
+
+
+LSP4E to org.eclipse.languageserver.languages.springboot:{"jsonrpc":"2.0","method":"textDocument/didOpen","params":{"textDocument":{"uri":"file:///C:/Users/BETELGEIZE/Workspace/ChatProject/src/com/vse/server/ChatServer.java","languageId":"java","version":1,"text":"package com.vse.server;\r\n\r\nimport java.net.ServerSocket;\r\nimport java.util.ArrayList;\r\n\r\nimport com.vse.network.TCPConnection;\r\nimport com.vse.network.TCPConnectionListener;\r\n\r\npublic class ChatServer implements TCPConnectionListener {\r\n  public static void main(String[] args) {\r\n\t  new ChatServer();\r\n  }\r\n  \r\n  private final ArrayList\u003cTCPConnection\u003e connections \u003d new ArrayList\u003c\u003e();\r\n  \r\n  \r\n  private ChatServer( ) {\r\n\t  System.out.println(\"server running...\");\r\n\t try(ServerSocket serverSocket \u003d new ServerSocket(8189)){\r\n\t\t\t \r\n\t\twhile(true) {\r\n\t\t\ttry {\r\n\t\t\t\t\r\n\t\t\t\tnew TCPConnection(serverSocket.accept(), this); // wait and after create socket\r\n\t\t\t} catch (Exception e) {\r\n\t\t\t\tSystem.out.println(\"TCPConnection exc: \" + e);\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t} catch (Exception e) {\r\n\t\tthrow new RuntimeException(e);\r\n\t}\r\n  }\r\n\r\n\r\n@Override\r\npublic synchronized void onConnectionReady(TCPConnection tcpConnection) {\r\n\t// TODO Auto-generated method stub\r\n\tconnections.add(tcpConnection);\r\n\tSystem.out.println(\"4\");\r\n\tsendToAllConnection(\"Client connected: \" + tcpConnection);\r\n\t\r\n}\r\n\r\n\r\n@Override\r\npublic synchronized void onReceiveString(TCPConnection tcpConnection, String value) {\r\n\t// TODO Auto-generated method stub\r\n\tSystem.out.println(\"3\");\r\n\tsendToAllConnection(value);\r\n}\r\n\r\n\r\n@Override\r\npublic synchronized void onDisconnect(TCPConnection tcpConnection) {\r\n\t// TODO Auto-generated method stub\r\n\tsendToAllConnection(\"Client disconnected: \" + tcpConnection);\r\n\tconnections.remove(tcpConnection);\r\n}\r\n\r\n@Override\r\npublic synchronized void onException(TCPConnection tcpConnection, Exception e) {\r\n\t// TODO Auto-generated method stub\r\n\tSystem.out.println(\"TCPConnection exception: \" + e);\r\n}\r\n\r\nprivate void sendToAllConnection(String value) {\r\n\tSystem.out.println(value);\r\n\tfinal int cnt \u003d connections.size();\r\n\tfor (int i \u003d 0; i \u003c cnt; i++) {\r\n\t\t\r\n\t\tconnections.get(i).sendString(value);\r\n\t}\r\n}\r\n  \r\n  \r\n  \r\n  \r\n  \r\n  \r\n}\r\n"}}}
+LSP4E to org.eclipse.languageserver.languages.springboot:Content-Length: 180
+
+
+LSP4E to org.eclipse.languageserver.languages.springboot:{"jsonrpc":"2.0","id":"5","method":"textDocument/codeLens","params":{"textDocument":{"uri":"file:///C:/Users/BETELGEIZE/Workspace/ChatProject/src/com/vse/server/ChatServer.java"}}}
+LSP4E to org.eclipse.languageserver.languages.springboot:Content-Length: 180
+
+
+LSP4E to org.eclipse.languageserver.languages.springboot:{"jsonrpc":"2.0","id":"6","method":"textDocument/codeLens","params":{"textDocument":{"uri":"file:///C:/Users/BETELGEIZE/Workspace/ChatProject/src/com/vse/server/ChatServer.java"}}}
+org.eclipse.languageserver.languages.springboot to LSP4E:{"jsonrpc":"2.0","id":"5","result":[]}
+org.eclipse.languageserver.languages.springboot to LSP4E:{"jsonrpc":"2.0","id":"6","result":[]}
+LSP4E to org.eclipse.languageserver.languages.springboot:Content-Length: 180
+
+
+LSP4E to org.eclipse.languageserver.languages.springboot:{"jsonrpc":"2.0","id":"7","method":"textDocument/codeLens","params":{"textDocument":{"uri":"file:///C:/Users/BETELGEIZE/Workspace/ChatProject/src/com/vse/server/ChatServer.java"}}}
+org.eclipse.languageserver.languages.springboot to LSP4E:{"jsonrpc":"2.0","id":"7","result":[]}
+LSP4E to org.eclipse.languageserver.languages.springboot:Content-Length: 307
+
+
+LSP4E to org.eclipse.languageserver.languages.springboot:{"jsonrpc":"2.0","id":"8","method":"textDocument/hover","params":{"textDocument":{"uri":"file:///C:/Users/BETELGEIZE/Workspace/ChatProject/src/com/vse/server/ChatServer.java"},"uri":"file:///C:/Users/BETELGEIZE/Workspace/ChatProject/src/com/vse/server/ChatServer.java","position":{"line":49,"character":1}}}
+org.eclipse.languageserver.languages.springboot to LSP4E:{"jsonrpc":"2.0","id":"8","result":{"contents":[]}}
+LSP4E to org.eclipse.languageserver.languages.springboot:Content-Length: 571
+
+
+LSP4E to org.eclipse.languageserver.languages.springboot:{"jsonrpc":"2.0","method":"textDocument/didOpen","params":{"textDocument":{"uri":"file:///C:/Users/BETELGEIZE/Workspace/ChatProject/src/com/vse/network/TCPConnectionListener.java","languageId":"java","version":1,"text":"package com.vse.network;\r\n\r\npublic interface TCPConnectionListener {\r\n\tvoid onConnectionReady(TCPConnection tcpConnection);\r\n\tvoid onReceiveString(TCPConnection tcpConnection, String value);\r\n\tvoid onDisconnect(TCPConnection tcpConnection);\r\n\tvoid onException(TCPConnection tcpConnection, Exception e);\r\n\t\r\n\t\r\n    \r\n}\r\n"}}}
+LSP4E to org.eclipse.languageserver.languages.springboot:Content-Length: 192
+
+
+LSP4E to org.eclipse.languageserver.languages.springboot:{"jsonrpc":"2.0","id":"9","method":"textDocument/codeLens","params":{"textDocument":{"uri":"file:///C:/Users/BETELGEIZE/Workspace/ChatProject/src/com/vse/network/TCPConnectionListener.java"}}}
+LSP4E to org.eclipse.languageserver.languages.springboot:Content-Length: 193
+
+
+LSP4E to org.eclipse.languageserver.languages.springboot:{"jsonrpc":"2.0","id":"10","method":"textDocument/codeLens","params":{"textDocument":{"uri":"file:///C:/Users/BETELGEIZE/Workspace/ChatProject/src/com/vse/network/TCPConnectionListener.java"}}}
+org.eclipse.languageserver.languages.springboot to LSP4E:{"jsonrpc":"2.0","id":"9","result":[]}
+org.eclipse.languageserver.languages.springboot to LSP4E:{"jsonrpc":"2.0","id":"10","result":[]}
+LSP4E to org.eclipse.languageserver.languages.springboot:Content-Length: 193
+
+
+LSP4E to org.eclipse.languageserver.languages.springboot:{"jsonrpc":"2.0","id":"11","method":"textDocument/codeLens","params":{"textDocument":{"uri":"file:///C:/Users/BETELGEIZE/Workspace/ChatProject/src/com/vse/network/TCPConnectionListener.java"}}}
+org.eclipse.languageserver.languages.springboot to LSP4E:{"jsonrpc":"2.0","id":"11","result":[]}
+LSP4E to org.eclipse.languageserver.languages.springboot:Content-Length: 183
+
+
+LSP4E to org.eclipse.languageserver.languages.springboot:{"jsonrpc":"2.0","method":"textDocument/didClose","params":{"textDocument":{"uri":"file:///C:/Users/BETELGEIZE/Workspace/ChatProject/src/com/vse/network/TCPConnectionListener.java"}}}
+org.eclipse.languageserver.languages.springboot to LSP4E:{"jsonrpc":"2.0","method":"textDocument/publishDiagnostics","params":{"uri":"file:///C:/Users/BETELGEIZE/Workspace/ChatProject/src/com/vse/network/TCPConnectionListener.java","diagnostics":[]}}
+org.eclipse.languageserver.languages.springboot to LSP4E:{"jsonrpc":"2.0","method":"sts/highlight","params":{"doc":{"uri":"file:///C:/Users/BETELGEIZE/Workspace/ChatProject/src/com/vse/network/TCPConnectionListener.java"},"ranges":[]}}
+LSP4E to org.eclipse.languageserver.languages.springboot:Content-Length: 348
+
+
+LSP4E to org.eclipse.languageserver.languages.springboot:{"jsonrpc":"2.0","method":"textDocument/didOpen","params":{"textDocument":{"uri":"file:///C:/Users/BETELGEIZE/Workspace/ChatProject/src/com/vse/client/ClientWindow.java","languageId":"java","version":1,"text":"package com.vse.client;\r\n\r\npublic class ClientWindow {\r\n\t  public static void main(String[] args) {\r\n\t\t  \r\n\t  }\r\n}\r\n"}}}
+LSP4E to org.eclipse.languageserver.languages.springboot:Content-Length: 183
+
+
+LSP4E to org.eclipse.languageserver.languages.springboot:{"jsonrpc":"2.0","id":"12","method":"textDocument/codeLens","params":{"textDocument":{"uri":"file:///C:/Users/BETELGEIZE/Workspace/ChatProject/src/com/vse/client/ClientWindow.java"}}}
+LSP4E to org.eclipse.languageserver.languages.springboot:Content-Length: 183
+
+
+LSP4E to org.eclipse.languageserver.languages.springboot:{"jsonrpc":"2.0","id":"13","method":"textDocument/codeLens","params":{"textDocument":{"uri":"file:///C:/Users/BETELGEIZE/Workspace/ChatProject/src/com/vse/client/ClientWindow.java"}}}
+org.eclipse.languageserver.languages.springboot to LSP4E:{"jsonrpc":"2.0","id":"12","result":[]}
+org.eclipse.languageserver.languages.springboot to LSP4E:{"jsonrpc":"2.0","id":"13","result":[]}
+LSP4E to org.eclipse.languageserver.languages.springboot:Content-Length: 183
+
+
+LSP4E to org.eclipse.languageserver.languages.springboot:{"jsonrpc":"2.0","id":"14","method":"textDocument/codeLens","params":{"textDocument":{"uri":"file:///C:/Users/BETELGEIZE/Workspace/ChatProject/src/com/vse/client/ClientWindow.java"}}}
+org.eclipse.languageserver.languages.springboot to LSP4E:{"jsonrpc":"2.0","id":"14","result":[]}
+LSP4E to org.eclipse.languageserver.languages.springboot:Content-Length: 173
+
+
+LSP4E to org.eclipse.languageserver.languages.springboot:{"jsonrpc":"2.0","method":"textDocument/didClose","params":{"textDocument":{"uri":"file:///C:/Users/BETELGEIZE/Workspace/ChatProject/src/com/vse/client/ClientWindow.java"}}}
+org.eclipse.languageserver.languages.springboot to LSP4E:{"jsonrpc":"2.0","method":"textDocument/publishDiagnostics","params":{"uri":"file:///C:/Users/BETELGEIZE/Workspace/ChatProject/src/com/vse/client/ClientWindow.java","diagnostics":[]}}
+org.eclipse.languageserver.languages.springboot to LSP4E:{"jsonrpc":"2.0","method":"sts/highlight","params":{"doc":{"uri":"file:///C:/Users/BETELGEIZE/Workspace/ChatProject/src/com/vse/client/ClientWindow.java"},"ranges":[]}}
+LSP4E to org.eclipse.languageserver.languages.springboot:Content-Length: 316
+
+
+LSP4E to org.eclipse.languageserver.languages.springboot:{"jsonrpc":"2.0","id":"15","method":"textDocument/hover","params":{"textDocument":{"uri":"file:///C:/Users/BETELGEIZE/Workspace/ChatProject/src/com/vse/network/TCPConnection.java"},"uri":"file:///C:/Users/BETELGEIZE/Workspace/ChatProject/src/com/vse/network/TCPConnection.java","position":{"line":33,"character":0}}}
+org.eclipse.languageserver.languages.springboot to LSP4E:{"jsonrpc":"2.0","id":"15","result":{"contents":[]}}
+LSP4E to org.eclipse.languageserver.languages.springboot:Content-Length: 348
+
+
+LSP4E to org.eclipse.languageserver.languages.springboot:{"jsonrpc":"2.0","method":"textDocument/didOpen","params":{"textDocument":{"uri":"file:///C:/Users/BETELGEIZE/Workspace/ChatProject/src/com/vse/client/ClientWindow.java","languageId":"java","version":1,"text":"package com.vse.client;\r\n\r\npublic class ClientWindow {\r\n\t  public static void main(String[] args) {\r\n\t\t  \r\n\t  }\r\n}\r\n"}}}
+LSP4E to org.eclipse.languageserver.languages.springboot:Content-Length: 183
+
+
+LSP4E to org.eclipse.languageserver.languages.springboot:{"jsonrpc":"2.0","id":"16","method":"textDocument/codeLens","params":{"textDocument":{"uri":"file:///C:/Users/BETELGEIZE/Workspace/ChatProject/src/com/vse/client/ClientWindow.java"}}}
+LSP4E to org.eclipse.languageserver.languages.springboot:Content-Length: 183
+
+
+LSP4E to org.eclipse.languageserver.languages.springboot:{"jsonrpc":"2.0","id":"17","method":"textDocument/codeLens","params":{"textDocument":{"uri":"file:///C:/Users/BETELGEIZE/Workspace/ChatProject/src/com/vse/client/ClientWindow.java"}}}
+org.eclipse.languageserver.languages.springboot to LSP4E:{"jsonrpc":"2.0","id":"16","result":[]}
+org.eclipse.languageserver.languages.springboot to LSP4E:{"jsonrpc":"2.0","id":"17","result":[]}
+LSP4E to org.eclipse.languageserver.languages.springboot:Content-Length: 183
+
+
+LSP4E to org.eclipse.languageserver.languages.springboot:{"jsonrpc":"2.0","id":"18","method":"textDocument/codeLens","params":{"textDocument":{"uri":"file:///C:/Users/BETELGEIZE/Workspace/ChatProject/src/com/vse/client/ClientWindow.java"}}}
+org.eclipse.languageserver.languages.springboot to LSP4E:{"jsonrpc":"2.0","id":"18","result":[]}
+LSP4E to org.eclipse.languageserver.languages.springboot:Content-Length: 173
+
+
+LSP4E to org.eclipse.languageserver.languages.springboot:{"jsonrpc":"2.0","method":"textDocument/didClose","params":{"textDocument":{"uri":"file:///C:/Users/BETELGEIZE/Workspace/ChatProject/src/com/vse/client/ClientWindow.java"}}}
+org.eclipse.languageserver.languages.springboot to LSP4E:{"jsonrpc":"2.0","method":"textDocument/publishDiagnostics","params":{"uri":"file:///C:/Users/BETELGEIZE/Workspace/ChatProject/src/com/vse/client/ClientWindow.java","diagnostics":[]}}
+org.eclipse.languageserver.languages.springboot to LSP4E:{"jsonrpc":"2.0","method":"sts/highlight","params":{"doc":{"uri":"file:///C:/Users/BETELGEIZE/Workspace/ChatProject/src/com/vse/client/ClientWindow.java"},"ranges":[]}}
+LSP4E to org.eclipse.languageserver.languages.springboot:Content-Length: 171
+
+
+LSP4E to org.eclipse.languageserver.languages.springboot:{"jsonrpc":"2.0","method":"textDocument/didClose","params":{"textDocument":{"uri":"file:///C:/Users/BETELGEIZE/Workspace/ChatProject/src/com/vse/server/ChatServer.java"}}}
+org.eclipse.languageserver.languages.springboot to LSP4E:{"jsonrpc":"2.0","method":"textDocument/publishDiagnostics","params":{"uri":"file:///C:/Users/BETELGEIZE/Workspace/ChatProject/src/com/vse/server/ChatServer.java","diagnostics":[]}}
+org.eclipse.languageserver.languages.springboot to LSP4E:{"jsonrpc":"2.0","method":"sts/highlight","params":{"doc":{"uri":"file:///C:/Users/BETELGEIZE/Workspace/ChatProject/src/com/vse/server/ChatServer.java"},"ranges":[]}}
+LSP4E to org.eclipse.languageserver.languages.springboot:Content-Length: 175
+
+
+LSP4E to org.eclipse.languageserver.languages.springboot:{"jsonrpc":"2.0","method":"textDocument/didClose","params":{"textDocument":{"uri":"file:///C:/Users/BETELGEIZE/Workspace/ChatProject/src/com/vse/network/TCPConnection.java"}}}
+LSP4E to org.eclipse.languageserver.languages.springboot:Content-Length: 61
+
+
+org.eclipse.languageserver.languages.springboot to LSP4E:{"jsonrpc":"2.0","method":"textDocument/publishDiagnostics","params":{"uri":"file:///C:/Users/BETELGEIZE/Workspace/ChatProject/src/com/vse/network/TCPConnection.java","diagnostics":[]}}
+LSP4E to org.eclipse.languageserver.languages.springboot:{"jsonrpc":"2.0","id":"19","method":"shutdown","params":null}
+org.eclipse.languageserver.languages.springboot to LSP4E:{"jsonrpc":"2.0","method":"sts/highlight","params":{"doc":{"uri":"file:///C:/Users/BETELGEIZE/Workspace/ChatProject/src/com/vse/network/TCPConnection.java"},"ranges":[]}}
+org.eclipse.languageserver.languages.springboot to LSP4E:{"jsonrpc":"2.0","id":"19","result":"OK"}

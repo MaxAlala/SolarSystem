@@ -1,0 +1,24 @@
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+
+<!--<?import javafx.scene.control.*?>-->
+<!--<?import java.lang.*?>-->
+<!--<?import javafx.scene.layout.*?>-->
+<!--<?import javafx.scene.layout.AnchorPane?>-->
+
+<!--<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">-->
+   <!--<bottom>-->
+      <!--<TextField fx:id="input1" BorderPane.alignment="CENTER" />-->
+   <!--</bottom>-->
+   <!--<top>-->
+      <!--<TextField fx:id="input2" prefHeight="31.0" prefWidth="600.0" BorderPane.alignment="CENTER" />-->
+   <!--</top>-->
+   <!--<center>-->
+      <!--<TextArea fx:id="text" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />-->
+   <!--</center>-->
+   <!--<left>-->
+      <!--<Button fx:id="button2" mnemonicParsing="false" text="Button" BorderPane.alignment="CENTER" />-->
+   <!--</left>-->
+   <!--<right>-->
+      <!--<Button fx:id="button1" mnemonicParsing="false" onAction="#ActionPerformed" text="Button" BorderPane.alignment="CENTER" />-->
+   <!--</right>-->
+<!--</BorderPane>-->

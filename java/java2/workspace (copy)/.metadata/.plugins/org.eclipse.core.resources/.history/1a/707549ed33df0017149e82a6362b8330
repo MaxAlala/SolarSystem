@@ -1,0 +1,46 @@
+
+public class Game {
+	
+	public void play() {
+		boolean playing = true;
+		
+		String word = "university";
+		String word_mask = "";
+		for(int i = 0; i < word.length(); i++) {
+			
+			word_mask += "*";
+			
+			
+		}
+		int status = 0;
+		
+		while (playing) {
+			if(status == 0) {
+				System.out.println("NEW STEP");
+				System.out.println("word: " + word_mask);
+				
+				
+			}
+			else if(status == 1) {
+				
+				
+				
+				
+			}
+						
+		}
+		
+		
+		
+	}
+public static void main(String args[]) {
+	(new Game()).play();
+	
+	
+	
+	
+	
+	
+	
+}
+}

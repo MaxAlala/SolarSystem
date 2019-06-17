@@ -1,0 +1,96 @@
+body {
+
+    /*-webkit-background-size: cover;*/
+    /*-moz-background-size: cover;*/
+    /*-o-background-size: cover;*/
+    /*background-size: cover;*/
+    /*background: url("/images/star_wars.jpg") no-repeat center center fixed;*/
+    background-image: url(/images/star_wars.jpg) ;
+    background-position: center center;
+    background-repeat:  no-repeat;
+    background-attachment: fixed;
+    background-size:  cover;
+    background-color: #999;
+
+}
+html, body{
+    height: 100%;
+}
+
+
+.main {
+      color:#cccccc;
+      background-color: #031229;
+      width: 1000px;
+      height:550px;
+      margin:0 auto;
+      padding:20px;
+  }
+
+/*.gigaMain {*/
+    /*color:#cccccc;*/
+    /*!*background-color: #2a366a;*!*/
+    /*background:transparent url('/images/empty_backspace.png') repeat center top;*/
+    /*!*width: 1000px;*!*/
+    /*!*height:550px;*!*/
+    /*!*margin:0 auto;*!*/
+    /*!*padding:20px;*!*/
+/*}*/
+
+
+.title {
+    color:#cccccc;
+    text-align:center;
+    font-size:18px;
+    font-weight:bold;
+
+}
+
+#xxx{
+
+    position: absolute;
+
+    border:2px;
+
+    max-width:70%;
+    max-height:70%;
+
+}
+
+.text{
+
+    padding-left:50px;
+    padding-right:50px;
+}
+
+.login_form{
+    padding-left:50px;
+    text-align: center;
+    padding: 20px;
+}
+
+.login_div{
+    width:350px;
+    border: 1px solid #eaeaea;
+    margin: 0 auto;
+    padding:10px;
+
+}
+
+.footer{
+    color:#cccccc;
+    height: 50px;
+    text-align: center;
+    margin:50px;
+    clear: both;
+}
+
+.content{
+    height: 300px;
+
+}
+
+input{
+
+}
+

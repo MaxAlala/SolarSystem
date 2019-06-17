@@ -1,0 +1,25 @@
+import java.util.Scanner;
+class Main {
+    static int[] fiboElem;
+ static int n;
+public static void main(String args[]){
+ Scanner sc = new Scanner(System.in); 
+   n = sc.nextInt();
+    fiboElem = new int[n];
+    Main fibonacci = new Main();
+    fibonacci.calcFibo();
+    System.out.println(fiboElem[n]);
+}
+    public Main() {
+    }
+ 
+    // метод высчитывает ряд фибоначчи и заносит его в массив
+    public void calcFibo() {
+        fiboElem[0] = 0; // первый элемент 0 а не 1
+        fiboElem[1] = 1;
+        for (int i = 2; i < n; i++) {
+            fiboElem[i] = fiboElem[i-1] + fiboElem[i-2];
+        }
+    }
+    }
+    

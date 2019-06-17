@@ -1,0 +1,72 @@
+<%@ page import="somePackage.beans.Author" %>
+<%@ page pageEncoding="UTF-8" %>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Betelgeize</title>
+    <link href="../css/style_main.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <%
+
+            request.setCharacterEncoding("UTF-8");
+            String searchString = "";
+
+            if (request.getParameter("search_string") != null) {
+                searchString = request.getParameter("search_string");
+                session.setAttribute("search_string", searchString);
+            } else if (session.getAttribute("search_string") != null) {
+                searchString = session.getAttribute("search_string").toString();
+            } else {
+                session.setAttribute("search_string", searchString);
+            }
+
+            if (request.getParameter("username") != null) {
+                session.setAttribute("username", request.getParameter("username"));
+            }
+
+        %>
+
+<div class="container">
+
+    <div class="header">
+        <div class="logo">
+            <a href="main.jsp"><img src="../images/galaxy.jpg" alt="flag" name="logo" width="100" height="100" hspace="10" vspace="10" align="middle"/></a>
+
+        </div>
+        <div class="descr">
+            <h3>Galaxy shop - Betelgeise <br/> All what you need is there!</h3>
+            <form action="${pageContext.request.contextPath}/Logout">
+                <input type="submit" value="logout">
+            </form>
+        </div>
+        <div class="welcome">
+            <%--<%! Author author =   %>--%>
+            <%
+
+                response.setHeader("Cache-Control", "no-cache, no-store, must-validate");
+                if(session.getAttribute("fio") == null)
+                    response.sendRedirect("http://localhost:8080/index.jsp");
+
+                Author author = (Author)session.getAttribute("author");
+
+                request.getSession().setAttribute("nameImage", author.getName());
+            %>
+                <h5>Welcome, <%= author.getName()%>! Your credits:<%= session.getAttribute("credits")%></h5>
+            <div class="user_image">
+
+                <a href="#"><img src="<%=request.getContextPath()%>/ShowPersonImage" <% System.out.println(request.getContextPath() + "/ShowPersonImage");%> height="100" width="100" alt="user"/></a>
+            </div>
+
+            <ul class="nav">
+                <li><a href="../pages/main.jsp">Main</a></li>
+                <li><a href="../pages/chatRoom.jsp">ChatRoom</a></li>
+                <li><a href="../pages/personalArea.jsp">PersonalArea</a></li>
+            </ul>
+        </div>
+        <div class="change_frame">
+            <a href="../pages/personalAreaCH.jsp">ChangeBooks</a> <a href="../pages/personalAreaAD.jsp">AddBooks</a> <a href="../pages/personalAreaRequests.jsp">BuyRequests</a>
+
+        </div>
+    </div>

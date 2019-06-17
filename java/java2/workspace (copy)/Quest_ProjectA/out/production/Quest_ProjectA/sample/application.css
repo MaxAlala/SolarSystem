@@ -1,0 +1,36 @@
+.pane2 {
+    -fx-background-image:url("../pictures/q_b2.png");
+   }
+
+.list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #faebd7;
+}
+
+.list-view {
+    -fx-background-color: transparent;
+    /*-fx-text-fill: antiquewhite ;*/
+}
+
+
+.list-cell:filled:hover {
+    /*-fx-background-color: rgba(74, 120, 175, 0.12);*/
+    -fx-background-color: rgba(74, 120, 175, 0.12);
+
+    /*-fx-text-fill: ;*/
+}
+
+.button{
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+    -fx-font-family:"Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 1em; /* 12 */
+    -fx-text-fill: #faebd7;
+    -fx-alignment: center-left;
+}
+.label{
+    -fx-text-fill: #faebd7;
+    -fx-alignment: top-left;
+ }

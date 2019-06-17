@@ -1,0 +1,30 @@
+
+public class Game {
+	
+	public void play() {
+		boolean playing = true;
+		
+		
+		
+		int status = 0;
+		while (playing) {
+			
+			
+			
+			
+		}
+		
+		
+		
+	}
+public static void main(String args[]) {
+	(new Game()).play();
+	
+	
+	
+	
+	
+	
+	
+}
+}

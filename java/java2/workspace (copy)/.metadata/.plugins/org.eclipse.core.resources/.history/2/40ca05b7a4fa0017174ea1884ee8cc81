@@ -1,0 +1,37 @@
+
+public class Sort {
+	public static void main(String args[]) {
+		System.out.println(sortWords("acbqweqw","acbddd"));	
+	}
+
+
+	//     String[] sortAr(String[] ar){
+	//    	 int n = ar.length;
+	//    	 String [] ar2 = new String[n];
+	//    	 String[] = {"abc","acb"};
+	//    	 
+	//    	 for(int i = 0; i < ar.length; i++) {
+	//    		 
+	//    		 
+	//    		 
+	//    		 
+	//    	 } 
+	//     }
+	static String sortWords(String x, String y){
+		if((x.length()>1)&&(y.length()>1)) {
+
+			if(x.charAt(0) > y.charAt(0)) return y;
+			else if(x.charAt(0) < y.charAt(0)) return x;
+			else if(y.charAt(0) == x.charAt(0)) 
+				if(y.charAt(1) < x.charAt(1)) return y;
+				else return x;
+
+
+		}else if(x.charAt(0)<y.charAt(0)) return x;
+		else return y;
+
+
+		return "something wrong!"; 
+	}
+
+}

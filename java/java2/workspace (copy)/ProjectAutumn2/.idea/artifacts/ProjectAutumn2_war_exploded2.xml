@@ -1,0 +1,20 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="ProjectAutumn2:war exploded2">
+    <output-path>$PROJECT_DIR$/out/artifacts/ProjectAutumn2_war_exploded2</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="ProjectAutumn2" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="mysql-connector-java-8.0.13" />
+          <element id="library" level="project" name="jstl-1.2" />
+          <element id="library" level="project" name="Maven: commons-fileupload:commons-fileupload:1.2.1" />
+          <element id="library" level="project" name="Maven: commons-io:commons-io:2.4" />
+          <element id="library" level="project" name="Java EE 6-Java EE 6" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="ProjectAutumn2/web/Web" />
+    </root>
+  </artifact>
+</component>

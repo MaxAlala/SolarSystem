@@ -1,0 +1,39 @@
+
+public class Game {
+	
+	public void play() {
+		boolean playing = true;
+		
+		String word = "university"; 
+		
+		int status = 0;
+		
+		while (playing) {
+			if(status == 0) {
+				
+				
+				
+			}
+			else if(status == 1) {
+				
+				
+				
+				
+			}
+						
+		}
+		
+		
+		
+	}
+public static void main(String args[]) {
+	(new Game()).play();
+	
+	
+	
+	
+	
+	
+	
+}
+}

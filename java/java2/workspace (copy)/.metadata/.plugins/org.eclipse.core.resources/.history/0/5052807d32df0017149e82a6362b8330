@@ -1,0 +1,32 @@
+import java.util.Scanner;
+
+public class Number {
+	public static void main(String args[]) {
+String q1 = "What have the same color around all year?";
+String a1 = "tree";
+String[] str = new String[a1.length()];
+//		int a = 1; 
+//		int b = 1000; 
+//		int num = -1;
+//		int rnd =  a + (int) (Math.random() * b); 
+//		System.out.println(rnd);
+
+String word = " ";
+
+String b_word = " ";
+
+		while(word!=b_word) {
+			Scanner sc = new Scanner(System.in);
+			num = sc.nextInt();
+			
+			
+			for(int i=0;i < a1.length(); i++) {
+				
+			}
+			
+		}
+		
+		if(num==rnd)System.out.println("You won! Number is: "+ rnd);
+
+	}
+}
