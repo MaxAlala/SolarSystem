@@ -1,0 +1,2 @@
+INDEX VERSION 1.127+C:\Users\X\Desktop\ws\githubSolarSystemRepo\ws_eclipse\.metadata\.plugins\org.eclipse.jdt.core
+483546182.index

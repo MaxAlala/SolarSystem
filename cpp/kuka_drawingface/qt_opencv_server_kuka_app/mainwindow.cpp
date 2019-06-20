@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-
+setWindowFlags(Qt::WindowTitleHint | Qt::WindowMinimizeButtonHint);
     ui->setupUi(this);
     absolutePath = QCoreApplication::applicationDirPath();
     absolutePath +="/";
@@ -91,14 +91,11 @@ void MainWindow::on_portrait_clicked()
         ui->full->setVisible(1);
         ui->two->setVisible(1);
         counter++;
-        //        QThread* thread = new QThread;
+
+
         opencv* ocv = new opencv();
         ocv->absolutePath = absolutePath.toUtf8().constData();
-        //        ocv->moveToThread(thread);void getregime(int);
-//        QImage gr(":/lena.jpg");
-//        ocv->lena=gr;
-//        ui -> label->setPixmap(QPixmap::fromImage(gr));
-        //    connect(ocv, SIGNAL(error(QString)), this, SLOT(errorString(QString)));
+        connect(this, SIGNAL(aboutToQuit()), ocv, SLOT(deleteLater()));
         connect(this, SIGNAL(takePortrait()), ocv, SLOT(getRequestForPortrait()));
         connect(ocv, SIGNAL(sendPortrait(QImage)), this, SLOT(listenPortrait(QImage)));
         connect(this, SIGNAL(sendFlagON()),ocv,SLOT(getFlagON()));
@@ -108,11 +105,6 @@ void MainWindow::on_portrait_clicked()
         connect(this, SIGNAL(sendcurrentX(int)),ocv,SLOT(getcurrentX(int)));
         connect(this, SIGNAL(sendlenaattach(int)),ocv,SLOT(getlenaattach(int)));
         connect(ocv, SIGNAL(sendLog2(QString)),this,SLOT(getLog2(QString)));
-
-        //    connect(thread, SIGNAL(started()), ocv, SLOT(run()));
-        //    connect(ocv, SIGNAL(finished()), thread, SLOT(quit()));
-        //    connect(ocv, SIGNAL(finished()), ocv, SLOT(deleteLater()));
-        //    connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
         connect(ocv, SIGNAL(sendImg(QString)),this,SLOT(listenImg(QString)));
         connect(ocv, SIGNAL(sendQImg(QImage)),this,SLOT(listenQImg(QImage)));
 
@@ -143,6 +135,8 @@ void MainWindow::on_portrait_clicked()
             ui->two->setVisible(0);
             ui->portrait->setText("startCam");
             ui->portrait->show();
+            counter = 0;
+            defaultSettings();
         }
 }
 
@@ -172,6 +166,7 @@ void MainWindow::listenPortrait(QImage qi){
 
 void MainWindow::on_pushButton_clicked()
 {
+    emit(aboutToQuit());
     close();
 }
 
@@ -268,6 +263,14 @@ void MainWindow::on_Xregime_clicked()
     emit(sendregime(1));
 }
 
+void MainWindow::defaultSettings()
+{
+    ui->full->setStyleSheet("");
+    ui->XYregime->setStyleSheet("");
+    ui->Yregime->setStyleSheet("");
+    ui->Xregime->setStyleSheet("");
+    ui->portrait_2->setText("downloadImg");
+}
 
 void MainWindow::on_two_clicked()
 {

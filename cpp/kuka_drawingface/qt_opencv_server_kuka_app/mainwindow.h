@@ -50,6 +50,7 @@ private slots:
     void on_clear_clicked();
 
     void on_sendZ_clicked();
+    void defaultSettings();
 
 private:
     int counter = 0;
@@ -69,6 +70,7 @@ signals:
     void sendregime(int);
     void sendlenaattach(int);
     void sendrestartserver();
+    void aboutToQuit();
 };
 
 #endif // MAINWINDOW_H

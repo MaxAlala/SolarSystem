@@ -85,15 +85,13 @@ void mythread:: run(){
             return;
         }
 
-        int counterForVec = 0;
-        double percentage = 0;
+        uint counterForVec = 0;
 
         while(counterForVec != vecX.size()-2){
             while(flag == false){
 
             }
-//QString qs = "<Server><Pos2><X>SomeVariableX</X><Y>SomeVariableY</Y><Z>0.15</Z><A>65.75</A><B>-81.44</B><C>150.0</C><S>2</S><T>3</T></Pos2></Server>";
-            emit(sendprogbar((double)counterForVec/(vecX.size()-1)*100));
+            emit(sendprogbar(counterForVec/(vecX.size()-1)*100));
             while(counter2 < 2){
                 out ="<Server><Pos2><X>" + to_string(vecX.at(counterForVec)) + "</X><Y>"+ to_string(vecY.at(counterForVec))+"</Y><Z>"+  Z.toUtf8().constData() +"</Z><A>65.75</A><B>-81.44</B><C>150.0</C><S>2</S><T>3</T></Pos2></Server>";
                 strcpy(buf, out.c_str());
@@ -145,7 +143,6 @@ void mythread:: run(){
         emit(sendfinish());
         wasfinished = true;
     }
-    exec();
 }
 
 

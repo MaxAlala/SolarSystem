@@ -23,6 +23,9 @@ public:
     enum Regime{
         XY,X,Y
     };
+    enum ElemCountRegime{
+        TwoElem, AllElem
+    };
     explicit opencv(QObject *parent = nullptr);
     void startopencv();
     void fourForAlgorithm();
@@ -63,11 +66,11 @@ private:
     //    string absolutePath = "C:/Users/X/Desktop/ws/opencv/KUKA-face-picturing/qt_opencv_server_kuka_app/";
     bool sendingFlag = false;
     bool flagON = false;
-    int currentXfullor2el = 0; //0 = 2 el, 1 = full;
     int lowTh = 45;
     int highTh = 90;
-    Regime current_regime;// 0 - XYRegime, 1 - XRegime, 2- YRegime;
-    ImgAttached isimgattached;
+    Regime current_regime = X;// 0 - XYRegime, 1 - XRegime, 2- YRegime;
+    ImgAttached isimgattached = imgUnattached;
+    ElemCountRegime elemcountregime = TwoElem; //0 = 2 el, 1 = full;
     int ij = 30;
     int xy = 16;
 };

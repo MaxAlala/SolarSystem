@@ -3,13 +3,11 @@
 
 serverproxy::serverproxy(QObject *parent) : QThread(parent)
 {
-
 }
 
 void serverproxy::getFlag_mythread(){
     emit(sendFlag_mythread());
 }
-
 
 void serverproxy::getLog(QString str){
     emit(sendLog(str));
