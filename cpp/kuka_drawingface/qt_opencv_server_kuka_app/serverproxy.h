@@ -23,7 +23,9 @@ signals:
     void sendFlag_mythread();
     void sendLog(QString);
     void sendrestartserver();
+    void sendcurrentX(int);
 public slots:
+    void getcurrentX(int);
     void getZ(QString);
     void getprogbar(int);
     void getstart();

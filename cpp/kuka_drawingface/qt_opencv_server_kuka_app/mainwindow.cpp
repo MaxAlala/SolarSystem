@@ -44,6 +44,7 @@ void MainWindow::on_start_clicked()
 
         serverproxy *sp = new serverproxy(this);
         sp->absolutePath = absolutePath;
+         connect(this, SIGNAL(sendcurrentX(int)),sp,SLOT(getcurrentX(int)));
         connect(this, SIGNAL(sendFlag_mythread()),sp,SLOT(getFlag_mythread()));
         connect(sp, SIGNAL(sendLog(QString)),this,SLOT(getLog(QString)));
         connect(sp, SIGNAL(sendprogbar(int)),this,SLOT(getprogbar(int)));
@@ -72,13 +73,6 @@ void MainWindow::on_start_clicked()
 }
 
 
-//qDebug() <<"  Starting server thread..";
-//ms = new myserver();
-//connect(ms, SIGNAL(sendprogbar(int)),this,SLOT(getprogbar(int)));
-//connect(ms, SIGNAL(sendstart()),this,SLOT(getstart()));
-// connect(ms, SIGNAL(sendfinish()),this,SLOT(getfinish()));
-//ms->StartServer();
-//exec();
 void MainWindow::on_portrait_clicked()
 {
 

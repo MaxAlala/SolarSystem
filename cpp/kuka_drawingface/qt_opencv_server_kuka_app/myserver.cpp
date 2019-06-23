@@ -5,8 +5,11 @@ myserver::myserver(QObject *parent) : QTcpServer(parent)
 
 }
 
+void myserver::getcurrentX(int i){
+    emit(sendcurrentX(i));
+}
 void myserver::getLog(QString str){
-//    qDebug()<< str + "GETLOG";
+    //    qDebug()<< str + "GETLOG";
     emit(sendLog(str));
 }
 
@@ -14,11 +17,11 @@ void myserver::StartServer()
 {
     if(!this->listen(QHostAddress::Any,59152)){
         qDebug() <<"coudnt start server";\
-           emit(sendLog("coudnt start server"));
+        emit(sendLog("coudnt start server"));
 
     }else{
         qDebug() << "Listening..";
-         emit(sendLog("Listening.."));
+        emit(sendLog("Listening.."));
     }
 }
 
@@ -39,9 +42,9 @@ void myserver::incomingConnection(int socketDescriptor)
 {
     qDebug() << socketDescriptor << " Connecting ..";
     QString s = QString::number(socketDescriptor);
-      emit(sendLog( s + " Connecting .."));
+    emit(sendLog( s + " Connecting .."));
     mythread *thread = new mythread(socketDescriptor, this);
-     thread->absolutePath = absolutePath;
+    thread->absolutePath = absolutePath;
     connect(this, SIGNAL(sendZ(QString)),thread,SLOT(getZ(QString)));
     connect(thread, SIGNAL(sendLog(QString)),this,SLOT(getLog(QString)));
     connect(this, SIGNAL(sendFlag_mythread()),thread,SLOT(getFlag_mythread()));

@@ -21,7 +21,7 @@ signals:
     void sendLog(QString);
     void sendrestartserver();
     void sendZ(QString);
-
+    void sendcurrentX(int);
 public slots:
     void getprogbar(int);
     void getstart();
@@ -30,6 +30,7 @@ public slots:
     void getLog(QString);
     void getrestartserver();
     void getZ(QString);
+    void getcurrentX(int);
 private:
 
 protected:

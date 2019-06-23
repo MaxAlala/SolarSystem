@@ -14,9 +14,13 @@ class mythread : public QThread
 {
     Q_OBJECT
 public:
-    explicit mythread(int ID, QObject *parent = 0);
+    enum ElemCountRegime{
+        TwoElem, AllElem
+    };
+    explicit mythread(int ID, QObject *parent = 0, ElemCountRegime reg = TwoElem);
     void run();
     QString absolutePath = "";
+
 signals:
     void error(QTcpSocket::SocketError socketerror);
     void sendprogbar(int);
@@ -28,8 +32,12 @@ public slots:
     void disconnected();
     void getrestartserver();
     void getZ(QString);
-
+    void sockReady();
+    void getcurrentX(int);
 private:
+    void startTransferTwoElement();
+    void startTransferAllElement();
+ElemCountRegime  elemcountregime;
     QTcpSocket *socket;
     int socketDescriptor; //sock id
     QByteArray Data;
@@ -43,6 +51,7 @@ private:
     bool flag = true;
     int isrestarted = 0;
     bool wasfinished = false;
+
 };
 
 

@@ -19,6 +19,10 @@ void serverproxy::getrestartserver(){
 void serverproxy::getZ(QString str){
     emit(sendZ(str));
 }
+
+void serverproxy::getcurrentX(int i){
+    emit(sendcurrentX(i));
+}
 void serverproxy:: run(){
 
     qDebug() <<"  Starting server thread..";

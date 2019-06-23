@@ -148,7 +148,7 @@ void opencv::startopencv(){
         if( elemcountregime == TwoElem){
             myfile.open(absolutePath + "points.txt");
         }else {
-           myfile.open(absolutePath+"pointsFull.txt");
+            myfile.open(absolutePath+"pointsFull.txt");
         }
         int counter1 = 0;
 

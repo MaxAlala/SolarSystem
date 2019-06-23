@@ -1,48 +1,84 @@
 #include "mythread.h"
 #include <QThread>
-
-mythread::mythread(int ID, QObject *parent) : QThread(parent)
+#include <QFile>
+#include <QDataStream>
+mythread::mythread(int ID, QObject *parent, ElemCountRegime reg) : QThread(parent)
 {
+    this->elemcountregime = AllElem;
     this-> socketDescriptor = ID;
+}
 
+void mythread::getcurrentX(int i){
+    switch (i) {
+    case AllElem:
+        elemcountregime = AllElem;
+        break;
+    case TwoElem:
+        elemcountregime = TwoElem;
+        break;
+    }
 }
 
 void mythread::getrestartserver(){
-//    qDebug()<< "got restart server!!!#$%#$%";
-
     isrestarted = 1;
     wasfinished = false;
-//    else isrestarted = 0;
 }
+
 void mythread::getFlag_mythread(){
     if (flag == false)
         flag = true;
     else flag = false;
 }
+
 void mythread::getZ(QString str){
     Z = str;
 }
-// no longer need you
-void mythread:: run(){
 
+void mythread:: run(){
     qDebug() << socketDescriptor <<"  Starting thread..";
     QString s = QString::number(socketDescriptor);
     emit(sendLog(s+"  Starting thread.."));
-    socket = new QTcpSocket();
+    socket = new QTcpSocket(this);
+
     if(!socket -> setSocketDescriptor(this -> socketDescriptor)){
         emit error(socket -> error());
         return;
     }
-
-    //    connect(socket, SIGNAL(readyRead()), this, SLOT(readyRead()), Qt::DirectConnection);
-    connect(socket, SIGNAL(disconnected()), this, SLOT(disconnected()), Qt::DirectConnection);
+    connect(socket, SIGNAL(readyRead()), this, SLOT(sockReady()));
+    connect(socket, SIGNAL(disconnected()), this, SLOT(disconnected()));
     s = QString::number(socketDescriptor);
     qDebug() << socketDescriptor << " Client connected";
     emit(sendLog(s+" Client connected"));
 
+    if(elemcountregime == TwoElem){
+        startTransferTwoElement();
+    }else {
+        startTransferAllElement();
+        qDebug()<< " hello";
+    }
+}
+
+void mythread::sockReady(){
+
+}
+void mythread::startTransferAllElement(){
+    QString path = absolutePath +"pointsFull.txt";
+    QFile file(path);
+    if(file.open(QIODevice::ReadWrite | QIODevice::Text)){
+        QDataStream socketStream(socket);
+        QTextStream fileStream(&file);
+        QByteArray mydata=file.readAll();
+        qDebug() << "Final Testing is size = " << mydata.size();
+        socket->write(mydata);
+    }
+    socket->waitForBytesWritten();
+
+}
+
+void mythread::startTransferTwoElement(){
     while(true){
+        socket->write("ohohoh!");
         while(wasfinished == true){}
-//        isrestarted = 0;
         emit(sendstart());
         vector<double> vecX;
         vector<double> vecY;
@@ -57,6 +93,7 @@ void mythread:: run(){
         double y1;
         double x2;
         double y2;
+
         if (file.is_open()) {
             while (getline(file, entire))
             {
@@ -73,23 +110,17 @@ void mythread:: run(){
                 y2 = atof(second.substr(pos+1, second.size()-1).c_str());
                 vecX.push_back(x1);
                 vecX.push_back(x2);
-
                 vecY.push_back(y1);
                 vecY.push_back(y2);
-
-
             }
         }else{
             qDebug() << "cannot open file!";
             emit(sendLog("cannot open file!"));
             return;
         }
-
         uint counterForVec = 0;
-
         while(counterForVec != vecX.size()-2){
             while(flag == false){
-
             }
             emit(sendprogbar(counterForVec/(vecX.size()-1)*100));
             while(counter2 < 2){
@@ -113,12 +144,11 @@ void mythread:: run(){
                 }
                 qDebug() <<"from client: " + s;
             }
-            if(isrestarted == 1){
 
+            if(isrestarted == 1){
                 break;
             }
             while(s != "<Robot><Cmd>100</Cmd></Robot>") {
-
                 socket->waitForReadyRead(100);
                 Data = socket->readAll();
                 s = Data.data();
@@ -130,6 +160,7 @@ void mythread:: run(){
                 }
             }
         }
+
         if(isrestarted == 1){
             counter = 0;
             isrestarted = 0;
@@ -137,7 +168,6 @@ void mythread:: run(){
             emit(sendLog("restarting process..."));
             continue;
         }
-
         emit(sendprogbar(100));
         qDebug() << "myThread: I have finished! ";
         emit(sendfinish());
@@ -145,14 +175,10 @@ void mythread:: run(){
     }
 }
 
-
 void mythread::disconnected(){
-
     qDebug() << socketDescriptor <<"  Disconnected thread..";
     QString s = QString::number(socketDescriptor);
     emit(sendLog( s + "  Disconnected thread.."));
     socket->deleteLater(); // delete object
     exit(0);
 }
-
-///////////////////////
