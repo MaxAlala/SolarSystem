@@ -25,6 +25,7 @@ void MainWindow::on_pushButton_clicked()
 }
 
 void MainWindow::sockReady(){
+    qDebug() << "inside!";
     QString path = QCoreApplication::applicationDirPath()+ "/fullPointList.txt";
     QFile file(path); // the download path is equal to the directory where the exe file is placed
     if(!file.open(QIODevice::ReadWrite | QIODevice::Text))
@@ -33,8 +34,10 @@ void MainWindow::sockReady(){
     }
     QTextStream stream( &file );
     QByteArray data;
+    qDebug() << path;
     while (socket->waitForReadyRead(3000))
     {
+        qDebug() << "he";
         while(socket->bytesAvailable() > 0)
         {
             data.append(socket->readAll());

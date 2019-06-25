@@ -2,19 +2,25 @@
 #include <QThread>
 #include <QFile>
 #include <QDataStream>
-mythread::mythread(int ID, QObject *parent, ElemCountRegime reg) : QThread(parent)
+mythread::mythread(int ID, QObject *parent, CurrentX reg) : QThread(parent)
 {
-    this->elemcountregime = AllElem;
+    this->elemcountregime = ALL_ELEM_REGIME;
     this-> socketDescriptor = ID;
+}
+
+QString& mythread::getAbsolutePath(){
+ return absolutePath;
 }
 
 void mythread::getcurrentX(int i){
     switch (i) {
-    case AllElem:
-        elemcountregime = AllElem;
+    case ALL_ELEM_REGIME:
+        qDebug()<< "hello_all_elem";
+        elemcountregime = ALL_ELEM_REGIME;
         break;
-    case TwoElem:
-        elemcountregime = TwoElem;
+    case TWO_ELEM_REGIME:
+        qDebug()<< "hello_two_elem";
+        elemcountregime = TWO_ELEM_REGIME;
         break;
     }
 }
@@ -25,9 +31,11 @@ void mythread::getrestartserver(){
 }
 
 void mythread::getFlag_mythread(){
-    if (flag == false)
-        flag = true;
+    qDebug()<<"flag";
+    if (flag == false)flag = true;
     else flag = false;
+
+    qDebug()<< flag << " now!";
 }
 
 void mythread::getZ(QString str){
@@ -50,7 +58,7 @@ void mythread:: run(){
     qDebug() << socketDescriptor << " Client connected";
     emit(sendLog(s+" Client connected"));
 
-    if(elemcountregime == TwoElem){
+    if(elemcountregime == TWO_ELEM_REGIME){
         startTransferTwoElement();
     }else {
         startTransferAllElement();
@@ -59,11 +67,12 @@ void mythread:: run(){
 }
 
 void mythread::sockReady(){
-
 }
+
 void mythread::startTransferAllElement(){
     QString path = absolutePath +"pointsFull.txt";
     QFile file(path);
+
     if(file.open(QIODevice::ReadWrite | QIODevice::Text)){
         QDataStream socketStream(socket);
         QTextStream fileStream(&file);
@@ -76,9 +85,8 @@ void mythread::startTransferAllElement(){
 }
 
 void mythread::startTransferTwoElement(){
-    while(true){
-        socket->write("ohohoh!");
-        while(wasfinished == true){}
+    while(wasfinished != true){
+        while(wasfinished == true){qDebug()<< "finished!///////////////";}
         emit(sendstart());
         vector<double> vecX;
         vector<double> vecY;
@@ -119,10 +127,15 @@ void mythread::startTransferTwoElement(){
             return;
         }
         uint counterForVec = 0;
+
         while(counterForVec != vecX.size()-2){
             while(flag == false){
+//                this->sleep(500);
+//                qDebug()<< "hello!";
+//                someFunCounter++;
             }
             emit(sendprogbar(counterForVec/(vecX.size()-1)*100));
+
             while(counter2 < 2){
                 out ="<Server><Pos2><X>" + to_string(vecX.at(counterForVec)) + "</X><Y>"+ to_string(vecY.at(counterForVec))+"</Y><Z>"+  Z.toUtf8().constData() +"</Z><A>65.75</A><B>-81.44</B><C>150.0</C><S>2</S><T>3</T></Pos2></Server>";
                 strcpy(buf, out.c_str());
@@ -148,10 +161,12 @@ void mythread::startTransferTwoElement(){
             if(isrestarted == 1){
                 break;
             }
+
             while(s != "<Robot><Cmd>100</Cmd></Robot>") {
                 socket->waitForReadyRead(100);
                 Data = socket->readAll();
                 s = Data.data();
+
                 if(s == "<Robot><Cmd>100</Cmd></Robot>"){
                     QString s_buf = "got flag: " + s;
                     counter2 = 0;
@@ -179,6 +194,8 @@ void mythread::disconnected(){
     qDebug() << socketDescriptor <<"  Disconnected thread..";
     QString s = QString::number(socketDescriptor);
     emit(sendLog( s + "  Disconnected thread.."));
+//    emit(sendLog("Close connection. Stop server. "));
     socket->deleteLater(); // delete object
-    exit(0);
+    this->exit(0);
+//    exit(0);
 }

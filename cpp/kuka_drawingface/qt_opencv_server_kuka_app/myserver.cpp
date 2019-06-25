@@ -6,8 +6,18 @@ myserver::myserver(QObject *parent) : QTcpServer(parent)
 }
 
 void myserver::getcurrentX(int i){
+    qDebug()<< "myserver getcurrentx";
     emit(sendcurrentX(i));
+
+    switch(i){
+    case 0:
+        currentX = TWO_ELEM_REGIME;
+        break;
+    case 1:
+        currentX = ALL_ELEM_REGIME;
+    }
 }
+
 void myserver::getLog(QString str){
     //    qDebug()<< str + "GETLOG";
     emit(sendLog(str));
@@ -25,6 +35,10 @@ void myserver::StartServer()
     }
 }
 
+QString& myserver::getAbsolutePath(){
+    return absolutePath;
+}
+
 void myserver::getprogbar(int i){
     emit(sendprogbar(i));
 }
@@ -32,19 +46,23 @@ void myserver::getprogbar(int i){
 void myserver::getFlag_mythread(){
     emit(sendFlag_mythread());
 }
+
 void myserver::getrestartserver(){
     emit(sendrestartserver());
 }
+
 void myserver::getZ(QString str){
     emit(sendZ(str));
 }
+
 void myserver::incomingConnection(int socketDescriptor)
 {
     qDebug() << socketDescriptor << " Connecting ..";
     QString s = QString::number(socketDescriptor);
     emit(sendLog( s + " Connecting .."));
     mythread *thread = new mythread(socketDescriptor, this);
-    thread->absolutePath = absolutePath;
+    thread->getAbsolutePath() = absolutePath;
+    connect(this, SIGNAL(sendcurrentX(int)),thread,SLOT(getcurrentX(int)));
     connect(this, SIGNAL(sendZ(QString)),thread,SLOT(getZ(QString)));
     connect(thread, SIGNAL(sendLog(QString)),this,SLOT(getLog(QString)));
     connect(this, SIGNAL(sendFlag_mythread()),thread,SLOT(getFlag_mythread()));
@@ -54,6 +72,7 @@ void myserver::incomingConnection(int socketDescriptor)
     connect(thread, SIGNAL(sendfinish()),this,SLOT(getfinish()));
     connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
     thread -> start();
+    emit(sendcurrentX(currentX));
 }
 
 void myserver::getfinish(){

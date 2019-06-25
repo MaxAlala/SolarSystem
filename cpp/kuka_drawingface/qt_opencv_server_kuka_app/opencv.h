@@ -24,11 +24,12 @@ public:
         XY,X,Y
     };
     enum ElemCountRegime{
-        TwoElem, AllElem
+        TWO_ELEM, ALL_ELEM
     };
     explicit opencv(QObject *parent = nullptr);
     void startopencv();
     void fourForAlgorithm();
+    string& getAbsolutePath();
     cv::Mat QImage2Mat(QImage const& src);
     void drawSplines(   Mat &im,
                         vector<double> &vecX,
@@ -38,11 +39,8 @@ public:
     void run();
     void fourForAlgorithm(cv::Mat &imgCanny, int &counter1, ofstream &myfile, cv::Mat &mat, Regime regime);
     void theendwork(cv::Mat const &mat, ofstream &myfile, cv::VideoCapture &capWebcam, int &counter1);
-    string absolutePath = "";
-    QImage qimg;
-    QImage lena;
     enum ImgAttached{
-       imgAttached, imgUnattached
+        IMG_ATTACHED, IMG_UNATTACHED
     };
 
 signals:
@@ -64,13 +62,16 @@ public slots:
     void getlenaattach(int);
 private:
     //    string absolutePath = "C:/Users/X/Desktop/ws/opencv/KUKA-face-picturing/qt_opencv_server_kuka_app/";
+    string absolutePath = "";
+    QImage qimg;
+    QImage lena;
     bool sendingFlag = false;
     bool flagON = false;
     int lowTh = 45;
     int highTh = 90;
     Regime current_regime = X;// 0 - XYRegime, 1 - XRegime, 2- YRegime;
-    ImgAttached isimgattached = imgUnattached;
-    ElemCountRegime elemcountregime = TwoElem; //0 = 2 el, 1 = full;
+    ImgAttached isimgattached = IMG_UNATTACHED;
+    ElemCountRegime elemcountregime = TWO_ELEM; //0 = 2 el, 1 = full;
     int ij = 30;
     int xy = 16;
 };

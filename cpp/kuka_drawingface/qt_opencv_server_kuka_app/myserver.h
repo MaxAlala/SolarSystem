@@ -5,14 +5,16 @@
 #include <QTcpServer>
 #include <QDebug>
 #include "mythread.h"
+#include "enums_constants.h"
 
 class myserver : public QTcpServer
 {
     Q_OBJECT
 public:
+
     explicit myserver(QObject *parent = nullptr);
     void StartServer();
-    QString absolutePath = "";
+    QString& getAbsolutePath();
 signals:
     void sendprogbar(int);
     void sendfinish();
@@ -32,7 +34,8 @@ public slots:
     void getZ(QString);
     void getcurrentX(int);
 private:
-
+    CurrentX currentX = TWO_ELEM_REGIME;
+    QString absolutePath = "";
 protected:
     void incomingConnection(int socketDescriptor);
 

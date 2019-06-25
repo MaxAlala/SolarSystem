@@ -6,14 +6,12 @@
 #include <QTcpSocket>
 #include <QDebug>
 #include "myserver.h"
-
 using namespace::std;
 class serverproxy : public QThread
 {
     Q_OBJECT
 public:
     explicit serverproxy(QObject *parent = nullptr);
-    QString absolutePath = "";
     void run();
 signals:
     void sendZ(QString);
@@ -33,10 +31,11 @@ public slots:
     void getFlag_mythread();
     void getLog(QString);
     void getrestartserver();
+    QString& getabsolutePath();
 private:
-
+    CurrentX currentX = TWO_ELEM_REGIME;
+    QString absolutePath = "";
 };
-
 
 #endif // SERVERPROXY_H
 //////////

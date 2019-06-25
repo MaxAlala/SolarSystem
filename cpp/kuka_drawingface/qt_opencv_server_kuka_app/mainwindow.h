@@ -2,6 +2,9 @@
 #define MAINWINDOW_H
 #include <QBitmap>
 #include <QMainWindow>
+#include "serverproxy.h"
+#include "opencv.h"
+#include "enums_constants.h"
 using namespace::std;
 namespace Ui {
 class MainWindow;
@@ -28,31 +31,20 @@ private slots:
     void on_portrait_2_clicked();
     void getLog(QString);
     void getLog2(QString);
-
     void on_sliderdown_valueChanged(int value);
-
     void on_slidertop_valueChanged(int value);
-
-
     void on_XYregime_clicked();
-
     void on_Yregime_clicked();
-
     void on_Xregime_clicked();
-
     void on_two_clicked();
-
     void on_full_clicked();
-
     void on_pushButton_2_clicked();
-
-
     void on_clear_clicked();
-
     void on_sendZ_clicked();
     void defaultSettings();
 
 private:
+    CurrentX currentX = TWO_ELEM_REGIME;
     int counter = 0;
     bool serverwasstarted = false;
     QString absolutePath = "";

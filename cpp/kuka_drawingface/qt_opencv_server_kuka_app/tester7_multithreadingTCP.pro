@@ -83,6 +83,7 @@ SOURCES += \
         serverproxy.cpp
 
 HEADERS += \
+        enums_constants.h \
         mainwindow.h \
         myserver.h \
         mythread.h \

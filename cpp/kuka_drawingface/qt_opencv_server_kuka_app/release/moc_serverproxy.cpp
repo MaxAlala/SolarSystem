@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_serverproxy_t {
-    QByteArrayData data[18];
-    char stringdata0[197];
+    QByteArrayData data[19];
+    char stringdata0[213];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -48,7 +48,8 @@ QT_MOC_LITERAL(13, 137, 8), // "getstart"
 QT_MOC_LITERAL(14, 146, 9), // "getfinish"
 QT_MOC_LITERAL(15, 156, 16), // "getFlag_mythread"
 QT_MOC_LITERAL(16, 173, 6), // "getLog"
-QT_MOC_LITERAL(17, 180, 16) // "getrestartserver"
+QT_MOC_LITERAL(17, 180, 16), // "getrestartserver"
+QT_MOC_LITERAL(18, 197, 15) // "getabsolutePath"
 
     },
     "serverproxy\0sendZ\0\0sendprogbar\0"
@@ -56,7 +57,7 @@ QT_MOC_LITERAL(17, 180, 16) // "getrestartserver"
     "sendLog\0sendrestartserver\0sendcurrentX\0"
     "getcurrentX\0getZ\0getprogbar\0getstart\0"
     "getfinish\0getFlag_mythread\0getLog\0"
-    "getrestartserver"
+    "getrestartserver\0getabsolutePath"
 };
 #undef QT_MOC_LITERAL
 
@@ -66,7 +67,7 @@ static const uint qt_meta_data_serverproxy[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-      16,   14, // methods
+      17,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -74,24 +75,25 @@ static const uint qt_meta_data_serverproxy[] = {
        8,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   94,    2, 0x06 /* Public */,
-       3,    1,   97,    2, 0x06 /* Public */,
-       4,    0,  100,    2, 0x06 /* Public */,
-       5,    0,  101,    2, 0x06 /* Public */,
-       6,    0,  102,    2, 0x06 /* Public */,
-       7,    1,  103,    2, 0x06 /* Public */,
-       8,    0,  106,    2, 0x06 /* Public */,
-       9,    1,  107,    2, 0x06 /* Public */,
+       1,    1,   99,    2, 0x06 /* Public */,
+       3,    1,  102,    2, 0x06 /* Public */,
+       4,    0,  105,    2, 0x06 /* Public */,
+       5,    0,  106,    2, 0x06 /* Public */,
+       6,    0,  107,    2, 0x06 /* Public */,
+       7,    1,  108,    2, 0x06 /* Public */,
+       8,    0,  111,    2, 0x06 /* Public */,
+       9,    1,  112,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      10,    1,  110,    2, 0x0a /* Public */,
-      11,    1,  113,    2, 0x0a /* Public */,
-      12,    1,  116,    2, 0x0a /* Public */,
-      13,    0,  119,    2, 0x0a /* Public */,
-      14,    0,  120,    2, 0x0a /* Public */,
-      15,    0,  121,    2, 0x0a /* Public */,
-      16,    1,  122,    2, 0x0a /* Public */,
-      17,    0,  125,    2, 0x0a /* Public */,
+      10,    1,  115,    2, 0x0a /* Public */,
+      11,    1,  118,    2, 0x0a /* Public */,
+      12,    1,  121,    2, 0x0a /* Public */,
+      13,    0,  124,    2, 0x0a /* Public */,
+      14,    0,  125,    2, 0x0a /* Public */,
+      15,    0,  126,    2, 0x0a /* Public */,
+      16,    1,  127,    2, 0x0a /* Public */,
+      17,    0,  130,    2, 0x0a /* Public */,
+      18,    0,  131,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QString,    2,
@@ -111,6 +113,7 @@ static const uint qt_meta_data_serverproxy[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void, QMetaType::QString,    2,
+    QMetaType::Void,
     QMetaType::Void,
 
        0        // eod
@@ -138,6 +141,7 @@ void serverproxy::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
         case 13: _t->getFlag_mythread(); break;
         case 14: _t->getLog((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 15: _t->getrestartserver(); break;
+        case 16: _t->getabsolutePath(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -230,13 +234,13 @@ int serverproxy::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 16)
+        if (_id < 17)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 16;
+        _id -= 17;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 16)
+        if (_id < 17)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 16;
+        _id -= 17;
     }
     return _id;
 }

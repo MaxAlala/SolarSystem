@@ -8,19 +8,17 @@
 #include <fstream>
 #include <iostream>
 #include <stdlib.h>
+#include "enums_constants.h"
 using namespace::std;
 
 class mythread : public QThread
 {
     Q_OBJECT
 public:
-    enum ElemCountRegime{
-        TwoElem, AllElem
-    };
-    explicit mythread(int ID, QObject *parent = 0, ElemCountRegime reg = TwoElem);
-    void run();
-    QString absolutePath = "";
 
+    explicit mythread(int ID, QObject *parent = 0, CurrentX reg = TWO_ELEM_REGIME);
+    void run();
+    QString& getAbsolutePath();
 signals:
     void error(QTcpSocket::SocketError socketerror);
     void sendprogbar(int);
@@ -37,7 +35,8 @@ public slots:
 private:
     void startTransferTwoElement();
     void startTransferAllElement();
-ElemCountRegime  elemcountregime;
+    int someFunCounter = 0;
+    CurrentX elemcountregime;
     QTcpSocket *socket;
     int socketDescriptor; //sock id
     QByteArray Data;
@@ -48,12 +47,11 @@ ElemCountRegime  elemcountregime;
     string out = "<Server><Pos2><X>1.0</X><Y>1.0</Y><Z>0.65</Z><A>51.15</A><B>-79.44</B><C>148.0</C><S>2</S><T>3</T></Pos2></Server>";
     string in = "";
     QString Z = "0.15";
-    bool flag = true;
+    volatile bool flag = true;
     int isrestarted = 0;
     bool wasfinished = false;
+    QString absolutePath = "";
 
 };
-
-
 
 #endif // MYTHREAD_H

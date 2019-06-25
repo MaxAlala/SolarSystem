@@ -7,7 +7,7 @@ void opencv::drawSplines
         cv::Mat &im,
         vector<double> &vecX,
         vector<double> &vecY,
-        bool isClosed ,
+        bool isClosed,
         bool yOrX
         )
 {
@@ -30,12 +30,16 @@ void opencv::drawSplines
 
 opencv::opencv(QObject *parent)
 {
-    isimgattached = imgUnattached;
+    isimgattached = IMG_UNATTACHED;
 }
 
 void opencv::run(){
     startopencv();
     //    exec();
+}
+
+string& opencv::getAbsolutePath(){
+    return absolutePath;
 }
 
 void opencv::getRequestForPortrait(){
@@ -69,15 +73,15 @@ void opencv::getijxy(int ij,int xy){ // always are same
 
 void opencv::getcurrentX(int curX){ // 0 or 1
     switch(curX){
-    case 0:elemcountregime = TwoElem; break;
-    case 1:elemcountregime = AllElem; break;
+    case 0:elemcountregime = TWO_ELEM; break;
+    case 1:elemcountregime = ALL_ELEM; break;
     }
 };
 
 void opencv::getlenaattach(int x){
     switch (x) {
-    case 0: isimgattached = imgUnattached; break;
-    case 1: isimgattached = imgAttached; break;
+    case 0: isimgattached = IMG_UNATTACHED; break;
+    case 1: isimgattached = IMG_ATTACHED; break;
     }
 }
 
@@ -97,8 +101,7 @@ void opencv::startopencv(){
     cv::Mat buf;
     cv::Mat mat = cv::Mat::zeros(imgOriginal.size(), CV_8UC1);
     ofstream myfile;
-    //        if(this->)
-    //        qDebug("");
+
     if(flagON == true){
         cv::Mat imgOriginal=cv::imread(absolutePath + "image.jpg");       // input image;
         cv::VideoCapture capWebcam(0);
@@ -110,7 +113,7 @@ void opencv::startopencv(){
 
         while (capWebcam.isOpened()) {
 
-            if(isimgattached == imgUnattached){
+            if(isimgattached == IMG_UNATTACHED){
 
                 imgOriginal = cv::imread(absolutePath + "image.jpg");       // input image
                 bool blnFrameReadSuccessfully = capWebcam.read(buf);
@@ -125,7 +128,7 @@ void opencv::startopencv(){
                     break;
                 }
 
-            }else if (isimgattached == imgAttached) {
+            }else if (isimgattached == IMG_ATTACHED) {
                 imgOriginal = cv::imread(absolutePath+"image.jpg");       // input image
                 mat = cv::Mat::zeros(imgOriginal.size(), CV_8UC1);
                 imgGrayscale = cv::Mat::zeros(imgOriginal.size(), CV_8UC1);
@@ -144,8 +147,8 @@ void opencv::startopencv(){
             }
 
         }
-        qDebug()<< "hello!end";
-        if( elemcountregime == TwoElem){
+
+        if( elemcountregime == TWO_ELEM){
             myfile.open(absolutePath + "points.txt");
         }else {
             myfile.open(absolutePath+"pointsFull.txt");
@@ -170,11 +173,10 @@ void opencv::startopencv(){
 }
 
 void opencv::theendwork(cv::Mat const &mat, ofstream &myfile, cv::VideoCapture &capWebcam, int &counter1){
-    qDebug()<< "hello!Max";
+    //    qDebug()<< "hello!Max";
     sendingFlag = false;
     flagON = false;
     imwrite(absolutePath + "saved.png", mat);
-    //            QThread::msleep(500);
     QImage qimg2((uchar*)mat.data,mat.cols, mat.rows, mat.step, QImage::Format_Grayscale8);
     sendQImg(qimg2);
     myfile.close();
@@ -190,6 +192,7 @@ void opencv::fourForAlgorithm(cv::Mat &imgCanny, int &counter1, ofstream &myfile
         {
             cv::Point y2;
             vector<cv::Point> curSixX;
+
             for (int x = i * xy; x < (i + 1) * xy; x++) {
                 for (int y = j * xy; y < (j + 1) * xy; y++) {
                     int firstAxis;
@@ -201,6 +204,7 @@ void opencv::fourForAlgorithm(cv::Mat &imgCanny, int &counter1, ofstream &myfile
                         firstAxis = y;
                         secondAxis = x;
                     }
+
                     if(imgCanny.at<uchar>(firstAxis, secondAxis) > 0) {
                         imgCanny.at<uchar>(firstAxis, secondAxis) = 255;
                         y2 = cv::Point(firstAxis, secondAxis);
@@ -208,6 +212,7 @@ void opencv::fourForAlgorithm(cv::Mat &imgCanny, int &counter1, ofstream &myfile
                         imgCanny.at<uchar>(firstAxis, secondAxis) = 0;
                     }
                 }
+
                 if (y2.x == 0 && y2.y == 0) {}
                 else {
                     curSixX.push_back(y2);
@@ -217,7 +222,8 @@ void opencv::fourForAlgorithm(cv::Mat &imgCanny, int &counter1, ofstream &myfile
             }
             vector<double> curVecX;
             vector<double> curVecY;
-            if( elemcountregime == TwoElem){
+
+            if( elemcountregime == TWO_ELEM){
                 if (curSixX.size() != 0 && curSixX.size() > 0&& curSixX.at(0).x != curSixX.at(curSixX.size()-1).x ) {
                     if(curSixX.at(0).x/5.0 < 5.0 ||curSixX.at(0).y/5.0 < 5.0 || curSixX.at(curSixX.size() - 1).x/5.0 < 5.0 || curSixX.at(curSixX.size() - 1).y/5.0 < 5.0){}else{
                         counter1++;
@@ -232,7 +238,7 @@ void opencv::fourForAlgorithm(cv::Mat &imgCanny, int &counter1, ofstream &myfile
                         }
                     }
                 }
-            }else if (elemcountregime == AllElem){
+            }else if (elemcountregime == ALL_ELEM){
                 if (curSixX.size()>4) {
                     counter1++;
                     myfile << "start"<<"\n";
