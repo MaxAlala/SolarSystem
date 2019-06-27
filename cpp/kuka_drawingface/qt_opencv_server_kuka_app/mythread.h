@@ -18,7 +18,7 @@ public:
 
     explicit mythread(int ID, QObject *parent = 0, CurrentX reg = TWO_ELEM_REGIME);
     void run();
-    QString& getAbsolutePath();
+    QString& getAbsolutePath() ;
 signals:
     void error(QTcpSocket::SocketError socketerror);
     void sendprogbar(int);

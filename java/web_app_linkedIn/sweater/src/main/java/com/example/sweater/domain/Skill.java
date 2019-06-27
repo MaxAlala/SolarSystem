@@ -1,0 +1,106 @@
+package com.example.sweater.domain;
+
+import org.hibernate.validator.constraints.Length;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity
+@Table(name = "skills")
+public class Skill implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+
+    @NotBlank(message = "Please fill the nameofcompany")
+    @Length(max = 2048, message = "name too large(more than 2kB)")
+    private String name;
+
+
+    @NotBlank(message = "Please fill the description")
+    @Length(max = 2048, message = "description too large(more than 2kB)")
+    private String text;
+    @Length(max = 255, message = "description too large(more than 255)")
+    private String tag;
+
+    //    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User author;
+
+
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_skill",
+            joinColumns = { @JoinColumn(name = "skill_id")},
+            inverseJoinColumns = { @JoinColumn(name = "user_id")}
+    )
+    private Set<User> participants = new HashSet<>();
+
+    public Skill() {
+
+    }
+
+
+    public Skill(String text, String tag, User author) {
+        this.text = text;
+        this.tag = tag;
+        this.author = author;
+    }
+
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
+    }
+
+    public Set<User> getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(Set<User> participants) {
+        this.participants = participants;
+    }
+}
