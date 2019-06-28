@@ -94,6 +94,10 @@ void insertionSort(vector<int> &vec){
         }
     }
 }
+#include <cstdio>
+void maxIncreasingSequenceType(){
+
+}
 
 template <typename T>
 void invert_string(T &str){
@@ -103,6 +107,9 @@ void invert_string(T &str){
         std::swap( str[i], str[length - i - 1]);
     }
 }
+
+
+
 
 int main() {
     std::cout << "Hello, World!" << std::endl;
