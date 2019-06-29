@@ -1,3 +1,0 @@
-"C:\Users\X\Desktop\apps_x\clion\CLion 2019.1.4\bin\cmake\win\bin\cmake.exe" -E remove -f CMakeFiles\math.dir/objects.a
-C:\Users\X\Desktop\apps_x\qt\Qt\Tools\mingw730_32\bin\ar.exe cr CMakeFiles\math.dir/objects.a @CMakeFiles\math.dir\objects1.rsp
-C:\Users\X\Desktop\apps_x\qt\Qt\Tools\mingw730_32\bin\g++.exe -g   -Wl,--whole-archive CMakeFiles\math.dir/objects.a -Wl,--no-whole-archive  -o math.exe -Wl,--out-implib,libmath.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\math.dir\linklibs.rsp
