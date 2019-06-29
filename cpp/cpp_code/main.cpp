@@ -1,4 +1,10 @@
 #include <iostream>
+#include <list>
+#include <vector>
+#include <thread>
+#include <chrono>
+#include <functional>
+#include "STL.h"
 using namespace std;
 class A{
 private:
@@ -27,8 +33,36 @@ ostream & operator<<(ostream& ifs, B& b)
     return ifs;
 }
 
+void threadFunction(int &x){
+    x = 50000;
+}
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+
+    vector<int> vec = {1,2,3,4,-5,-7};
+    countPositiveNumbers(vec);
+    vector<Object> vec_obj = {
+            Object("Greta", 60),
+            Object("Ingvar", 110),
+            Object("Inga", 65),
+            Object("Anton", 111),
+    };
+
+    countHeavyObjects(vec_obj);
+
+    ////////////////lambda and function<int(int,int)>
+//    auto f2 = [&](int x, int y){ return x+y;};
+//    cout << f2(4,6);
+
+//    list<int> l = {2,3,4,5,7,1};
+//    auto iter = l.begin();
+//    advance(iter,3);
+//    l.insert(iter, 999);
+//    for(int i: l){
+//        cout << i << " ";
+//    }
+//    thr.join();
+//    cout << x;
+
     return 0;
 }
