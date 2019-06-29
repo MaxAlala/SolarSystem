@@ -54,4 +54,7 @@ void sort(std::vector<Object> &vec);
 void findByName(std::vector<Object> &vec, const string && name);
 void copyIfWeightLessThan(std::vector<Object> &vec, std::vector<Object> &result, const int weight);
 void removeIfWeightLessThan(std::vector<Object> &vec, const int weight);
+//void sayhello(){// multiple definition error
+//    cout << "hello!";
+//}
 #endif //CPP_CODE_STL_H

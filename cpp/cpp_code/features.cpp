@@ -4,7 +4,9 @@
 #include "iostream"
 #include <ctime>
 #include <assert.h>
+#include <functional>
 #include "features.h"
+#define NDEBUG // turn off all assert macroses
 using namespace std;
 
 /*
@@ -17,6 +19,7 @@ strlen
 
 
 */
+// elipsis cstdarg va_list, va_start, va_arg, va_end
 
 
 
@@ -49,9 +52,14 @@ void testField(){
     char *ch = "hello";
     char ch2[] = "hello";
     char ch3[] = {'1', '2', 'a', 'b', 'A'}; // abracadabra
+    char **ch4 = new char*[10];
+    char * ch5[] = {"hello", "h"};
     //    char *ch4 = new char[20]{"hello"}; // not work in c++ 11
     char a = 'R'; // &a == abra...
     cout << ch3 << " " << "\n";
+
+    int **array5 = new int*[20];
+    int (*array6)[5] = new int[6][5];
     ////
 
     int *integer = new (std::nothrow) int; // no bad_alloc, just null
@@ -72,7 +80,12 @@ void testField(){
     cout << **ptr3 << '\n';
 
 
-    int **array5 = new int*[20];
-    int (*array6)[5] = new int[6][5];
+
+    ////// function
+    void(*func)();
+    func = testField;
+    using someFunc = void(*)(int, int);
+    typedef void(*someFunc2)(int, int);
+    function<int(int,int)> someFunc3; // functional lib
 
 }
