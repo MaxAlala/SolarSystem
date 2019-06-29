@@ -6,6 +6,9 @@
 #include <algorithm>
 #include "STL.h"
 
+
+
+
 double const Object::getWeight() { return weight;}
 string const Object::getName() { return name;}
 void Object::doWork(){

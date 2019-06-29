@@ -9,6 +9,15 @@
 #include <chrono>
 #include <iostream>
 
+/*
+unique_lock<mutex> m(ntx, defer_lock);
+lock
+unlock
+*/
+
+// int globa = 5;
+
+
 void createThreadWillClassMethod();
 void useMutex();
 void justPrinting(char ch);

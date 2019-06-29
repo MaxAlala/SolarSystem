@@ -6,6 +6,8 @@
 #include <functional>
 #include "STL.h"
 #include "multithreading.h"
+#include "features.h"
+//extern int globa;
 using namespace std;
 class A{
 private:
@@ -39,8 +41,6 @@ void threadFunction(int &x){
 }
 
 int main() {
-
-
     ////STL
 //    vector<int> vec = {1,2,3,4,-5,-7};
 //    countPositiveNumbers(vec);
@@ -60,20 +60,11 @@ int main() {
 //    createThreadWillClassMethod();
 //    useMutex();
 //    callDeadLock();
-    recursive_mutex_f(5);
+//    recursive_mutex_f(5);
     ////lambda and function<int(int,int)>
-//    auto f2 = [&](int x, int y){ return x+y;};
-//    cout << f2(4,6);
 
-//    list<int> l = {2,3,4,5,7,1};
-//    auto iter = l.begin();
-//    advance(iter,3);
-//    l.insert(iter, 999);
-//    for(int i: l){
-//        cout << i << " ";
-//    }
-//    thr.join();
-//    cout << x;
 
+    ////feature place
+    testField();
     return 0;
 }

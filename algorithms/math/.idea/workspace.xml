@@ -12,36 +12,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c1961868-861c-45b0-93b3-e50f09b4ca48" name="Default Changelist" comment="cleaning">
-      <change afterPath="$PROJECT_DIR$/../../cpp/cpp_code/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../cpp/cpp_code/.idea/cpp_code.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../ws_eclipse/.metadata/.plugins/org.eclipse.core.resources/.root/2.tree" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../cpp/cpp_code/features.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../cpp/cpp_code/features.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/math.dir/depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/math.dir/depend.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../cpp/cpp_code/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../cpp/cpp_code/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../cpp/cpp_code/STL.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../cpp/cpp_code/STL.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../cpp/cpp_code/STL.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../cpp/cpp_code/STL.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../cpp/cpp_code/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../cpp/cpp_code/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../ws_eclipse/.metadata/.log" beforeDir="false" afterPath="$PROJECT_DIR$/../../ws_eclipse/.metadata/.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../ws_eclipse/.metadata/.mylyn/.tasks.xml.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../../ws_eclipse/.metadata/.mylyn/.tasks.xml.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../ws_eclipse/.metadata/.mylyn/tasks.xml.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../../ws_eclipse/.metadata/.mylyn/tasks.xml.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../ws_eclipse/.metadata/.plugins/org.eclipse.core.resources/.history/2/e0cb56417f9200191688b32003dcf7dd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../ws_eclipse/.metadata/.plugins/org.eclipse.core.resources/.history/42/60178ec37c9200191688b32003dcf7dd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../ws_eclipse/.metadata/.plugins/org.eclipse.core.resources/.history/4e/509b9d4c7f9200191688b32003dcf7dd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../ws_eclipse/.metadata/.plugins/org.eclipse.core.resources/.history/5/70b92fc57c9200191688b32003dcf7dd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../ws_eclipse/.metadata/.plugins/org.eclipse.core.resources/.history/7e/b0f67f7c2f9200191688b32003dcf7dd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../ws_eclipse/.metadata/.plugins/org.eclipse.core.resources/.history/84/10e3a55a2f9200191688b32003dcf7dd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../ws_eclipse/.metadata/.plugins/org.eclipse.core.resources/.history/a8/909bdb467f9200191688b32003dcf7dd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../ws_eclipse/.metadata/.plugins/org.eclipse.core.resources/.history/c9/30d037487f9200191688b32003dcf7dd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../ws_eclipse/.metadata/.plugins/org.eclipse.core.resources/.projects/Algorithms/.indexes/af/history.index" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../ws_eclipse/.metadata/.plugins/org.eclipse.core.resources/.projects/Algorithms/.indexes/e4/history.index" beforeDir="false" afterPath="$PROJECT_DIR$/../../ws_eclipse/.metadata/.plugins/org.eclipse.core.resources/.projects/Algorithms/.indexes/e4/history.index" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../ws_eclipse/.metadata/.plugins/org.eclipse.core.resources/.projects/Algorithms/.markers" beforeDir="false" afterPath="$PROJECT_DIR$/../../ws_eclipse/.metadata/.plugins/org.eclipse.core.resources/.projects/Algorithms/.markers" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../ws_eclipse/.metadata/.plugins/org.eclipse.core.resources/.projects/Algorithms/.markers.snap" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../ws_eclipse/.metadata/.plugins/org.eclipse.core.resources/.projects/Algorithms/.syncinfo.snap" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../ws_eclipse/.metadata/.plugins/org.eclipse.core.resources/.root/.markers.snap" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../ws_eclipse/.metadata/.plugins/org.eclipse.core.resources/.root/1.tree" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../ws_eclipse/.metadata/.plugins/org.eclipse.core.resources/.safetable/org.eclipse.core.resources" beforeDir="false" afterPath="$PROJECT_DIR$/../../ws_eclipse/.metadata/.plugins/org.eclipse.core.resources/.safetable/org.eclipse.core.resources" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../ws_eclipse/.metadata/.plugins/org.eclipse.core.resources/1.snap" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../ws_eclipse/.metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.jdt.launching.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/../../ws_eclipse/.metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.jdt.launching.prefs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../ws_eclipse/.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi" beforeDir="false" afterPath="$PROJECT_DIR$/../../ws_eclipse/.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../ws_eclipse/.metadata/.plugins/org.eclipse.jdt.core/483546182.index" beforeDir="false" afterPath="$PROJECT_DIR$/../../ws_eclipse/.metadata/.plugins/org.eclipse.jdt.core/483546182.index" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../ws_eclipse/.metadata/version.ini" beforeDir="false" afterPath="$PROJECT_DIR$/../../ws_eclipse/.metadata/version.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../cpp/cpp_code/multithreading.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../cpp/cpp_code/multithreading.h" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -173,6 +151,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="0" width="811" height="870" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22902796" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />

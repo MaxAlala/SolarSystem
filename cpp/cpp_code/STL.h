@@ -15,6 +15,23 @@
 #include <iostream>
 using namespace std;
 
+
+/*
+random_shuffle
+unique_copy
+for_each
+unique
+sort(b,e)
+equal(b,e,b,e) == bool
+
+auto res = mismatch(b,e,b,e);
+if(res.first == end(arr) && res.second == end(arr2))
+    cout << "yes";
+= returns pair of iterators with bad mismatched values
+accumulate(next(b), e, startVal, lambda);
+
+*/
+
 class Object{
 private:
     string name;
