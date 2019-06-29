@@ -10,6 +10,9 @@
 #define CPP_CODE_STL_H
 #include <vector>
 #include <string>
+#include <chrono>
+#include <thread>
+#include <iostream>
 using namespace std;
 
 class Object{
@@ -19,10 +22,19 @@ private:
 
 public:
     double const getWeight();
+    string const getName();
     explicit Object(string name, int weight):name(std::move(name)), weight(weight){}
+    void print(){cout << name << " " << weight << endl; };
+    void doWork();
 };
 
+ostream & operator<<(ostream * os, Object &o);
 bool isPositive(int &x);
+void printCollection(vector<Object>&);
 void countPositiveNumbers(std::vector<int> &vec);
 void countHeavyObjects(std::vector<Object> &vec);
+void sort(std::vector<Object> &vec);
+void findByName(std::vector<Object> &vec, const string && name);
+void copyIfWeightLessThan(std::vector<Object> &vec, std::vector<Object> &result, const int weight);
+void removeIfWeightLessThan(std::vector<Object> &vec, const int weight);
 #endif //CPP_CODE_STL_H

@@ -5,6 +5,7 @@
 #include <chrono>
 #include <functional>
 #include "STL.h"
+#include "multithreading.h"
 using namespace std;
 class A{
 private:
@@ -39,18 +40,28 @@ void threadFunction(int &x){
 
 int main() {
 
-    vector<int> vec = {1,2,3,4,-5,-7};
-    countPositiveNumbers(vec);
-    vector<Object> vec_obj = {
-            Object("Greta", 60),
-            Object("Ingvar", 110),
-            Object("Inga", 65),
-            Object("Anton", 111),
-    };
 
-    countHeavyObjects(vec_obj);
-
-    ////////////////lambda and function<int(int,int)>
+    ////STL
+//    vector<int> vec = {1,2,3,4,-5,-7};
+//    countPositiveNumbers(vec);
+//    vector<Object> vec_obj = {
+//            Object("Greta", 60),
+//            Object("Ingvar", 110),
+//            Object("Inga", 65),
+//            Object("Anton", 111),
+//    };
+//    countHeavyObjects(vec_obj);
+//    sort(vec_obj);
+//    findByName(vec_obj, "Ingaa");
+//    vector<Object> result;
+//    copyIfWeightLessThan(vec_obj, result, 80);
+//    removeIfWeightLessThan(vec_obj, 80);
+    ////multithreading
+//    createThreadWillClassMethod();
+//    useMutex();
+//    callDeadLock();
+    recursive_mutex_f(5);
+    ////lambda and function<int(int,int)>
 //    auto f2 = [&](int x, int y){ return x+y;};
 //    cout << f2(4,6);
 

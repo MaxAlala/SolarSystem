@@ -3,4 +3,4 @@ project(cpp_code)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(cpp_code main.cpp STL.cpp STL.h)
+add_executable(cpp_code main.cpp STL.cpp STL.h multithreading.cpp multithreading.h)
