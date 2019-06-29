@@ -1,6 +1,6 @@
 .metadata/
 metadata/
-Algorithms/.settings/
-Algorithms/bin/
-Algorithms/.classpath
-Algorithms/.project
+*/.settings/
+*/bin/
+*/.classpath
+*/.project
