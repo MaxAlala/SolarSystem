@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Move element &apos;friends&apos; to &apos;Main/src/(default package)&apos;&#x0D;&#x0A;- Original project: &apos;ClassWork&apos;&#x0D;&#x0A;- Destination element: &apos;Main/src/(default package)&apos;&#x0D;&#x0A;- Original element: &apos;friends&apos;&#x0D;&#x0A;- Update references to refactored element" description="Move file" destination="=Main/src&lt;" element1="src/friends" files="1" flags="589830" folders="0" id="org.eclipse.jdt.ui.move" policy="org.eclipse.jdt.ui.moveResources" qualified="false" references="true" stamp="1512470580272" units="0" version="1.0"/>
-</session>
