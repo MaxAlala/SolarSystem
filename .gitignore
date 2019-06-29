@@ -19,3 +19,4 @@ cpp/kuka_drawingface/qt_opencv_server_kuka_app/release/*.o
 */.classpath
 */.project
 */koko2/
+*/*.xml

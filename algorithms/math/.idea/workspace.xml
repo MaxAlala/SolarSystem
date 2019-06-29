@@ -12,14 +12,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c1961868-861c-45b0-93b3-e50f09b4ca48" name="Default Changelist" comment="cleaning">
-      <change afterPath="$PROJECT_DIR$/../../cpp/cpp_code/features.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../cpp/cpp_code/features.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../cpp/cpp_code/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../cpp/cpp_code/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../cpp/cpp_code/STL.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../cpp/cpp_code/STL.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../cpp/cpp_code/STL.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../cpp/cpp_code/STL.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../cpp/cpp_code/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../cpp/cpp_code/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../cpp/cpp_code/multithreading.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../cpp/cpp_code/multithreading.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../cpp/cpp_code/features.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../cpp/cpp_code/features.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../cpp/cpp_code/multithreading.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../cpp/cpp_code/multithreading.cpp" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -151,7 +146,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="0" width="811" height="870" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22902796" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
