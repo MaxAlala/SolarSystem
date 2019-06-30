@@ -6,16 +6,26 @@
 #include <algorithm>
 #include "STL.h"
 
-
-
+void ObjectChild::doAction() {
+    cout << "Child does an action! \n";
+}
 
 double const Object::getWeight() { return weight;}
 string const Object::getName() { return name;}
-void Object::doWork(){
+void Object::doAction(){
     for(int i = 0; i < 10; i++){
         this_thread::sleep_for(chrono::milliseconds(1000));
-        cout << i << name << " " << weight << endl;
+        cout << i << name << " " << weight <<" object does an action. \n";
     }
+}
+
+void Object::doAction_uninherited() {
+    cout << "Parent \n";
+
+}
+
+void ObjectChild::doAction_uninherited() {
+    cout << "Child \n";
 }
 
 bool isPositive(int &x){

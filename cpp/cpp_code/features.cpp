@@ -5,7 +5,10 @@
 #include <ctime>
 #include <assert.h>
 #include <functional>
+#include <vector>
 #include "features.h"
+#include "STL.h"
+
 #define NDEBUG // turn off all assert macroses
 using namespace std;
 
@@ -87,5 +90,22 @@ void testField(){
     using someFunc = void(*)(int, int);
     typedef void(*someFunc2)(int, int);
     function<int(int,int)> someFunc3; // functional lib
+
+    /////////////reference_wrapper = to not use pointer in collection for virtual f.
+    vector<reference_wrapper<Object>> v;
+    vector<reference_wrapper<Object *>> v2; // works same, but problems with dynamic memory
+    ObjectChild objectChild1("Max", 70) ;
+    v.emplace_back(objectChild1);
+    v[0].get().doAction();
+    Object* obj1 = new ObjectChild("Starship", 900000); // Child to Parent = ascending case
+    obj1->doAction();
+    ObjectChild *objch1 = dynamic_cast<ObjectChild*>(obj1); // Object to Child = descending cast// doesnt work with the private, protected inheritance
+    obj1->doAction_uninherited();
+    objch1->doAction_uninherited();
+
+    ObjectChild objch2("Earth",5972024);
+    Object &obj = objch2;
+    ObjectChild &objectChild2 = dynamic_cast<ObjectChild&>(obj); // ref of the parent to the child
+    objectChild2.doAction_uninherited();
 
 }

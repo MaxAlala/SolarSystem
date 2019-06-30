@@ -31,7 +31,8 @@ if(res.first == end(arr) && res.second == end(arr2))
 accumulate(next(b), e, startVal, lambda);
 
 */
-
+// can define class in .h file = not violation of rule about one definition
+// same story about it's methods, they are inside!
 class Object{
 private:
     string name;
@@ -42,9 +43,17 @@ public:
     string const getName();
     explicit Object(string name, int weight):name(std::move(name)), weight(weight){}
     void print(){cout << name << " " << weight << endl; };
-    void doWork();
+    void doAction_uninherited();
+    virtual void doAction();
 };
 
+class ObjectChild: public Object{
+private:
+public:
+    explicit ObjectChild(string name, int weight):Object(std::move(name), weight){}
+    void doAction() override;
+    void doAction_uninherited();
+};
 ostream & operator<<(ostream * os, Object &o);
 bool isPositive(int &x);
 void printCollection(vector<Object>&);

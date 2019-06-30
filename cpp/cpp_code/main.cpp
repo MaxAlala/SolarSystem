@@ -11,17 +11,23 @@
 using namespace std;
 class A{
 private:
+    int priv = 1999;
 public:
     int x = 10;
     int y = 5;
+protected:
+    int prot = 5;
 };
 
-class B: public A{
+class B final: public A{
 private:
     int z;
 
-    void method(){
+public:
+    using A::prot; // cant do it with private
+    void  virtual method() final{
         cout << y;
+        prot = 555;
     }
 };
 
@@ -41,6 +47,8 @@ void threadFunction(int &x){
 }
 
 int main() {
+    B b;
+    b.prot = 55;
     ////STL
 //    vector<int> vec = {1,2,3,4,-5,-7};
 //    countPositiveNumbers(vec);
@@ -66,5 +74,7 @@ int main() {
 
     ////feature place
     testField();
+    ////
+    static Object o("max",65);
     return 0;
 }

@@ -57,7 +57,7 @@ void recursive_mutex_f(int a){
 
 void createThreadWillClassMethod(){
     Object o("Daria", 60);
-    thread th(&Object::doWork, o);
+    thread th(&Object::doAction, o);
     for(int i = 0; i < 10; i++){
         this_thread::sleep_for(chrono::milliseconds(500));
         cout << i << "MAIN" << " " << "THREAD" << endl;
