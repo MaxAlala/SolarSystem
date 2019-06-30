@@ -4,9 +4,10 @@
 #include <thread>
 #include <chrono>
 #include <functional>
-#include "STL.h"
 #include "multithreading.h"
 #include "features.h"
+#include "List.h"
+#include "STL.h"
 //extern int globa;
 using namespace std;
 class A{
@@ -73,8 +74,30 @@ int main() {
 
 
     ////feature place
-    testField();
+//    testField();
     ////
-    static Object o("max",65);
+    List<Object> list;
+
+    Object o("max", 65);
+    Object o1("max1", 65);
+    Object o2("max2", 65);
+    list.push_back(o);
+    list.push_back(o1);
+    list.push_back(o2);
+    std::cout << list.getSize() << '\n';
+    std::cout << list[0] << '\n';
+    std::cout << list[1] << '\n';
+    std::cout << list[2] << '\n';
+    list.removeAt(0);
+    std::cout << list.getSize() << '\n';
+    std::cout << list[0] << '\n';
+    list.insert(o, 1);
+    std::cout << list.getSize() << '\n';
+    std::cout << list[0] << '\n';
+    std::cout << list[1] << '\n';
+//    std::cout << list[3] << '\n';
+    std::cout << "here " << '\n';
+    cout << list.back();
+
     return 0;
 }

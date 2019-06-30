@@ -24,6 +24,14 @@ void Object::doAction_uninherited() {
 
 }
 
+double& Object::setWeight() {
+    return weight;
+}
+
+string& Object::setName() {
+    return name;
+}
+
 void ObjectChild::doAction_uninherited() {
     cout << "Child \n";
 }
@@ -55,16 +63,17 @@ void sort(std::vector<Object> &vec){
     printCollection(vec);
 }
 
-//istream & operator>>(istream& ifs, Object& o)
-//{
-//    ifs >> o.getName() >> o.getWeight();
-//    return ifs;
-//}
+istream & operator>>(istream& ifs, Object &o)
+{
+    ifs >> o.setName() >> o.setWeight();
+    return ifs;
+}
 
 ostream & operator<<(ostream& os, Object &o){
     os << o.getName() << " " << o.getWeight();
     return  os;
 }
+
 void findByName(std::vector<Object> &vec, const string&& name){
    auto result = find_if(vec.begin(), vec.end(),[&](Object o){
         return name == o.getName();

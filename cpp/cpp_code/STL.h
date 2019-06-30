@@ -35,13 +35,17 @@ accumulate(next(b), e, startVal, lambda);
 // same story about it's methods, they are inside!
 class Object{
 private:
-    string name;
-    double weight;
+    string name = "";
+    double weight{};
 
 public:
     double const getWeight();
     string const getName();
+    string& setName();
+    double& setWeight();
     explicit Object(string name, int weight):name(std::move(name)), weight(weight){}
+    Object(){};
+
     void print(){cout << name << " " << weight << endl; };
     void doAction_uninherited();
     virtual void doAction();
@@ -54,7 +58,8 @@ public:
     void doAction() override;
     void doAction_uninherited();
 };
-ostream & operator<<(ostream * os, Object &o);
+
+ostream & operator<<(ostream& os, Object &o);
 bool isPositive(int &x);
 void printCollection(vector<Object>&);
 void countPositiveNumbers(std::vector<int> &vec);
@@ -63,6 +68,7 @@ void sort(std::vector<Object> &vec);
 void findByName(std::vector<Object> &vec, const string && name);
 void copyIfWeightLessThan(std::vector<Object> &vec, std::vector<Object> &result, const int weight);
 void removeIfWeightLessThan(std::vector<Object> &vec, const int weight);
+
 //void sayhello(){// multiple definition error
 //    cout << "hello!";
 //}
