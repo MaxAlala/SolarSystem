@@ -1,0 +1,256 @@
+.backgroundReg{
+    -fx-background-image: url("imageBackground_500x710.jpg");
+}
+.backgroundMenu{
+    -fx-background-color: white;
+}
+.backgroundCountMenu{
+    -fx-background-image: url("imageBack4.png");
+}
+.backgroundCountGame{
+     -fx-background-image: url("imageBack4.png");
+}
+.backgroundPuzzleMenu{
+    -fx-background-image: url("imagePuzzleBack.png");
+}
+.backgroundPuzzleGame{
+    -fx-background-image: url("imagePuzzleBack.png");
+     /*-fx-background-color: linear-gradient(to top left, #92dea9, #042107);*/
+}
+.backgroundFlappyMenu{
+    -fx-background-image: url("imageFlappyBack1.jpg");
+}
+.backgroundStatistic{
+    -fx-background-image: url("imageBackStatistic4.jpg");
+}
+
+.button1 {
+    -fx-padding: 5 22 5 22;
+    -fx-border-color: WHITE;
+    -fx-border-width: 2;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-background-color: WHITE;
+    -fx-font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 14pt;
+    -fx-text-fill: BLACK;
+}
+.button1:hover{
+    -fx-background-color: #9D9D9D;
+    -fx-border-color: #9D9D9D;
+}
+.button1:pressed, .button:default:hover:pressed{
+    -fx-background-color: #E53935;
+    -fx-text-fill: white;
+    -fx-border-color: #E53935;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+.button2 {
+    -fx-padding: 5 22 5 22;
+    -fx-border-color: #E53935;
+    -fx-border-width: 2;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-background-color: #E53935;
+    -fx-font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 14pt;
+    -fx-text-fill: WHITE;
+}
+.button2:hover{
+    -fx-background-color: #9D9D9D;
+    -fx-border-color: #9D9D9D;
+}
+.button2:pressed, .button:default:hover:pressed{
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-border-color: white;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+.buttonCount {
+    -fx-background-image: url("imageCount.png");
+    -fx-background-color: transparent;
+}
+.buttonCount:hover {
+    -fx-background-image: url("imageCountPressed.png");
+    -fx-background-color: transparent;
+}
+.buttonCount:pressed {
+    -fx-background-image: url("imageCount.png");
+    -fx-background-color: transparent;
+}
+.buttonFlappy {
+    -fx-background-image: url("imageFlappy.png");
+    -fx-background-color: transparent;
+}
+.buttonFlappy:hover {
+    -fx-background-image: url("imageFlappyPressed.png");
+    -fx-background-color: transparent;
+}
+.buttonFlappy:pressed {
+    -fx-background-image: url("imageFlappy.png");
+    -fx-background-color: transparent;
+}
+.buttonPuzzle {
+    -fx-background-image: url("imagePuzzle.png");
+    -fx-background-color: transparent;
+}
+.buttonPuzzle:hover {
+    -fx-background-image: url("imagePuzzlePressed.png");
+    -fx-background-color: transparent;
+}
+.buttonPuzzle:pressed {
+    -fx-background-image: url("imagePuzzle.png");
+    -fx-background-color: transparent;
+}
+.buttonExit {
+    -fx-background-image: url("imageExit.png");
+    -fx-background-color: transparent;
+}
+.buttonExit:hover {
+    -fx-background-image: url("imageExitPressed.png");
+    -fx-background-color: transparent;
+}
+.buttonExit:pressed {
+    -fx-background-image: url("imageExit.png");
+    -fx-background-color: transparent;
+}
+.buttonCountMenu {
+    -fx-border-color: white;
+    -fx-border-width: 2;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-background-color: transparent;
+    -fx-font-weight: bold;
+    -fx-font-size: 14pt;
+    -fx-text-fill: white;
+}
+.buttonCountMenu:hover{
+    -fx-background-color: white;
+    -fx-text-fill: #D32F2F;
+}
+.buttonCountMenu:pressed, .button:default:hover:pressed{
+    -fx-background-color: #FFCCBC;
+    -fx-text-fill: #D32F2F;
+    -fx-border-color: #FFCCBC;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+.buttonPuzzleMenu {
+    -fx-border-color: white;
+    -fx-border-width: 2;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-background-color: transparent;
+    -fx-font-weight: bold;
+    -fx-font-size: 14pt;
+    -fx-text-fill: white;
+}
+.buttonPuzzleMenu:hover{
+    -fx-background-color: white;
+    -fx-text-fill: #042107;
+}
+.buttonPuzzleMenu:pressed, .button:default:hover:pressed{
+    -fx-background-color: #FFCCBC;
+    -fx-text-fill: #042107;
+    -fx-border-color: #FFCCBC;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+.buttonFlappyMenu {
+    -fx-border-color: white;
+    -fx-border-width: 2;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-background-color: transparent;
+    -fx-font-weight: bold;
+    -fx-font-size: 14pt;
+    -fx-text-fill: white;
+}
+.buttonFlappyMenu:hover{
+    -fx-background-color: white;
+    -fx-text-fill: #040840;
+}
+.buttonFlappyMenu:pressed, .button:default:hover:pressed{
+    -fx-background-color: #FFCCBC;
+    -fx-text-fill: #040840;
+    -fx-border-color: #FFCCBC;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+.buttonStat {
+    -fx-background-radius: 5;
+    -fx-background-color: transparent;
+    -fx-font-size: 14pt;
+    -fx-text-fill: white;
+}
+.buttonStat:hover{
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-border-radius: 5;
+    -fx-border-color:white;
+    -fx-opacity: 0.3;
+}
+.buttonStat:pressed, .button:default:hover:pressed{
+    -fx-opacity: 1;
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+
+.labelWelcome {
+    -fx-background-color: transparent;
+    -fx-font-size: 26pt;
+    -fx-text-fill: WHITE;
+    -fx-font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+    -fx-font-weight: bold;
+    -fx-text-alignment: CENTER;
+}
+.labelStatistic {
+    -fx-background-color: transparent;
+    -fx-font-size: 26pt;
+    -fx-text-fill: white;
+    -fx-font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+    -fx-text-alignment: CENTER;
+}
+.labelUser {
+    -fx-padding: 0 15 15 0;
+    -fx-background-image: url("imageBackground_500x710.jpg");
+    -fx-font-size: 25pt;
+    -fx-text-fill: WHITE;
+}
+.labelInCount {
+    -fx-padding: 0 15 15 0;
+    -fx-background-color:transparent;
+    -fx-font-size: 20pt;
+    -fx-text-fill: white;
+    -fx-text-alignment: center;
+    -fx-font-weight: bold;
+    -fx-font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+}
+.labelTime {
+    -fx-background-color:transparent;
+    -fx-font-size: 40pt;
+    -fx-text-fill: white;
+}
+.text-field {
+    -fx-background-color: transparent;
+    -fx-text-fill: WHITE;
+    -fx-prompt-text-fill: WHITE;
+
+}
+.text-fieldGame {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: white;
+    -fx-alignment: center ;
+    -fx-font-weight: bold;
+    -fx-font-size: 15pt;
+}
+
+
+
+
+

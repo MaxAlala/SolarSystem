@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="710.0" prefWidth="500.0" styleClass="backgroundPuzzleGame" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="memorypuzzle.MPFinalWindow">
+   <children>
+      <Label layoutX="118.0" layoutY="47.0" prefHeight="106.0" prefWidth="266.0" styleClass="labelTime" text="YOU WON" textAlignment="CENTER" />
+      <Label fx:id="scoresview" alignment="CENTER" layoutX="151.0" layoutY="260.0" onMouseClicked="#onStart" prefHeight="59.0" prefWidth="199.0" styleClass="labelInCount" text="SEE SCORES" textAlignment="CENTER" />
+      <Label fx:id="menu" alignment="CENTER" layoutX="156.0" layoutY="523.0" onMouseClicked="#goback" prefHeight="69.0" prefWidth="190.0" styleClass="buttonPuzzleMenu" text="BACK TO MENU" />
+   </children>
+</AnchorPane>

@@ -1,0 +1,61 @@
+.background{
+    -fx-background-image: url("imageFlappyBack1.jpg");
+}
+.button {
+    -fx-border-color: white;
+    -fx-border-width: 2;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-background-color: transparent;
+    -fx-font-weight: bold;
+    -fx-font-size: 14pt;
+    -fx-text-fill: white;
+}
+.button:hover{
+    -fx-background-color: white;
+    -fx-text-fill: #040840;
+}
+.button:pressed, .button:default:hover:pressed{
+    -fx-background-color: #FFCCBC;
+    -fx-text-fill: #040840;
+    -fx-border-color: #FFCCBC;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+.chart-bar {
+    -fx-bar-fill: white ;
+}
+.chart-content {
+    -fx-padding: 20px;
+}
+
+/*.chart-title {
+  -fx-text-fill: white;
+  -fx-font-size: 1.6em;
+}*/
+.chart-legend-item{
+    -fx-text-fill: white;
+}
+.axis {
+    -fx-tick-label-fill: white;
+}
+.axis-label {
+  -fx-text-fill: white;
+}
+
+.chart-legend {
+   -fx-background-color:  transparent;
+}
+.chart-plot-background {
+    -fx-background-color: transparent;
+}
+/*.chart-vertical-grid-lines {
+    -fx-stroke: black;
+}
+.chart-horizontal-grid-lines {
+    -fx-stroke: black;
+}*/
+
+
+
+
