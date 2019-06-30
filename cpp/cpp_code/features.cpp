@@ -6,6 +6,8 @@
 #include <assert.h>
 #include <functional>
 #include <vector>
+#include <iomanip>
+#include <fstream>
 #include "features.h"
 #include "STL.h"
 
@@ -26,7 +28,20 @@ strlen
 
 
 
+
+//r-value fun
+void rvalue_test(const int &ref)
+{
+    cout << "r not r value!";
+}
+void rvalue_test(int &&ref)
+{
+    cout << "i am r-value!";
+}
+
 void testField(){
+    ////pruning, aggregate types, rand?
+/*
     using std::cout;
     short s = 30000;
     short c = 30000;
@@ -36,6 +51,7 @@ void testField(){
     srand(time(0));
     std::cout << rand() << "\t" << "\n";
         int nu = NULL;
+*/
 
     ////cin fun
 /*    double d{};
@@ -46,6 +62,7 @@ void testField(){
     cout << d << " " << str << "\n";*/
     ////arrays
 
+/*
     int array[] = {1,2,3,4,5};
     cout << &array[1] << "\n";
     cout << array+1 << "\n";
@@ -63,9 +80,12 @@ void testField(){
 
     int **array5 = new int*[20];
     int (*array6)[5] = new int[6][5];
-    ////
 
-    int *integer = new (std::nothrow) int; // no bad_alloc, just null
+*/
+
+    //// const
+
+/*    int *integer = new (std::nothrow) int; // no bad_alloc, just null
      integer = nullptr;
      delete integer;
      delete integer;
@@ -81,18 +101,16 @@ void testField(){
 
     int ** ptr3 = &ptr2;
     cout << **ptr3 << '\n';
-
-
-
+    */
     ////// function
-    void(*func)();
+ /*   void(*func)();
     func = testField;
     using someFunc = void(*)(int, int);
     typedef void(*someFunc2)(int, int);
     function<int(int,int)> someFunc3; // functional lib
-
+*/
     /////////////reference_wrapper = to not use pointer in collection for virtual f.
-    vector<reference_wrapper<Object>> v;
+/*    vector<reference_wrapper<Object>> v;
     vector<reference_wrapper<Object *>> v2; // works same, but problems with dynamic memory
     ObjectChild objectChild1("Max", 70) ;
     v.emplace_back(objectChild1);
@@ -106,6 +124,89 @@ void testField(){
     ObjectChild objch2("Earth",5972024);
     Object &obj = objch2;
     ObjectChild &objectChild2 = dynamic_cast<ObjectChild&>(obj); // ref of the parent to the child
-    objectChild2.doAction_uninherited();
+    objectChild2.doAction_uninherited();*/
+    //// iostream
+   /* char char_arr[10];
+    cin >> std::setw(8) >> char_arr; // iomanip lib
+    cerr << "HEHEH! \n"; //error
+    cout << char_arr;
+
+    char ch;
+    while(cin >> ch)  // read until ' ' and miss it
+        cout << ch;
+
+    while(cin.get(ch))  // read until \n takes it, doesnt take it
+        cout << ch;
+
+    cin.get(char_arr, 5);
+    cout << char_arr << '\n';
+
+    cin.getline(char_arr, 9); // read all line with \n
+    cout << char_arr << '\n';
+
+    cout << std::cin.gcount() << '\n'; // count of read symbols
+    string str;
+    getline(cin, str);
+
+    putback(char) - put symbol in buffer, unget()=take and putback
+    peek() - read symbol and doesnt remove it
+    ignore() - ignore first symbol
+    ignore(int)
+
+    cout.setf(std::ios::showpos); //flags -no*, hex, dec,
+    // oct, but firstly unsetf(dec)
+    cout << 30 << '\n';  // boolalpha, noboolalpha, uppercase
+    cout << std::uppercase << '\n'; // precision(5)
+
+    stringstream stringstream1; // sstream lib
+    stringstream1 << "stringstream";
+    stringstream1 << 555;
+    stringstream1.str("stringstream");
+    cout << stringstream1.str();
+    stringstream stringstream2;
+    stringstream2 << 5555;
+    int x;
+    stringstream2 >> x;
+
+    stringstream2.str(""); // remove the value
+    stringstream2.clear(); // remove all error flags
+    // goodbit, badbit - fatal er, eofbit - reach the end,
+    // failbit - not fatal er; good,bad,eof,fail,clear(state),
+    // setstate(state);
+
+    // isalnum(int) - letter or digit,
+    // isalpha - letter, iscntrl - comand,
+    // isdigit, isprint - enter,space, ispunct - not,dig,let,space,
+    // isspace, isxdigit - 0x
+
+    int someInt;
+    cin >> someInt;
+    if(cin.fail())
+    {
+        cin.clear();
+        cin.ignore(32767, '\n');// delete all buffer
+    }
+    */
+
+   ifstream ifstream1; // fstream
+    ofstream ofstream1; // has the flush
+   ifstream1.open("text.txt");
+   while(ifstream1)
+   {
+       string str;
+       ifstream1 >> str; //getline(ifstream1, str);
+   }
+    // with  open() use = app, in, out, trunc - delete file,
+    // ate - the end of the file
+
+    ifstream1.seekg(15, ios::cur);// go forward 15 bytes
+    ifstream1.seekg(0, ios::beg);
+    ifstream1.seekg(0, ios::end);
+    cout << ifstream1.tellg() << '\n';
+
+
+
+
+
 
 }
