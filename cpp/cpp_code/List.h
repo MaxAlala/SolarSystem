@@ -21,33 +21,24 @@ namespace nsOfList {
     template<typename T>
     class List {
     public:
+
         List();
-
+        List(List<T> &t);
         ~List();
-
+        List<T>&operator=(List<T> &t);
         void push_back(T data);
-
         void clear();
-
         T &operator[](int index);
-
         int getSize () const{ return Size; }
-
         void push_front(T data);
-
         void pop_back();
-
         void insert(T value, int index);
-
         void removeAt(int index);
-
         T &front();
-
         T &back();
-
         void pop_front();
-
         friend std::ostream &operator<< <>(std::ostream &o, const List &t);
+        List<T>& operator+(T o);
 
     private:
         template<typename E>
@@ -62,9 +53,15 @@ namespace nsOfList {
             }
         };
 
-        int Size;
-        Node<T> *head;
-        Node<T> *lastElem;
+        Node<T>* getHeadNode(){
+            return head;
+        }
+        Node<T>* getLastNode(){
+            return lastNode;
+        }
+        int Size{};
+        Node<T> *head = nullptr;
+        Node<T> *lastNode = nullptr;
     };
 
     template<typename T>
@@ -81,7 +78,7 @@ namespace nsOfList {
 
     template<typename T>
     void List<T>::push_back(T data) {
-
+        cout << "inside push back!"<< "\n";
         if (head == nullptr) {
             head = new Node<T>(data);
         } else {
@@ -91,8 +88,8 @@ namespace nsOfList {
                 current = current->pNext;
             }
             current->pNext = new Node<T>(data);
+            lastNode = current->pNext;
         }
-
         Size++;
     }
 
@@ -129,21 +126,19 @@ namespace nsOfList {
 
     template<typename T>
     void List<T>::insert(T value, int index) {
-
+        Node<T> *previous = nullptr;
         if (index == 0) {
             push_front(value);
         } else {
-            Node<T> *previous = this->head;
-
+             previous = this->head;
             for (int i = 0; i < index - 1; i++) {
                 previous = previous->pNext;
             }
             Node<T> *newNode = new Node<T>(value, previous->pNext);
             previous->pNext = newNode;
             Size++;
-
         }
-        if (index == Size) {}
+        if (index == Size) {lastNode = previous; }
     }
 
     template<typename T>
@@ -161,8 +156,8 @@ namespace nsOfList {
             delete toDelete;
             Size--;
 
-            if (index == Size) {
-                lastElem = previous->pNext;
+            if (index == Size-1) {
+                lastNode = previous->pNext;
             }
         }
     }
@@ -178,7 +173,7 @@ namespace nsOfList {
     template<typename T>
     T &List<T>::front() {
         assert(head != nullptr);
-        return *head;
+        return head->data;
     }
 
     template<typename T>
@@ -190,9 +185,55 @@ namespace nsOfList {
     template<typename T>
     std::ostream &operator<< (std::ostream &out, List<T> &t) {
         for (int i = 0; i < t.getSize(); i++) {
-            cout << t[i] << "Hello \n";
+            cout << t[i] << " is some unrecognized object. \n";
         }
         return out;
+    }
+
+//    template<typename T>
+//    std::ostream &operator+ (List<T> &t, List<T> &t) {
+//        for (int i = 0; i < t.getSize(); i++) {
+//            cout << t[i] << " is some unrecognized object. \n";
+//        }
+//        return out;
+//    }
+
+    template<>
+    std::ostream &operator<< (std::ostream &out, List<int> &t) {
+        for (int i = 0; i < t.getSize(); i++) {
+            cout << t[i] << " this is an integer! \n";
+        }
+        return out;
+    }
+
+    template<typename T>
+    List<T>& operator+ (List<T> &t, List<T> &t2) {
+        cout << "Starting to add objects." <<'\n';
+        for (int i = 0; i < t2.getSize(); ++i) {
+//            cout << i << " i " << '\n';
+//            cout << t2[i] << " here " <<'\n';
+            t.push_back(t2[i]);
+        }
+//        t.getLastNode()->pNext = t2.head;  // if want remove second List can use this way.
+//        t.getLastNode() = t2.getLastNode();
+        return t;
+    }
+
+    template< typename T>
+    List<T>& List<T>::operator+(T o){
+        push_back(o);
+        return *this;
+    }
+
+    template<typename T>
+    List<T>::List(List<T> &t) {
+        *this = *this + t;
+    }
+
+    template<typename T>
+    List<T> &List<T>::operator=(List<T> &t) {
+        if(this != &t) *this = *this + t;
+        return *this;
     }
 }
 #endif //CPP_CODE_LIST_H

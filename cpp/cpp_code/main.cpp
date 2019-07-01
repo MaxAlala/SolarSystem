@@ -8,6 +8,7 @@
 #include "features.h"
 #include "List.h"
 #include "STL.h"
+#include "MyString.h"
 //extern int globa;
 using namespace std;
 class A{
@@ -75,7 +76,7 @@ int main() {
 
     ////feature place
 //    testField();
-    ////
+    ////List
     nsOfList::List<Object> list;
     Object o("max", 65);
     Object o1("max1", 65);
@@ -101,5 +102,21 @@ int main() {
     cout << list.getSize() << '\n';
     cout << list << '\n';
 
+    nsOfList::List<int> list1;
+    list1.push_back(1);
+    list1.push_back(2);
+    list1.push_back(3);
+    cout << list1 << '\n';
+    list1 = list1 + 4;
+    cout << list1 << '\n';
+    nsOfList::List<int> list2;
+    list2.push_back(22);
+    cout << (list1 + list2);
+    cout << " list 3_1 \n";
+    nsOfList::List<int> list3(list1);
+    cout << list3;
+    list3 = list3 + list1;
+    cout << "list3: \n" <<list3;
+//    cout << list3 + list2;
     return 0;
 }
