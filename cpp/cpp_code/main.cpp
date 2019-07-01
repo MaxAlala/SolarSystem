@@ -76,8 +76,7 @@ int main() {
     ////feature place
 //    testField();
     ////
-    List<Object> list;
-
+    nsOfList::List<Object> list;
     Object o("max", 65);
     Object o1("max1", 65);
     Object o2("max2", 65);
@@ -97,7 +96,10 @@ int main() {
     std::cout << list[1] << '\n';
 //    std::cout << list[3] << '\n';
     std::cout << "here " << '\n';
-    cout << list.back();
+    cout << list.back() << '\n';
+//    list.clear();
+    cout << list.getSize() << '\n';
+    cout << list << '\n';
 
     return 0;
 }
