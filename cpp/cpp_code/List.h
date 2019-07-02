@@ -17,6 +17,12 @@ namespace nsOfList {
     std::ostream &operator<< (std::ostream &o, const List<T> &t);
 
     template<typename T>
+    bool operator==(List<T> &t, List<T> &t1);
+
+    template<typename T>
+    bool operator!=(List<T> &t, List<T> &t1);
+
+    template<typename T>
     class List {
     public:
         List();
@@ -32,8 +38,10 @@ namespace nsOfList {
         T &front();
         T &back();
         void pop_front();
-        T &operator[](int index);
-        List<T>&operator=(List<T> &t);
+        T& operator[](int index);
+        List<T>& operator=(List<T> &t);
+        friend bool operator== <>(List &t, List &t1);
+        friend bool operator!= <>(List &t, List &t1);
         friend std::ostream &operator<< <>(std::ostream &o, const List &t);
         List<T>& operator+(T o);
 
@@ -69,13 +77,14 @@ namespace nsOfList {
 
     template<typename T>
     List<T>::~List() {
+//        cout << "Called destructor! \n";
         clear();
     }
 
 
     template<typename T>
     void List<T>::push_back(T data) { // copy
-        cout << "inside push back!"<< "\n";
+//        cout << "inside push back!"<< "\n";
         if (head == nullptr) {
             head = new Node<T>(data);
         } else {
@@ -163,6 +172,7 @@ namespace nsOfList {
     void List<T>::pop_front() {
         Node<T> *temp = head;
         head = head->pNext;
+//        cout << temp->data << " . Node deletion. \n";
         delete temp;
         Size--;
     }
@@ -181,7 +191,7 @@ namespace nsOfList {
 
     template<typename T>
     List<T>& operator+ (List<T> &t, List<T> &t2) {
-        cout << "Starting to add objects." <<'\n';
+//        cout << "Starting to add objects." <<'\n';
         for (int i = 0; i < t2.getSize(); ++i) {
 //            cout << i << " i " << '\n';
 //            cout << t2[i] << " here " <<'\n';
@@ -191,6 +201,32 @@ namespace nsOfList {
 //        t.getLastNode() = t2.getLastNode();
         return t;
     }
+
+
+    template<typename T>
+    std::ostream &operator<< (std::ostream &out, nsOfList::List<T> &t) {
+        for (int i = 0; i < t.getSize(); i++) {
+            std::cout << t[i] << " is some unrecognized object. \n";
+        }
+        return out;
+    }
+
+//    template<typename T>
+//    std::ostream &operator+ (List<T> &t, List<T> &t) {
+//        for (int i = 0; i < t.getSize(); i++) {
+//            cout << t[i] << " is some unrecognized object. \n";
+//        }
+//        return out;
+//    }
+
+    template<>
+    inline std::ostream &operator<< (std::ostream &out, nsOfList::List<int> &t) {
+        for (int i = 0; i < t.getSize(); i++) {
+            std::cout << t[i] << " this is an integer! \n";
+        }
+        return out;
+    }
+
 
     template< typename T>
     List<T>& List<T>::operator+(T o){
@@ -207,6 +243,25 @@ namespace nsOfList {
     List<T> &List<T>::operator=(List<T> &t) {
         if(this != &t) *this = *this + t;
         return *this;
+    }
+    template<typename T>
+    bool operator==(List<T> &t, List<T> &t1) {
+        if(&t == &t1) return true;
+        if(t.getSize() != t.getSize()) return false;
+        for(int i = 0; i < t.getSize(); i++){
+            if(t[i] != t1[i]) return false;
+        }
+        return true;
+    }
+
+    template<typename T>
+    bool operator!=(List<T> &t, List<T> &t1) {
+        if(&t == &t1) return false;
+        if(t.getSize() != t.getSize()) return true;
+        for(int i = 0; i < t.getSize(); i++){
+            if(t[i] != t1[i]) return true;
+        }
+        return false;
     }
 }
 #endif //CPP_CODE_LIST_H

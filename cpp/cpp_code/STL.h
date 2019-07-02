@@ -43,8 +43,11 @@ public:
     string const getName();
     string& setName();
     double& setWeight();
-    explicit Object(string name, int weight):name(std::move(name)), weight(weight){}
-    Object(){};
+    explicit Object(string name, double weight):name(std::move(name)), weight(weight){}
+    Object()= default;
+    friend bool operator==(Object &o, Object &o1);
+    friend bool operator!=(Object &o, Object &o1);
+    virtual ~Object()= default;
     void print(){cout << name << " " << weight << endl; };
     void doAction_uninherited();
     virtual void doAction();
@@ -53,7 +56,7 @@ public:
 class ObjectChild: public Object{
 private:
 public:
-    explicit ObjectChild(string name, int weight):Object(std::move(name), weight){}
+    explicit ObjectChild(string name, double weight):Object(std::move(name), weight){}
     void doAction() override;
     void doAction_uninherited();
 };

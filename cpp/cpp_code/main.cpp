@@ -82,7 +82,7 @@ int main( int argc, char* argv[])
     ////feature place
 //    testField();
     ////List
-/*    nsOfList::List<Object> list;
+   /* nsOfList::List<Object> list;
     Object o("max", 65);
     Object o1("max1", 65);
     Object o2("max2", 65);
@@ -122,15 +122,15 @@ int main( int argc, char* argv[])
     cout << list3;
     list3 = list3 + list1;
     cout << "list3: \n" <<list3;
-//    cout << list3 + list2;*/
-//// unique ptr
-/*
-unique_ptr<int> ptr(new int(555));
-int *x = ptr.get();
-cout << &(*ptr) << '\n';
-cout << ptr.get()<< '\n';
-cout << x<< '\n';
-*/
+    cout << list3 + list2;*/
+    //// unique ptr
+        /*
+        unique_ptr<int> ptr(new int(555));
+        int *x = ptr.get();
+        cout << &(*ptr) << '\n';
+        cout << ptr.get()<< '\n';
+        cout << x<< '\n';
+    */
     RUN_ALL_TESTS();
     return 0;
 }
