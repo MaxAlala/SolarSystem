@@ -4,8 +4,6 @@
 
 #ifndef CPP_CODE_LIST_H
 #define CPP_CODE_LIST_H
-
-
 #include <string>
 #include <iostream>
 #include <cassert>
@@ -21,14 +19,11 @@ namespace nsOfList {
     template<typename T>
     class List {
     public:
-
         List();
         List(List<T> &t);
         ~List();
-        List<T>&operator=(List<T> &t);
         void push_back(T data);
         void clear();
-        T &operator[](int index);
         int getSize () const{ return Size; }
         void push_front(T data);
         void pop_back();
@@ -37,6 +32,8 @@ namespace nsOfList {
         T &front();
         T &back();
         void pop_front();
+        T &operator[](int index);
+        List<T>&operator=(List<T> &t);
         friend std::ostream &operator<< <>(std::ostream &o, const List &t);
         List<T>& operator+(T o);
 
@@ -77,7 +74,7 @@ namespace nsOfList {
 
 
     template<typename T>
-    void List<T>::push_back(T data) {
+    void List<T>::push_back(T data) { // copy
         cout << "inside push back!"<< "\n";
         if (head == nullptr) {
             head = new Node<T>(data);
@@ -183,30 +180,6 @@ namespace nsOfList {
     }
 
     template<typename T>
-    std::ostream &operator<< (std::ostream &out, List<T> &t) {
-        for (int i = 0; i < t.getSize(); i++) {
-            cout << t[i] << " is some unrecognized object. \n";
-        }
-        return out;
-    }
-
-//    template<typename T>
-//    std::ostream &operator+ (List<T> &t, List<T> &t) {
-//        for (int i = 0; i < t.getSize(); i++) {
-//            cout << t[i] << " is some unrecognized object. \n";
-//        }
-//        return out;
-//    }
-
-    template<>
-    std::ostream &operator<< (std::ostream &out, List<int> &t) {
-        for (int i = 0; i < t.getSize(); i++) {
-            cout << t[i] << " this is an integer! \n";
-        }
-        return out;
-    }
-
-    template<typename T>
     List<T>& operator+ (List<T> &t, List<T> &t2) {
         cout << "Starting to add objects." <<'\n';
         for (int i = 0; i < t2.getSize(); ++i) {
@@ -237,3 +210,4 @@ namespace nsOfList {
     }
 }
 #endif //CPP_CODE_LIST_H
+

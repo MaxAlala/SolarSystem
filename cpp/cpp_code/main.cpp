@@ -4,6 +4,8 @@
 #include <thread>
 #include <chrono>
 #include <functional>
+#include <gtest/gtest.h>
+#include <gmock/gmock.h>
 #include "multithreading.h"
 #include "features.h"
 #include "List.h"
@@ -48,9 +50,12 @@ void threadFunction(int &x){
     x = 50000;
 }
 
-int main() {
-    B b;
-    b.prot = 55;
+int main( int argc, char* argv[])
+{
+    testing::InitGoogleTest(&argc, argv);
+//
+//    B b;
+//    b.prot = 55;
     ////STL
 //    vector<int> vec = {1,2,3,4,-5,-7};
 //    countPositiveNumbers(vec);
@@ -77,7 +82,7 @@ int main() {
     ////feature place
 //    testField();
     ////List
-    nsOfList::List<Object> list;
+/*    nsOfList::List<Object> list;
     Object o("max", 65);
     Object o1("max1", 65);
     Object o2("max2", 65);
@@ -117,6 +122,15 @@ int main() {
     cout << list3;
     list3 = list3 + list1;
     cout << "list3: \n" <<list3;
-//    cout << list3 + list2;
+//    cout << list3 + list2;*/
+//// unique ptr
+/*
+unique_ptr<int> ptr(new int(555));
+int *x = ptr.get();
+cout << &(*ptr) << '\n';
+cout << ptr.get()<< '\n';
+cout << x<< '\n';
+*/
+    RUN_ALL_TESTS();
     return 0;
 }

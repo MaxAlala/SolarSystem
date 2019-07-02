@@ -45,7 +45,6 @@ public:
     double& setWeight();
     explicit Object(string name, int weight):name(std::move(name)), weight(weight){}
     Object(){};
-
     void print(){cout << name << " " << weight << endl; };
     void doAction_uninherited();
     virtual void doAction();
