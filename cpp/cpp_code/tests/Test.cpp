@@ -9,25 +9,22 @@
 #include "../STL.h"
 
 class ClassDeclaration : public testing::Test { // fixture
-    public:
-    protected:
-        void SetUp()
-        {
-            list.push_back(Object("Mercury", 3.3e23));
-            list.push_back(Object("Venus", 4.87e23));
-            list.push_back(Object("Earth", 5.972e24));
-            list.push_back(Object("Mars", 6.42e23));
-
-            list2.push_back(Object("Jupiter", 1898e24));
-            list2.push_back(Object("Saturn", 569e24));
-            list2.push_back(Object("Uranus", 86.8e24));
-            list2.push_back(Object("Neptune", 102.e24));
-        }
-        void TearDown(){
-        }
-   nsOfList::List<Object> list;
-   nsOfList::List<Object> list2;
-    };
+public:
+protected:
+    void SetUp()
+    {
+    }
+    void TearDown(){
+    }
+    nsOfList::List<Object> list{Object("Mercury", 3.3e23),
+                                Object("Venus", 4.87e23),
+                                Object("Earth", 5.972e24),
+                                Object("Mars", 6.42e23)};
+    nsOfList::List<Object> list2{Object("Jupiter", 1898e24),
+                                 Object("Saturn", 569e24),
+                                 Object("Uranus", 86.8e24),
+                                 Object("Neptune", 102.e24)};
+};
 
 TEST_F(ClassDeclaration, isZeroElemEarth){
     ASSERT_EQ(list.front().getName(), "Mercury") << " test with zero elem";
@@ -40,18 +37,20 @@ TEST_F(ClassDeclaration, isZeroElemWeightis3_3e23){
 }
 
 TEST_F(ClassDeclaration, isSumSize8){
-    list2.clear();
-    list2.push_back(Object("Mercury", 3.3e23));
-    list2.push_back(Object("Venus", 4.87e23));
-    list2.push_back(Object("Earth", 5.972e24));
-    list2.push_back(Object("Mars", 6.42e23));
-    cout << "hellllo! \n";
-    if(list == list2)cout << "hellllo! EQUAL \n";
+
     ASSERT_EQ(8, (list + list2).getSize());
 }
 
+TEST_F(ClassDeclaration, aretheyEqual){
+    list2.clear();
+    list2.push_back(Object("Mercury", 3.3e23)).push_back(Object("Venus", 4.87e23))
+    .push_back(Object("Earth", 5.972e24)).push_back(Object("Mars", 6.42e23));
+    ASSERT_EQ(true, list == list2) << " equality";
+}
 
-//TEST_F(ClassDeclaration, aretheyEqual){
-//    ASSERT_EQ(list, list2) << " equality";
-//}
+::testing::AssertionResult isTrue(bool b)
+// return assertResult
+{
+    return testing::AssertionSuccess();
+}
 

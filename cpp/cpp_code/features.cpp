@@ -8,8 +8,10 @@
 #include <vector>
 #include <iomanip>
 #include <fstream>
+//#include <wincon.h>
 #include "features.h"
 #include "STL.h"
+//#include "windows.h"
 
 #define NDEBUG // turn off all assert macroses
 using namespace std;
@@ -28,7 +30,7 @@ strlen
 
 
 
-
+//void getarr(int arr[]) == void getarr(int *arr)
 //r-value fun
 void rvalue_test(const int &ref)
 {
@@ -39,9 +41,35 @@ void rvalue_test(int &&ref)
     cout << "i am r-value!";
 }
 
+extern int g_lovely_simple_integer;
+static int lovely_simple_integer;
+auto returnInt() -> int{// trailing
+    return 10;
+}
+
+
 void testField(){
-    ////pruning, aggregate types, rand?
-/*
+    ////pruning, aggregate types, rand?, numbers
+    unsigned int ui = 16;
+    cout << (ui<<1) << endl; // & | ^-xor <<=
+    cout << (-ui) << endl;
+    signed short int si = 5;
+    long int li = 6LLU; // ll ul F l
+    uint16_t uint16 = 55ull;
+    constexpr double d = 300000000000.344444444444444444444444444444444444444444;
+     int bin = 0;
+    bin = 0b10000;
+    cout << setprecision(100) <<d << "\n";
+    // byte masks
+    const unsigned char option1 = 0x01; // шестнадцатеричный литерал для 0000 0001
+    const unsigned char option2 = 0x02; // шестнадцатеричный литерал для 0000 0010
+    const unsigned char option3 = 0x04; // шестнадцатеричный литерал для 0000 0100
+    const unsigned char option4 = 0x08; // шестнадцатеричный литерал для 0000 1000
+    const unsigned char option5 = 0x10; // шестнадцатеричный литерал для 0001 0000
+    const unsigned char option6 = 0x20; // шестнадцатеричный литерал для 0010 0000
+    const unsigned char option7 = 0x40; // шестнадцатеричный литерал для 0100 0000
+    const unsigned char option8 = 0x80; // шестнадцатеричный литерал для 1000 0000
+
     using std::cout;
     short s = 30000;
     short c = 30000;
@@ -51,7 +79,6 @@ void testField(){
     srand(time(0));
     std::cout << rand() << "\t" << "\n";
         int nu = NULL;
-*/
 
     ////cin fun
 /*    double d{};
@@ -91,6 +118,8 @@ void testField(){
      delete integer;
     //        assert(integer && "pointer have no value!");// always check
     const int const_x = 5;
+    int const const_ptr = 5;
+    const_ptr = 1111; //ok
     const int not_const_x = 5;
     //    int &ref = const_x; // cant take const int
     const int ref2 = not_const_x;
@@ -103,12 +132,13 @@ void testField(){
     cout << **ptr3 << '\n';
     */
     ////// function
- /*   void(*func)();
+    void(*func)();
     func = testField;
+    (*func)(); // explicit
+    func(); // implicit
     using someFunc = void(*)(int, int);
     typedef void(*someFunc2)(int, int);
     function<int(int,int)> someFunc3; // functional lib
-*/
     /////////////reference_wrapper = to not use pointer in collection for virtual f.
 /*    vector<reference_wrapper<Object>> v;
     vector<reference_wrapper<Object *>> v2; // works same, but problems with dynamic memory
@@ -126,6 +156,9 @@ void testField(){
     ObjectChild &objectChild2 = dynamic_cast<ObjectChild&>(obj); // ref of the parent to the child
     objectChild2.doAction_uninherited();*/
     //// iostream
+
+//    SetConsoleCP(1251);
+//    SetConsoleOutputCP(1251);
    /* char char_arr[10];
     cin >> std::setw(8) >> char_arr; // iomanip lib
     cerr << "HEHEH! \n"; //error
@@ -188,7 +221,7 @@ void testField(){
     }
     */
 
-   ifstream ifstream1; // fstream
+/*   ifstream ifstream1; // fstream
     ofstream ofstream1; // has the flush
    ifstream1.open("text.txt");
    while(ifstream1)
@@ -202,7 +235,7 @@ void testField(){
     ifstream1.seekg(15, ios::cur);// go forward 15 bytes
     ifstream1.seekg(0, ios::beg);
     ifstream1.seekg(0, ios::end);
-    cout << ifstream1.tellg() << '\n';
+    cout << ifstream1.tellg() << '\n';*/
 
 
 

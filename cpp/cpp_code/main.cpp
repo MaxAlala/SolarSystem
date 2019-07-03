@@ -11,7 +11,11 @@
 #include "List.h"
 #include "STL.h"
 #include "MyString.h"
+#include <climits>
 //extern int globa;
+
+
+// some features with class
 using namespace std;
 class A{
 private:
@@ -29,9 +33,12 @@ private:
 
 public:
     using A::prot; // cant do it with private
-    void  virtual method() final{
+    void  virtual method() final {
         cout << y;
         prot = 555;
+    }    void  virtual method( ) const final {
+        cout << y;
+//        prot = 555;
     }
 };
 
@@ -52,10 +59,13 @@ void threadFunction(int &x){
 
 int main( int argc, char* argv[])
 {
-    testing::InitGoogleTest(&argc, argv);
+//    int xx = 4;
+//    cout << sizeof xx; //!!!
+//    testing::InitGoogleTest(&argc, argv);
 //
-//    B b;
+    const B b{};
 //    b.prot = 55;
+    b.method();
     ////STL
 //    vector<int> vec = {1,2,3,4,-5,-7};
 //    countPositiveNumbers(vec);
@@ -80,57 +90,58 @@ int main( int argc, char* argv[])
 
 
     ////feature place
-//    testField();
+    testField();
     ////List
-   /* nsOfList::List<Object> list;
-    Object o("max", 65);
-    Object o1("max1", 65);
-    Object o2("max2", 65);
-    list.push_back(o);
-    list.push_back(o1);
-    list.push_back(o2);
-    std::cout << list.getSize() << '\n';
-    std::cout << list[0] << '\n';
-    std::cout << list[1] << '\n';
-    std::cout << list[2] << '\n';
-    list.removeAt(0);
-    std::cout << list.getSize() << '\n';
-    std::cout << list[0] << '\n';
-    list.insert(o, 1);
-    std::cout << list.getSize() << '\n';
-    std::cout << list[0] << '\n';
-    std::cout << list[1] << '\n';
-//    std::cout << list[3] << '\n';
-    std::cout << "here " << '\n';
-    cout << list.back() << '\n';
-//    list.clear();
-    cout << list.getSize() << '\n';
-    cout << list << '\n';
+    /* nsOfList::List<Object> list;
+     Object o("max", 65);
+     Object o1("max1", 65);
+     Object o2("max2", 65);
+     list.push_back(o);
+     list.push_back(o1);
+     list.push_back(o2);
+     std::cout << list.getSize() << '\n';
+     std::cout << list[0] << '\n';
+     std::cout << list[1] << '\n';
+     std::cout << list[2] << '\n';
+     list.removeAt(0);
+     std::cout << list.getSize() << '\n';
+     std::cout << list[0] << '\n';
+     list.insert(o, 1);
+     std::cout << list.getSize() << '\n';
+     std::cout << list[0] << '\n';
+     std::cout << list[1] << '\n';
+ //    std::cout << list[3] << '\n';
+     std::cout << "here " << '\n';
+     cout << list.back() << '\n';
+ //    list.clear();
+     cout << list.getSize() << '\n';
+     cout << list << '\n';
 
-    nsOfList::List<int> list1;
-    list1.push_back(1);
-    list1.push_back(2);
-    list1.push_back(3);
-    cout << list1 << '\n';
-    list1 = list1 + 4;
-    cout << list1 << '\n';
-    nsOfList::List<int> list2;
-    list2.push_back(22);
-    cout << (list1 + list2);
-    cout << " list 3_1 \n";
-    nsOfList::List<int> list3(list1);
-    cout << list3;
-    list3 = list3 + list1;
-    cout << "list3: \n" <<list3;
-    cout << list3 + list2;*/
+     nsOfList::List<int> list1;
+     list1.push_back(1);
+     list1.push_back(2);
+     list1.push_back(3);
+     cout << list1 << '\n';
+     list1 = list1 + 4;
+     cout << list1 << '\n';
+     nsOfList::List<int> list2;
+     list2.push_back(22);
+     cout << (list1 + list2);
+     cout << " list 3_1 \n";
+     nsOfList::List<int> list3(list1);
+     cout << list3;
+     list3 = list3 + list1;
+     cout << "list3: \n" <<list3;
+     cout << list3 + list2;*/
     //// unique ptr
-        /*
-        unique_ptr<int> ptr(new int(555));
-        int *x = ptr.get();
-        cout << &(*ptr) << '\n';
-        cout << ptr.get()<< '\n';
-        cout << x<< '\n';
-    */
-    RUN_ALL_TESTS();
+    /*
+    unique_ptr<int> ptr(new int(555));
+    int *x = ptr.get();
+    cout << &(*ptr) << '\n';
+    cout << ptr.get()<< '\n';
+    cout << x<< '\n';
+*/
+
+//    RUN_ALL_TESTS();
     return 0;
 }

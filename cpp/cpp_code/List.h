@@ -8,13 +8,23 @@
 #include <iostream>
 #include <cassert>
 
+//TODO 1) if char* or int* etc than will be memory leak!
+// The solution is the (partial) specialization.
+
+namespace Constants{
+    extern const double earth_radius;
+    extern const double mercury_radius;
+    extern const double venus_radius;
+}
+
+
 namespace nsOfList {
-    using namespace std;
+    using std::cout;
 
     template<typename T>
     class List;  // pre-declare the template class itself
     template<typename T>
-    std::ostream &operator<< (std::ostream &o, const List<T> &t);
+    std::ostream &operator<<(std::ostream &o, const List<T> &t);
 
     template<typename T>
     bool operator==(List<T> &t, List<T> &t1);
@@ -26,24 +36,43 @@ namespace nsOfList {
     class List {
     public:
         List();
+
         List(List<T> &t);
+        List(const std::initializer_list<T> &list);
+
         ~List();
-        void push_back(T data);
+
+        List<T>& push_back(T data);
+
         void clear();
-        int getSize () const{ return Size; }
+
+        int getSize() const { return Size; }
+
         void push_front(T data);
+
         void pop_back();
+
         void insert(T value, int index);
+
         void removeAt(int index);
-        T &front();
-        T &back();
+
+        T &front(void);
+
+        T &back(void);
+
         void pop_front();
-        T& operator[](int index);
-        List<T>& operator=(List<T> &t);
-        friend bool operator== <>(List &t, List &t1);
-        friend bool operator!= <>(List &t, List &t1);
-        friend std::ostream &operator<< <>(std::ostream &o, const List &t);
-        List<T>& operator+(T o);
+
+        T &operator[](int index);
+
+        List<T> &operator=(List<T> &t);
+
+        friend bool operator==<>(List &t, List &t1);
+
+        friend bool operator!=<>(List &t, List &t1);
+
+        friend std::ostream &operator<<<>(std::ostream &o, const List &t);
+
+        List<T> &operator+(T o);
 
     private:
         template<typename E>
@@ -58,12 +87,14 @@ namespace nsOfList {
             }
         };
 
-        Node<T>* getHeadNode(){
+        Node<T> *getHeadNode() {
             return head;
         }
-        Node<T>* getLastNode(){
+
+        Node<T> *getLastNode() {
             return lastNode;
         }
+
         int Size{};
         Node<T> *head = nullptr;
         Node<T> *lastNode = nullptr;
@@ -83,7 +114,7 @@ namespace nsOfList {
 
 
     template<typename T>
-    void List<T>::push_back(T data) { // copy
+    List<T>& List<T>::push_back(T data) { // copy
 //        cout << "inside push back!"<< "\n";
         if (head == nullptr) {
             head = new Node<T>(data);
@@ -97,6 +128,7 @@ namespace nsOfList {
             lastNode = current->pNext;
         }
         Size++;
+        return  *this;
     }
 
     template<typename T>
@@ -136,7 +168,7 @@ namespace nsOfList {
         if (index == 0) {
             push_front(value);
         } else {
-             previous = this->head;
+            previous = this->head;
             for (int i = 0; i < index - 1; i++) {
                 previous = previous->pNext;
             }
@@ -144,7 +176,7 @@ namespace nsOfList {
             previous->pNext = newNode;
             Size++;
         }
-        if (index == Size) {lastNode = previous; }
+        if (index == Size) { lastNode = previous; }
     }
 
     template<typename T>
@@ -162,7 +194,7 @@ namespace nsOfList {
             delete toDelete;
             Size--;
 
-            if (index == Size-1) {
+            if (index == Size - 1) {
                 lastNode = previous->pNext;
             }
         }
@@ -190,7 +222,7 @@ namespace nsOfList {
     }
 
     template<typename T>
-    List<T>& operator+ (List<T> &t, List<T> &t2) {
+    List<T> &operator+(List<T> &t, List<T> &t2) {
 //        cout << "Starting to add objects." <<'\n';
         for (int i = 0; i < t2.getSize(); ++i) {
 //            cout << i << " i " << '\n';
@@ -204,7 +236,7 @@ namespace nsOfList {
 
 
     template<typename T>
-    std::ostream &operator<< (std::ostream &out, nsOfList::List<T> &t) {
+    std::ostream &operator<<(std::ostream &out, nsOfList::List<T> &t) {
         for (int i = 0; i < t.getSize(); i++) {
             std::cout << t[i] << " is some unrecognized object. \n";
         }
@@ -220,7 +252,7 @@ namespace nsOfList {
 //    }
 
     template<>
-    inline std::ostream &operator<< (std::ostream &out, nsOfList::List<int> &t) {
+    inline std::ostream &operator<<(std::ostream &out, nsOfList::List<int> &t) {
         for (int i = 0; i < t.getSize(); i++) {
             std::cout << t[i] << " this is an integer! \n";
         }
@@ -228,8 +260,8 @@ namespace nsOfList {
     }
 
 
-    template< typename T>
-    List<T>& List<T>::operator+(T o){
+    template<typename T>
+    List<T> &List<T>::operator+(T o) {
         push_back(o);
         return *this;
     }
@@ -241,28 +273,32 @@ namespace nsOfList {
 
     template<typename T>
     List<T> &List<T>::operator=(List<T> &t) {
-        if(this != &t) *this = *this + t;
+        if (this != &t) *this = *this + t;
         return *this;
     }
+
     template<typename T>
     bool operator==(List<T> &t, List<T> &t1) {
-        if(&t == &t1) return true;
-        if(t.getSize() != t.getSize()) return false;
-        for(int i = 0; i < t.getSize(); i++){
-            if(t[i] != t1[i]) return false;
+        if (&t == &t1) return true;
+        if (t.getSize() != t.getSize()) return false;
+        for (int i = 0; i < t.getSize(); i++) {
+            if (t[i] != t1[i]) return false;
         }
         return true;
     }
 
     template<typename T>
     bool operator!=(List<T> &t, List<T> &t1) {
-        if(&t == &t1) return false;
-        if(t.getSize() != t.getSize()) return true;
-        for(int i = 0; i < t.getSize(); i++){
-            if(t[i] != t1[i]) return true;
-        }
-        return false;
+        return !(t == t1);
     }
+
+    template<typename T>
+    List<T>::List(const std::initializer_list<T> &list) {
+        for (auto &element : list)
+        {
+            this->push_back(element);
+        }
+    }
+
 }
 #endif //CPP_CODE_LIST_H
-
