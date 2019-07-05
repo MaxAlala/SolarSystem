@@ -59,13 +59,30 @@ void threadFunction(int &x){
 
 int main( int argc, char* argv[])
 {
+    Object o;
+    Object &o_r = o;
+
+    int xx = 1234;
+    int &xxr = xx;
+
+    int x = (1,024);
+    if(x > 0 or x == 20 )cout << "hello! \n";
 //    int xx = 4;
 //    cout << sizeof xx; //!!!
 //    testing::InitGoogleTest(&argc, argv);
 //
-    const B b{};
+/*char *char_ar = "qweqwe";
+char *char_ar2 = "q22qweqwerqwer";
+char_ar2 = char_ar;
+cout << char_ar2 << endl;
+    int * integer ;
+    *integer = 5555;// stop, what?
+    double dob = double (5);
+    const class B b{};*/
 //    b.prot = 55;
-    b.method();
+//    b.method();
+
+
     ////STL
 //    vector<int> vec = {1,2,3,4,-5,-7};
 //    countPositiveNumbers(vec);

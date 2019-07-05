@@ -35,7 +35,7 @@ accumulate(next(b), e, startVal, lambda);
 // same story about it's methods, they are inside!
 class Object{
 private:
-    string name = "";
+    string name;
     double weight{};
 
 public:
@@ -43,21 +43,21 @@ public:
     string const getName();
     string& setName();
     double& setWeight();
-    explicit Object(string name, double weight):name(std::move(name)), weight(weight){}
+    explicit Object(string name = " ", double weight = 0):name(std::move(name)), weight(weight){}
     Object()= default;
     friend bool operator==(Object &o, Object &o1);
     friend bool operator!=(Object &o, Object &o1);
     virtual ~Object()= default;
     void print(){cout << name << " " << weight << endl; };
     void doAction_uninherited();
-    virtual void doAction();
+    virtual void doAction() const;
 };
 
 class ObjectChild: public Object{
 private:
 public:
     explicit ObjectChild(string name, double weight):Object(std::move(name), weight){}
-    void doAction() override;
+    void doAction() const override final;
     void doAction_uninherited();
 };
 

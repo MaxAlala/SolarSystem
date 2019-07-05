@@ -48,9 +48,40 @@ auto returnInt() -> int{// trailing
 }
 
 
+void printWithBeautyForm()
+{
+    const int Cities = 5;
+    const int Years = 4;
+    using namespace std;
+    const char * cities[Cities] = // array of pointers
+            { // to 5 strings
+                    "Gribble City",
+                    "Gribbletown",
+                    "New Gribble",
+                    "San Gribble",
+                    "Gribble Vista"
+            };
+    int maxtemps[Years][Cities] = // 2-D array
+            {
+                    {96, 100, 87, 101, 105}, // values for maxtemps[0]
+                    {96, 98, 91, 107, 104}, // values for maxtemps[1]
+                    {97, 101, 93, 108, 107}, // values for maxtemps[2]
+                    {98, 103, 95, 109, 108} // values for maxtemps[3]
+            };
+    cout << "Maximum temperatures for 2008 - 2011\n\n";
+    for (int city = 0; city < Cities; ++city)
+    {
+        cout << cities[city] << ":\t";
+        for (int year = 0; year < Years; ++year)
+            cout << maxtemps[year][city] << "\t";
+        cout << endl;
+    }
+// cin.get();
+}
+
 void testField(){
     ////pruning, aggregate types, rand?, numbers
-    unsigned int ui = 16;
+/*    unsigned int ui = 16;
     cout << (ui<<1) << endl; // & | ^-xor <<=
     cout << (-ui) << endl;
     signed short int si = 5;
@@ -78,7 +109,7 @@ void testField(){
     someInt x = 5;
     srand(time(0));
     std::cout << rand() << "\t" << "\n";
-        int nu = NULL;
+        int nu = NULL;*/
 
     ////cin fun
 /*    double d{};
@@ -132,13 +163,13 @@ void testField(){
     cout << **ptr3 << '\n';
     */
     ////// function
-    void(*func)();
+/*    void(*func)();
     func = testField;
     (*func)(); // explicit
     func(); // implicit
     using someFunc = void(*)(int, int);
     typedef void(*someFunc2)(int, int);
-    function<int(int,int)> someFunc3; // functional lib
+    function<int(int,int)> someFunc3; // functional lib*/
     /////////////reference_wrapper = to not use pointer in collection for virtual f.
 /*    vector<reference_wrapper<Object>> v;
     vector<reference_wrapper<Object *>> v2; // works same, but problems with dynamic memory
@@ -238,7 +269,7 @@ void testField(){
     cout << ifstream1.tellg() << '\n';*/
 
 
-
+    printWithBeautyForm();
 
 
 

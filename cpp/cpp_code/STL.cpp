@@ -6,7 +6,7 @@
 #include <algorithm>
 #include "STL.h"
 
-void ObjectChild::doAction() {
+void ObjectChild::doAction() const{
     cout << "Child does an action! \n";
 }
 
@@ -30,7 +30,7 @@ double const Object::getWeight() { return weight;}
 
 string const Object::getName() { return name;}
 
-void Object::doAction(){
+void Object::doAction() const{
     for(int i = 0; i < 10; i++){
         this_thread::sleep_for(chrono::milliseconds(1000));
         cout << i << name << " " << weight <<" object does an action. \n";

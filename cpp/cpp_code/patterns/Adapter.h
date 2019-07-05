@@ -5,7 +5,7 @@
 #ifndef CPP_CODE_ADAPTER_H
 #define CPP_CODE_ADAPTER_H
 
-#include <boost/a>
+//#include <boost/a>
 
 class Adapter {
 

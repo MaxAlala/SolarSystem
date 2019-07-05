@@ -17,10 +17,8 @@ namespace Constants{
     extern const double venus_radius;
 }
 
-
 namespace nsOfList {
     using std::cout;
-
     template<typename T>
     class List;  // pre-declare the template class itself
     template<typename T>
@@ -56,9 +54,9 @@ namespace nsOfList {
 
         void removeAt(int index);
 
-        T &front(void);
+        T &front(void) const;
 
-        T &back(void);
+        T &back(void) const;
 
         void pop_front();
 
@@ -210,13 +208,13 @@ namespace nsOfList {
     }
 
     template<typename T>
-    T &List<T>::front() {
+    T &List<T>::front() const {
         assert(head != nullptr);
         return head->data;
     }
 
     template<typename T>
-    T &List<T>::back() {
+    T &List<T>::back() const {
         assert(head != nullptr);
         return this->operator[](Size - 1);
     }
