@@ -11,6 +11,9 @@
 //#include <wincon.h>
 #include "features.h"
 #include "STL.h"
+#include <iostream>
+#include <fstream> // file I/O support
+#include <cstdlib> // support for exit()
 //#include "windows.h"
 
 #define NDEBUG // turn off all assert macroses
@@ -29,7 +32,11 @@ strlen
 // elipsis cstdarg va_list, va_start, va_arg, va_end
 
 
-
+template<class T1, class T2>
+auto gt(T1 x, T2 y) -> decltype(x + y)
+{
+    return x + y;
+}
 //void getarr(int arr[]) == void getarr(int *arr)
 //r-value fun
 void rvalue_test(const int &ref)
@@ -79,6 +86,140 @@ void printWithBeautyForm()
 // cin.get();
 }
 
+int fill_array(double ar[], int limit) // read array
+{
+    using namespace std;
+    double temp;
+    int i;
+    for (i = 0; i < limit; i++)
+    {
+        cout << "Enter value #" << (i + 1) << ": ";
+        cin >> temp;
+        if (!cin) // bad input
+        {
+            cin.clear();
+            while (cin.get() != '\n')
+                continue;
+            cout << "Bad input; input process terminated.\n";
+            break;
+        }
+        else if (temp < 0) // signal to terminate
+            break;
+        ar[i] = temp;
+    }
+    return i;
+}
+
+// sumafile.cpp -- functions with an array argument
+
+const int SIZE = 60;
+int readNums()
+{
+    using namespace std;
+    char filename[SIZE];
+    ifstream inFile; // object for handling file input
+    cout << "Enter name of data file: ";
+    cin.getline(filename, SIZE);
+    inFile.open(filename); // associate inFile with a file
+    if (!inFile.is_open()) // failed to open file
+    {
+        cout << "Could not open the file " << filename << endl;
+        cout << "Program terminating.\n";
+        exit(EXIT_FAILURE);
+    }
+    double value;
+    double sum = 0.0;
+    int count = 0; // number of items read
+    inFile >> value; // get first value
+    while (inFile.good()) // while input good and not at EOF
+    {
+        ++count; // one more item read
+        sum += value; // calculate running total
+        inFile >> value; // get next value
+    }
+    if (inFile.eof())
+        cout << "End of file reached.\n";
+    else if (inFile.fail())
+        cout << "Input terminated by data mismatch.\n";
+    else
+        cout << "Input terminated for unknown reason.\n";
+    if (count == 0)
+        cout << "No data processed.\n";
+    else
+    {
+        cout << "Items read: " << count << endl;
+        cout << "Sum: " << sum << endl;
+        cout << "Average: " << sum / count << endl;
+    }
+    inFile.close(); // finished with the file
+    return 0;
+}
+
+const double * f1(const double ar[], int n);
+const double * f2(const double [], int);
+const double * f3(const double *, int);
+const double * f1(const double * ar, int n)
+{
+    return ar;
+}
+const double * f2(const double ar[], int n)
+{
+    return ar+1;
+}
+const double * f3(const double ar[], int n)
+{
+    return ar+2;
+}
+void arrayFuncPointers(){
+
+
+        using namespace std;
+        double av[3] = {1112.3, 1542.6, 2227.9};
+// pointer to a function
+        const double *(*p1)(const double *, int) = f1;
+        auto p2 = f2; // C++11 automatic type deduction
+// pre-C++11 can use the following code instead
+// const double *(*p2)(const double *, int) = f2;
+        cout << "Using pointers to functions:\n";
+        cout << " Address Value\n";
+        cout << (*p1)(av,3) << ": " << *(*p1)(av,3) << endl;
+        cout << p2(av,3) << ": " << *p2(av,3) << endl;
+// pa an array of pointers
+// auto doesn't work with list initialization
+        const double *(*pa[3])(const double *, int) = {f1,f2,f3};
+// but it does work for initializing to a single value
+// pb a pointer to first element of pa
+        auto pb = pa;
+// pre-C++11 can use the following code instead
+
+// const double *(**pb)(const double *, int) = pa;
+    cout << "\nUsing an array of pointers to functions:\n";
+    cout << " Address Value\n";
+    for (int i = 0; i < 3; i++)
+        cout << pa[i](av,3) << ": " << *pa[i](av,3) << endl;
+    cout << "\nUsing a pointer to a pointer to a function:\n";
+    cout << " Address Value\n";
+    for (int i = 0; i < 3; i++)
+        cout << pb[i](av,3) << ": " << *pb[i](av,3) << endl;
+// what about a pointer to an array of function pointers
+    cout << "\nUsing pointers to an array of pointers:\n";
+    cout << " Address Value\n";
+// easy way to declare pc
+    auto pc = &pa;
+// pre-C++11 can use the following code instead
+// const double *(*(*pc)[3])(const double *, int) = &pa;
+    cout << (*pc)[0](av,3) << ": " << *(*pc)[0](av,3) << endl;
+// hard way to declare pd
+    const double *(*(*pd)[3])(const double *, int) = &pa;
+// store return value in pdb
+    const double * pdb = (*pd)[1](av,3);
+    cout << pdb << ": " << *pdb << endl;
+// alternative notation
+    cout << (*(*pd)[2])(av,3) << ": " << *(*(*pd)[2])(av,3) << endl;
+// cin.get();
+
+}
+
 void testField(){
     ////pruning, aggregate types, rand?, numbers
 /*    unsigned int ui = 16;
@@ -120,12 +261,12 @@ void testField(){
     cout << d << " " << str << "\n";*/
     ////arrays
 
-/*
     int array[] = {1,2,3,4,5};
     cout << &array[1] << "\n";
     cout << array+1 << "\n";
     cout << array[1] << "\n";
     cout << *(array+1) << "\n";
+    cout << (array+1)[2] << "\n";
 
     char *ch = "hello";
     char ch2[] = "hello";
@@ -138,8 +279,9 @@ void testField(){
 
     int **array5 = new int*[20];
     int (*array6)[5] = new int[6][5];
-
-*/
+    int *ar_int = new int[5];
+    ar_int[4] = 555;
+    cout  << (*array6)[3]<< "get first elem \n";
 
     //// const
 

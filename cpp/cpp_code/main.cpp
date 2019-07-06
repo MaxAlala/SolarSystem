@@ -23,6 +23,12 @@ private:
 public:
     int x = 10;
     int y = 5;
+    void doWork(int){
+
+    }
+    void doWork(){
+
+    }
 protected:
     int prot = 5;
 };
@@ -32,6 +38,13 @@ private:
     int z;
 
 public:
+//    using A::doWork;
+
+    void doWork(){
+
+    }
+
+
     using A::prot; // cant do it with private
     void  virtual method() final {
         cout << y;
@@ -61,12 +74,16 @@ int main( int argc, char* argv[])
 {
     Object o;
     Object &o_r = o;
-
+    int z = 10;
+    cout << !z << "no Z" << endl;
     int xx = 1234;
     int &xxr = xx;
 
     int x = (1,024);
     if(x > 0 or x == 20 )cout << "hello! \n";
+
+    B b;
+    b.A::doWork(5);// error without using A::doWork
 //    int xx = 4;
 //    cout << sizeof xx; //!!!
 //    testing::InitGoogleTest(&argc, argv);

@@ -8,7 +8,7 @@ mythread::mythread(int ID, QObject *parent, CurrentX reg) : QThread(parent)
     this-> socketDescriptor = ID;
 }
 
-QString& mythread::getAbsolutePath(){
+QString& mythread::getAbsolutePath (){
  return absolutePath;
 }
 
@@ -101,7 +101,7 @@ void mythread::startTransferTwoElement(){
         double y1;
         double x2;
         double y2;
-
+        volatile double counterForVec = 0;
         if (file.is_open()) {
             while (getline(file, entire))
             {
@@ -126,7 +126,7 @@ void mythread::startTransferTwoElement(){
             emit(sendLog("cannot open file!"));
             return;
         }
-        uint counterForVec = 0;
+
 
         while(counterForVec != vecX.size()-2){
             while(flag == false){

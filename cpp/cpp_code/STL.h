@@ -43,8 +43,7 @@ public:
     string const getName();
     string& setName();
     double& setWeight();
-    explicit Object(string name = " ", double weight = 0):name(std::move(name)), weight(weight){}
-    Object()= default;
+    explicit Object(string name = " ", const double weight = 0):name(std::move(name)), weight(weight){}
     friend bool operator==(Object &o, Object &o1);
     friend bool operator!=(Object &o, Object &o1);
     virtual ~Object()= default;

@@ -35,7 +35,7 @@ namespace nsOfList {
     public:
         List();
 
-        List(List<T> &t);
+        List(const List<T> &t);
         List(const std::initializer_list<T> &list);
 
         ~List();
@@ -62,7 +62,7 @@ namespace nsOfList {
 
         T &operator[](int index);
 
-        List<T> &operator=(List<T> &t);
+        List<T> &operator=(const List<T> &t);
 
         friend bool operator==<>(List &t, List &t1);
 
@@ -265,12 +265,12 @@ namespace nsOfList {
     }
 
     template<typename T>
-    List<T>::List(List<T> &t) {
+    List<T>::List(const List<T> &t) {
         *this = *this + t;
     }
 
     template<typename T>
-    List<T> &List<T>::operator=(List<T> &t) {
+    List<T> &List<T>::operator=(const List<T> &t) {
         if (this != &t) *this = *this + t;
         return *this;
     }
