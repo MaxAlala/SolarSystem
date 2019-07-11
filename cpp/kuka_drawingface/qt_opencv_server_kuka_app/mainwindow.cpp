@@ -255,3 +255,8 @@ void MainWindow::on_sendZ_clicked()
 {
     emit(sendZ(ui->inputZ->text()));
 }
+
+void MainWindow::on_finish_label_linkActivated(const QString &link)
+{
+
+}

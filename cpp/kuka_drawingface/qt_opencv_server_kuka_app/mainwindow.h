@@ -43,6 +43,8 @@ private slots:
     void on_sendZ_clicked();
     void defaultSettings();
 
+    void on_finish_label_linkActivated(const QString &link);
+
 private:
     CurrentX currentX = TWO_ELEM_REGIME;
     int counter = 0;

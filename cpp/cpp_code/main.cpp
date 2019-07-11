@@ -11,6 +11,7 @@
 #include "List.h"
 #include "STL.h"
 #include "MyString.h"
+#include "feature2.h"
 #include <climits>
 //extern int globa;
 
@@ -72,7 +73,8 @@ void threadFunction(int &x){
 
 int main( int argc, char* argv[])
 {
-    Object o;
+    
+/*    Object o;
     Object &o_r = o;
     int z = 10;
     cout << !z << "no Z" << endl;
@@ -83,7 +85,7 @@ int main( int argc, char* argv[])
     if(x > 0 or x == 20 )cout << "hello! \n";
 
     B b;
-    b.A::doWork(5);// error without using A::doWork
+    b.A::doWork(5);// error without using A::doWork*/
 //    int xx = 4;
 //    cout << sizeof xx; //!!!
 //    testing::InitGoogleTest(&argc, argv);
@@ -124,7 +126,7 @@ cout << char_ar2 << endl;
 
 
     ////feature place
-    testField();
+//    testField();
     ////List
     /* nsOfList::List<Object> list;
      Object o("max", 65);
@@ -177,5 +179,9 @@ cout << char_ar2 << endl;
 */
 
 //    RUN_ALL_TESTS();
+
+//    useSameMemorzNew();
+    battleField();
+
     return 0;
 }

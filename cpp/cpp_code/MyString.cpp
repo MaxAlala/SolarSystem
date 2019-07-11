@@ -1,170 +1,105 @@
-//
-// Created by X on 30.06.2019.
-//
+// string1.cpp -- String class methods
+#include <cstring> // string.h for some
+#include "MyString.h" // includes <iostream>
 
-#include "MyString.h"
-#include<iostream>
-#include <cstring>
+using std::cin;
+using std::cout;
+// initializing static class member
+int String::num_strings = 0;
+// static method
+int String::HowMany()
+{
+    return num_strings;
+}
+// class methods
+String::String(const char * s) // construct String from C string
+{
+    len = std::strlen(s); // set size
+    str = new char[len + 1]; // allot storage
+    std::strcpy(str, s); // initialize pointer
+    num_strings++; // set object count
+}
+String::String() // default constructor
+{
+    len = 4;
+    str = new char[1];
+    str[0] = '\0'; // default string
+    num_strings++;
+}
 
-using namespace std;
+String::String(const String & st)
+{
+    num_strings++; // handle static member update
+    len = st.len; // same length
+    str = new char [len + 1]; // allot space
+    std::strcpy(str, st.str); // copy string to new location
+}
+String::~String() // necessary destructor
+{
+    --num_strings; // required
+    delete [] str; // required
+}
+// overloaded operator methods
+// assign a String to a String
 
 
-
-
-
-
-MyString::MyString(const char *str)
-    {
-
-        length = strlen(str);// функция strlen получает количество символов в строке которую мы передаём в объект
-
-        // выделяем память для динамического массива где будет храниться наша строка
-        // +1 символ так как нужно место в массиве под терминирующий 0
-        this->str = new char[length + 1];
-
-        // копируем символы строки в массив нашего класса
-        for (int i = 0; i < length; i++)
-        {
-            this->str[i] = str[i];
-        }
-
-        //закрываем строку терминирующим нулём
-        this->str[length] = '\0';
-
-    }
-    // деструктор, отвечает за освобождение ресурвов занятых объектом, вызывается при уничтожении объекта класса
-    MyString::~MyString()
-    {
-        delete[] this->str;
-    }
-
-    // конструктор копировании, необходим для создании точной копи объекта класса но в другой области памяти
-    MyString::MyString(const MyString &other)
-    {
-        length = strlen(other.str);
-        this->str = new char[length + 1];
-
-        for (int i = 0; i < length; i++)
-        {
-            this->str[i] = other.str[i];
-        }
-
-        this->str[length] = '\0';
-    }
-
-    // перегруженый оператор присваивания, вызывается когда необходимо присвоить значение одного объекта другому
-    MyString &MyString::operator =(const MyString& other)
-    {
-        // здесь логика похожа на ту которая реализована в конструкторе, за исключением того, что нам нужно позаботиться
-        // об освобождении ресурсов объекта если до копирования в него новой строки он уже содержал код
-        //+ страндартный синтаксис перегрузки оператора =
-        if (this->str != nullptr)
-        {
-            delete[] str;
-        }
-
-        length = strlen(other.str);
-        this->str = new char[length + 1];
-
-        for (int i = 0; i < length; i++)
-        {
-            this->str[i] = other.str[i];
-        }
-
-        this->str[length] = '\0';
-
+String & String::operator=(const String & st)
+{
+    if (this == &st)
         return *this;
+    delete [] str;
+    len = st.len;
+    str = new char[len + 1];
+    std::strcpy(str, st.str);
+    return *this;
+}
+// assign a C string to a String
+String & String::operator=(const char * s)
+{
+    delete [] str;
+    len = std::strlen(s);
+    str = new char[len + 1];
+    std::strcpy(str, s);
+    return *this;
+}
+// read-write char access for non-const String
+char & String::operator[](int i)
+{
+    return str[i];
+}
+// read-only char access for const String
+const char & String::operator[](int i) const
+{
+    return str[i];
+}
 
-    }
-    MyString &MyString::operator =(const char* other)
-    {
-        // здесь логика похожа на ту которая реализована в конструкторе, за исключением того, что нам нужно позаботиться
-        // об освобождении ресурсов объекта если до копирования в него новой строки он уже содержал код
-        //+ страндартный синтаксис перегрузки оператора =
-        if (this->str != nullptr)
-        {
-            delete[] str;
-        }
-
-        length = strlen(other);
-        this->str = new char[length + 1];
-
-        for (int i = 0; i < length; i++)
-        {
-            this->str[i] = other[i];
-        }
-
-        this->str[length] = '\0';
-
-        return *this;
-
-    }
-    //перегруженный оператор сложения, в текущей реализации класса String необходим для конкатенации строк
-    MyString MyString::operator+(const MyString &other)
-    {
-        //создаём новый пустой объект где будим хранить результат конкатенации строк и который будет результатом работы
-        // перегруженного оператора +
-        MyString newStr;
-        // получаем количество символов в обеих строках для конкатенации
-
-        int thisLength = strlen(this->str);
-        int otherLength = strlen(other.str);
-
-        newStr.length = thisLength + otherLength;
-
-        // выделяем место в динамической памяти под новую строку
-        newStr.str = new char[thisLength + otherLength + 1];
-
-        //копируем данные из 2х конкатенируемых строк в новую строку
-        int i = 0;
-        for (; i < thisLength; i++)
-        {
-            newStr.str[i] = this->str[i];
-        }
-
-        for (int j = 0; j < otherLength; j++, i++)
-        {
-            newStr.str[i] = other.str[j];
-        }
-
-        newStr.str[thisLength + otherLength] = '\0';
-
-        // возвращаем результа
-        // возвращаем результат конкатенации
-        return newStr;
-    }
-
-    // выводит строку в консоль, в идеале для этого необходима перегрузка оператора «
-    void MyString::Print()
-    {
-        cout << str;
-    }
-
-    int MyString::Length()
-    {
-        return length;
-    }
-
-    bool MyString::operator ==(const MyString & other)
-    {
-        if (this->length != other.length)
-        {
-            return false;
-        }
-
-        for (int i = 0; i < this->length; i++)
-        {
-            if (this->str[i] != other.str[i])
-            {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    bool MyString::operator !=(const MyString & other)
-    {
-        return !(this->operator==(other));
-    }
-
-
+// overloaded operator friends
+bool operator<(const String &st1, const String &st2)
+{
+    return (std::strcmp(st1.str, st2.str) < 0);
+}
+bool operator>(const String &st1, const String &st2)
+{
+    return st2 < st1;
+}
+bool operator==(const String &st1, const String &st2)
+{
+    return (std::strcmp(st1.str, st2.str) == 0);
+}
+// simple String output
+ostream & operator<<(ostream & os, const String & st)
+{
+    os << st.str;
+    return os;
+}
+// quick and dirty String input
+istream & operator>>(istream & is, String & st)
+{
+    char temp[String::CINLIM];
+    is.get(temp, String::CINLIM);
+    if (is)
+        st = temp;
+    while (is && is.get() != '\n')
+        continue;
+    return is;
+}
