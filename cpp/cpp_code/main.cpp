@@ -13,9 +13,9 @@
 #include "MyString.h"
 #include "feature2.h"
 #include <climits>
+#include "cppSerializationProgram.h"
+
 //extern int globa;
-
-
 // some features with class
 using namespace std;
 class A{
@@ -181,7 +181,14 @@ cout << char_ar2 << endl;
 //    RUN_ALL_TESTS();
 
 //    useSameMemorzNew();
-    battleField();
-
+//    battleField();
+    planetPopulation();
+//    fstream myfile;
+//    myfile.open ("filename.dat");
+//    myfile << "Writing this to a file.\n";
+//    myfile << "000";
+//    myfile.close();
     return 0;
+    return 0;
+
 }

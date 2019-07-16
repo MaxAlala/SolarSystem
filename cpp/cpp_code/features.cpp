@@ -31,6 +31,29 @@ strlen
 */
 // elipsis cstdarg va_list, va_start, va_arg, va_end
 
+#include <initializer_list>
+double sum(std::initializer_list<double> il);
+double average(const std::initializer_list<double> & ril);
+double sum(std::initializer_list<double> il)
+{
+    double tot = 0;
+    for (auto p = il.begin(); p !=il.end(); p++)
+        tot += *p;
+    return tot;
+}
+double average(const std::initializer_list<double> & ril)
+{
+    double tot = 0;
+    int n = ril.size();
+    double ave = 0.0;
+    if (n > 0)
+    {
+        for (auto p = ril.begin(); p !=ril.end(); p++)
+            tot += *p;
+        ave = tot / n;
+    }
+    return ave;
+}
 
 template<class T1, class T2>
 auto gt(T1 x, T2 y) -> decltype(x + y)
