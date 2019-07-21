@@ -9,6 +9,7 @@
 class feature2 {
 
 };
+void useTrueTypeRec();
 void useSameMemorzNew();
 void battleField();
 #endif //CPP_CODE_FEATURE2_H

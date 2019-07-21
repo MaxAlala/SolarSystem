@@ -14,6 +14,9 @@
 #include "feature2.h"
 #include <climits>
 #include "cppSerializationProgram.h"
+#include <boost/regex.hpp>
+#include <boost/lambda/lambda.hpp>
+#include <boost/type_index.hpp>
 
 //extern int globa;
 // some features with class
@@ -22,13 +25,15 @@ class A{
 private:
     int priv = 1999;
 public:
-    int x = 10;
+    mutable int x = 10;
     int y = 5;
     void doWork(int){
 
     }
-    void doWork(){
-
+    void doWork() const{
+        if(true){
+            x = 66 + 5;
+        }
     }
 protected:
     int prot = 5;
@@ -182,13 +187,23 @@ cout << char_ar2 << endl;
 
 //    useSameMemorzNew();
 //    battleField();
-    planetPopulation();
+//    planetPopulation();
 //    fstream myfile;
 //    myfile.open ("filename.dat");
 //    myfile << "Writing this to a file.\n";
 //    myfile << "000";
 //    myfile.close();
-    return 0;
-    return 0;
+//    useTrueTypeRec();
 
+//////////////// MyString
+String string1("Max");
+String string2("Max2");
+String string3("Max3");
+String string4("Max4");
+    cout << string4.HowMany() << "\n";
+    string4 = string3;
+    cout << string4 << "\n";
+    string1.swap(string2);
+    cout << string1;
+    return 0;
 }

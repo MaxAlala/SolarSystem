@@ -2,24 +2,27 @@
 #ifndef STRING1_H_
 #define STRING1_H_
 #include <iostream>
+#include <memory>
 using std::ostream;
+
 using std::istream;
+
 class String
 {
 private:
-    char * str; // pointer to string
-    int len; // length of string
-    static int num_strings; // number of objects
-    static const int CINLIM = 80; // cin input limit
+    struct Impl;
+    std::unique_ptr<Impl> pimpl; // pipmpl pattern to separate impl from interface
+
 public:
 // constructors and other methods
     String(const char * s); // constructor
     String(); // default constructor
     String(const String &); // copy constructor
     ~String(); // destructor
-    int length () const { return len; }
+    int length () const;
 // overloaded operator methods
     String & operator=(const String &);
+    String & swap(String & st);
     String & operator=(const char *);
     char & operator[](int i);
     const char & operator[](int i) const;
@@ -30,6 +33,6 @@ public:
     friend ostream & operator<<(ostream & os, const String & st);
     friend istream & operator>>(istream & is, String & st);
 // static function
-    static int HowMany();
+   int HowMany() const;
 };
 #endif

@@ -12,7 +12,117 @@
 
 
 
+#include <boost/type_index.hpp>
+#include <memory>
+#include <sstream>
+#include "vector"
+template<typename T>
+std::string to_string_impl(const T& t)
+{
+    std::stringstream ss;
+    ss << t;
+    return  ss.str();
+}
 
+std::vector<std::string> to_string()
+{
+    return {};
+}
+template<typename P1, typename ...Param>
+std::vector<std::string> to_string(const P1 &p1, const Param& ... param)
+{
+    std::vector<std::string> s;
+    s.push_back(to_string_impl(p1));
+
+    const auto remainder = to_string(param...);
+    s.insert(s.end(), remainder.begin(), remainder.end());
+    return s;
+}
+template<typename P1, typename ...Param>
+std::vector<std::string> to_string2(const P1 &p1, const Param& ... param)
+{
+    return {to_string_impl(param)...};//init vector with init list, for each param call string impl.
+}
+
+template<typename P1, typename ...Param>
+std::vector<std::string> to_string3(const P1 &p1, const Param& ... param)
+{
+    const auto to_string_impl = [](const auto &p){
+        std::stringstream ss;
+        ss << p;
+        return ss.str();
+    };
+    return {to_string_impl(param)...};//init vector with init list, for each param call string impl.
+}
+
+
+void useToString(){
+    const auto vec = to_string("hello!",9.3, 1,'h',1.3L);
+    for(const auto &o: vec)
+    {
+        std::cout << o << '\n';
+    }
+}
+
+class Investment {
+public:
+    virtual ~Investment(); // design
+    void putLog() noexcept {
+        using namespace std;
+        cout << "log. \n";
+    }
+};
+template<typename T, typename... Ts>
+std::unique_ptr<T> make_unique(Ts&&... params)
+{
+    return std::unique_ptr<T>(new T(std::forward<Ts>(params)...));
+}
+
+void makeLogEntry(Investment* i){
+    (*i).putLog();
+}
+void assignDefaultDeleter(){
+    using namespace std;
+    auto delInvmt = [](Investment* pInvestment) // this is now
+    { // inside
+        makeLogEntry(pInvestment); // makedelete
+        pInvestment; // Investment
+    };
+    std::unique_ptr<Investment, decltype(delInvmt)> // as
+            pInv(nullptr, delInvmt);
+}
+
+constexpr int pow(int base, int exp) noexcept
+{
+    return (exp == 0 ? 1 : base * pow(base, exp - 1));
+}
+constexpr int pow2(int base, int exp) noexcept // C++14
+{
+    auto result = 1;
+    for (int i = 0; i < exp; ++i) result *= base;
+    return result;
+}
+
+template<typename T>
+void f(const T& param) noexcept
+{
+    using std::cout;
+    using boost::typeindex::type_id_with_cvr;
+// show T
+    cout << "T = "
+         << type_id_with_cvr<T>().pretty_name()
+         << '\n';
+// show param's type
+    cout << "param = "
+         << type_id_with_cvr<decltype(param)>().pretty_name()
+         << '\n';
+}
+
+void useTrueTypeRec(){
+
+    const int& x = 555;
+    f(x);
+}
 ///////////
 class Widget{
 
@@ -153,8 +263,6 @@ void use_different_instantiations_for_same_sig(){
 
         cout << "//////////////////////////////one inst.. \n";
 
-        using std::cout;
-        using std::endl;
         using std::function;
         function<double(double)> ef1 = dub;
         function<double(double)> ef2 = square;
