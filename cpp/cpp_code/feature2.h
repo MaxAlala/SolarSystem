@@ -12,4 +12,5 @@ class feature2 {
 void useTrueTypeRec();
 void useSameMemorzNew();
 void battleField();
+void useHtmlBuilder();
 #endif //CPP_CODE_FEATURE2_H

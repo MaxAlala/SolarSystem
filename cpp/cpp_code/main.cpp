@@ -194,16 +194,18 @@ cout << char_ar2 << endl;
 //    myfile << "000";
 //    myfile.close();
 //    useTrueTypeRec();
+//
+////////////////// MyString
+//String string1("Max");
+//String string2("Max2");
+//String string3("Max3");
+//String string4("Max4");
+//    cout << string4.HowMany() << "\n";
+//    string4 = string3;
+//    cout << string4 << "\n";
+//    string1.swap(string2);
+//    cout << string1;
 
-//////////////// MyString
-String string1("Max");
-String string2("Max2");
-String string3("Max3");
-String string4("Max4");
-    cout << string4.HowMany() << "\n";
-    string4 = string3;
-    cout << string4 << "\n";
-    string1.swap(string2);
-    cout << string1;
+    useHtmlBuilder();
     return 0;
 }

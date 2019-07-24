@@ -16,6 +16,89 @@
 #include <memory>
 #include <sstream>
 #include "vector"
+#include <boost/algorithm/string.hpp>
+#include "string"
+
+
+using std::vector;
+using std::string;
+using std::ostringstream;
+struct HtmlElement {
+    string name;
+    string text;
+    vector <HtmlElement> elements;
+    const size_t indent_size = 2;
+
+    HtmlElement() {}
+    HtmlElement(const string &name, const string &text) : name(name), text(text) {}
+    string str(int indent = 0) const
+    {
+        ostringstream oss;
+        string i(indent_size* indent, ' ');
+        oss << i << "<" << name << ">" << std::endl;
+
+        if(text.size() > 0)
+            oss << string(indent_size*(indent + 1), ' ') << text << std::endl;
+
+        for(const auto& e : elements)
+            oss << e.str(indent + 1);
+
+        oss << i << "</" << name << ">" << std::endl;
+        return oss.str();
+    }
+};
+
+//class StringBuildr {  // adapter
+//    std::string s;
+//public:
+//    StringBuildr(const std::string &s) : s(s) {}
+//    StringBuildr to_lower_copy() const {
+//        return {boost::to_lower_copy(s)};
+//
+//    }
+//    std::vector<StringBuildr >split( const std::string& delimiter = " ") const {
+//        std::vector<std::string> parts;
+//        boost::split(parts, s, boost::is_any_of(delimiter),
+//                     boost::token_compress_on);
+//        return std::vector<StringBuildr>(parts.begin(), parts.end());
+//    }
+//
+//    size_t get_length() const { return  s.length(); }
+//};
+void useHtmlBuilder(){
+    string words[] = {"hello", "world"};
+    HtmlElement ul{"ul", ""};
+    for (auto& w : words)
+        ul.elements.push_back(HtmlElement{"li", w});
+    std::cout << ul.str() << std::endl;
+
+}
+
+
+class StringAdapter {  // adapter
+    std::string s;
+public:
+    StringAdapter(const std::string &s) : s(s) {}
+    StringAdapter to_lower_copy() const {
+        return {boost::to_lower_copy(s)};
+
+    }
+    std::vector<StringAdapter>split( const std::string& delimiter = " ") const {
+        std::vector<std::string> parts;
+        boost::split(parts, s, boost::is_any_of(delimiter),
+                     boost::token_compress_on);
+        return std::vector<StringAdapter>(parts.begin(), parts.end());
+    }
+
+    size_t get_length() const { return  s.length(); }
+};
+
+void useStringAdapter(){
+    StringAdapter s{"My lovely string!"};
+    for(auto& w: s.to_lower_copy().split()) std::cout << w.get_length() << '\n';
+}
+
+
 template<typename T>
 std::string to_string_impl(const T& t)
 {
