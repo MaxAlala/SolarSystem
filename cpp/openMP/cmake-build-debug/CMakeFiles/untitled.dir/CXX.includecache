@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/X/Desktop/ws/githubSolarSystemRepo/cpp/untitled/main.cpp
+iostream
+-
+vector
+-
+omp.h
+-
+algorithm
+-
+ctime
+-
+chrono
+-
+array
+-
+cmath
+-
+

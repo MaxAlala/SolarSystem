@@ -206,6 +206,96 @@ cout << char_ar2 << endl;
 //    string1.swap(string2);
 //    cout << string1;
 
-    useHtmlBuilder();
+//    useHtmlBuilder();
+
+    struct // no tag
+    {
+        int x; // 2 members
+        int y;
+    } position; // a structure variable
+
+    cout << R"+*("(Who wouldn't?)", she whispered.)+*" << endl;
+
+
+    cout << R"(Jim "King" Tutt uses "\n" instead of endl.)" << '\n';
+
+
+    union one4all
+    {
+        int int_val;
+        long long_val;
+        double double_val;
+    };
+
+    one4all pail;
+
+    pail.int_val = 15; // store an int
+    cout << pail.int_val;
+    pail.double_val = 1.38; // store a double, int value is lost
+    cout << pail.double_val;
+
+    int* p1, p2; // one ptr one not ptr
+
+    int * pt;
+    pt = (int *) 0xB8000000; // types now match
+
+
+    short tell[10];
+    auto ptr = &tell; // pas points to array of 20 shorts
+
+    cout << (int *) "Home of the jolly bytes";
+    int x = 2 * x++ * (3 - ++x); // don’t do it except as an experiment
+
+
+    int cats;
+    (cats = 17), 240;
+
+    cats = (17,240); //240
+
+    int y = 0;
+    for (x = 1; y != x; ++x) // continue while y is not equal to x
+        for (cin >> x; x == 0; cin >> x) // continue while x is 0
+
+            for (char ch = 'a'; ch <= 'z'; ch++)
+    cout << ch;
+    for (int x : {3, 5, 2, 8, 6})
+        cout << x << " ";
+
+    char ch = 'q';
+
+
+
+    cout << ch++ << " " << ch + 1 << endl;
+
+//    ar2[r][c] == *(*(ar2 + r) + c) // same thing
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     return 0;
 }

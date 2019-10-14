@@ -1,0 +1,4 @@
+"C:\Users\X\Desktop\apps_x\clion\CLion 2019.1.4\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" C:\Users\X\Desktop\ws\githubSolarSystemRepo\cpp\untitled
+-- Configuring done
+-- Generating done
+-- Build files have been written to: C:/Users/X/Desktop/ws/githubSolarSystemRepo/cpp/untitled/cmake-build-debug
