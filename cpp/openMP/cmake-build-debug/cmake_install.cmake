@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/X/Desktop/ws/githubSolarSystemRepo/cpp/untitled
+# Install script for directory: C:/Users/X/Desktop/ws/githubSolarSystemRepo/cpp/openMP
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/X/Desktop/ws/githubSolarSystemRepo/cpp/untitled/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/X/Desktop/ws/githubSolarSystemRepo/cpp/openMP/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

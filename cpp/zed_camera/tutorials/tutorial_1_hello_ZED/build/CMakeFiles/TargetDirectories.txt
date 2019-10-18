@@ -1,0 +1,3 @@
+C:/Users/X/Desktop/ws/githubSolarSystemRepo/cpp/zed_camera/tutorials/tutorial_1_hello_ZED/build/CMakeFiles/ZED_Tutorial_1.dir
+C:/Users/X/Desktop/ws/githubSolarSystemRepo/cpp/zed_camera/tutorials/tutorial_1_hello_ZED/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/X/Desktop/ws/githubSolarSystemRepo/cpp/zed_camera/tutorials/tutorial_1_hello_ZED/build/CMakeFiles/ZERO_CHECK.dir

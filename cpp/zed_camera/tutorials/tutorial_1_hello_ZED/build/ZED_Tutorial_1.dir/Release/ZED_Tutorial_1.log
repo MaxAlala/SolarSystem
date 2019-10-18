@@ -1,0 +1,8 @@
+﻿cl : командная строка warning D9002: пропуск неизвестного параметра "-g"
+cl : командная строка warning D9002: пропуск неизвестного параметра "-O3"
+  main.cpp
+C:\Users\X\Desktop\ws\githubSolarSystemRepo\cpp\zed_camera\tutorials\tutorial_1_hello_ZED\main.cpp(266): warning C4996: 'sl::spatialMappingState2str': объявлен deprecate
+  C:\Program Files (x86)\ZED SDK\include\sl_zed/defines.hpp(713): note:  см. объявление "sl::spatialMappingState2str"
+C:\Users\X\Desktop\ws\githubSolarSystemRepo\cpp\zed_camera\tutorials\tutorial_1_hello_ZED\main.cpp(274): warning C4996: 'sl::Camera::extractWholeMesh': объявлен deprecate
+  C:\Program Files (x86)\ZED SDK\include\sl_zed/Camera.hpp(1902): note:  см. объявление "sl::Camera::extractWholeMesh"
+  ZED_Tutorial_1.vcxproj -> C:\Users\X\Desktop\ws\githubSolarSystemRepo\cpp\zed_camera\tutorials\tutorial_1_hello_ZED\build\Release\ZED_Tutorial_1.exe

@@ -273,7 +273,8 @@ int main() {
 
 
     // task 8
-//    constexpr uint64_t size = 300;
+//    omp_set_num_threads(8);
+//    constexpr uint64_t size = 10000;
 //    vector<vector<int>> matrix(size);
 //    for ( int i = 0 ; i < size ; i++ )
 //        matrix[i].resize(size);
@@ -281,15 +282,17 @@ int main() {
 //                  [](std::vector<int> &vec){
 //                      vec.resize(size);
 //                      std::for_each(vec.begin(), vec.end(),[](int& x){x=1+rand()%size;});
-//                      std::for_each(vec.begin(),vec.end(),[](int& x){std::cout << x << " ";
+//                      std::for_each(vec.begin(),vec.end(),[](int& x){
+////                          std::cout << x << " ";
 //                      });
-//                      cout << endl;
+////                      cout << endl;
 //                  });
 //    std::vector<int > vector(size, 2);
 //    std::vector<int > resultVector(size, 0);
 //    int resultSum = 0;
 //    Timer t;
-//#pragma omp parallel for schedule(static,4)
+//#pragma omp parallel
+//#pragma omp for reduction(+: resultSum)
 //    for(int i = 0; i < matrix.size(); i++)
 //    {
 //        int counter = 0;
@@ -300,12 +303,14 @@ int main() {
 //                 }
 //        );
 //        resultVector.at(i) = resultSum;
+////        cout << resultVector.at(i) << "\t";
 //        resultSum = 0;
 //    }
+//
 //cout << t.elapsed() << " using openMP." <<endl;
 ////    for_each(resultVector.begin(), resultVector.end(),[](int x){cout << x << endl;});
+//t.reset();
 //
-//Timer t2;
 //    for(int i = 0; i < matrix.size(); i++)
 //    {
 //        int counter = 0;
@@ -316,89 +321,94 @@ int main() {
 //                 }
 //        );
 //        resultVector.at(i) = resultSum;
+////        cout << resultVector.at(i) << "\t";
 //        resultSum = 0;
 //    }
-//    cout << t2.elapsed() << " without openMP."<< endl;
-////    cout << ompt_get_mtime<< " without openMP."<< endl;
+//    cout << t.elapsed() << " without openMP."<< endl;
+//    cout << ompt_get_mtime<< " without openMP."<< endl;
 
 
 
 // Task 9
-
-    constexpr uint64_t sizeRaw = 6;
-    constexpr uint64_t sizeCol = 8;
-    vector<vector<int>> matrix(sizeRaw);
-    for ( int i = 0 ; i < sizeRaw ; i++ )
-        matrix[i].resize(sizeCol);
-    std::for_each(matrix.begin(),matrix.end(),
-                  [](std::vector<int> &vec){
-                      vec.resize(sizeCol);
-                      std::for_each(vec.begin(), vec.end(),[](int& x){x=1+rand()%sizeCol;});
-                      std::for_each(vec.begin(),vec.end(),[](int& x){std::cout << x << " ";
-                      });
-                      cout << endl;
-                  });
-
-
-    int minVal = matrix.at(0).at(0);
-    int maxVal = matrix.at(0).at(0);
-    Timer t;
-    omp_set_num_threads(3);
-#pragma omp parallel for
-    for(int i = 0; i < matrix.size(); i++)
-    {
-        for_each(matrix.at(i).begin(), matrix.at(i).end(),
-                 [&minVal, &maxVal](int x){
-                     if(x > maxVal) maxVal = x;
-                     if(x < minVal) minVal = x;
-                 }
-        );
-    }
-    cout << t.elapsed() << " using parallel for." <<endl;
-    Timer t2;
-
-    cout << minVal << " min." <<endl;
-    cout << maxVal << " max." <<endl;
-
-     minVal = matrix.at(0).at(0);
-     maxVal = matrix.at(0).at(0);
-
-#pragma omp critical
-    for(int i = 0; i < matrix.size(); i++)
-    {
-        for_each(matrix.at(i).begin(), matrix.at(i).end(),
-                 [&minVal, &maxVal](int x){
-                     if(x > maxVal) maxVal = x;
-                     if(x < minVal) minVal = x;
-                 }
-        );
-    }
-    cout << minVal << " min." <<endl;
-    cout << maxVal << " max." <<endl;
-    cout << t2.elapsed() << " with critical." <<endl;
+//
+//    constexpr uint64_t sizeRaw = 6;
+//    constexpr uint64_t sizeCol = 8;
+//    vector<vector<int>> matrix(sizeRaw);
+//    for ( int i = 0 ; i < sizeRaw ; i++ )
+//        matrix[i].resize(sizeCol);
+//    std::for_each(matrix.begin(),matrix.end(),
+//                  [](std::vector<int> &vec){
+//                      vec.resize(sizeCol);
+//                      std::for_each(vec.begin(), vec.end(),[](int& x){x=1+rand()%sizeCol;});
+//                      std::for_each(vec.begin(),vec.end(),[](int& x){std::cout << x << " ";
+//                      });
+//                      cout << endl;
+//                  });
+//
+//
+//    int minVal = matrix.at(0).at(0);
+//    int maxVal = matrix.at(0).at(0);
+//    Timer t;
+//    omp_set_num_threads(3);
+//#pragma omp parallel for
+//    for(int i = 0; i < matrix.size(); i++)
+//    {
+//#pragma omp critical
+//        for_each(matrix.at(i).begin(), matrix.at(i).end(),
+//                 [&minVal, &maxVal](int x) {
+//                     if (x > maxVal) maxVal = x;
+//                     if (x < minVal) minVal = x;
+//                 }
+//        );
+//    }
+//
+//    cout << t.elapsed() << " using parallel for." <<endl;
+//    Timer t2;
+//
+//    cout << minVal << " min." <<endl;
+//    cout << maxVal << " max." <<endl;
+////
+//     minVal = matrix.at(0).at(0);
+//     maxVal = matrix.at(0).at(0);
+//
+//#pragma omp critical
+//    for(int i = 0; i < matrix.size(); i++)
+//    {
+//        for_each(matrix.at(i).begin(), matrix.at(i).end(),
+//                 [&minVal, &maxVal](int x){
+//                     if(x > maxVal) maxVal = x;
+//                     if(x < minVal) minVal = x;
+//                 }
+//        );
+//    }
+//    cout << minVal << " min." <<endl;
+//    cout << maxVal << " max." <<endl;
+//    cout << t2.elapsed() << " with critical." <<endl;
 
 
 // Task 10
-    constexpr uint64_t size = 30;
-    vector<int > vec(size);
-    std::for_each(vec.begin(), vec.end(),[](int& x){x=1+rand()%size;});
-
-    int counter = 0;
-    omp_set_num_threads(10);
-#pragma  omp parallel for
-    for (int i = 0; i < vec.size(); ++i) {
-        if(vec.at(i) % 9 == 0) counter++;
-    }
-
-    cout << counter << " multiplies of 9" << endl;
-    counter = 0;
-
-    for (int i = 0; i < vec.size(); ++i) {
-        if(vec.at(i) % 9 == 0)
-#pragma omp atomic
-            counter++;
-    }
-    cout << counter << " multiplies of 9" << endl;
+//    constexpr uint64_t size = 30;
+//    vector<int > vec(size);
+//    std::for_each(vec.begin(), vec.end(),[](int& x){x=1+rand()%size;});
+//
+//    int counter = 0;
+//    omp_set_num_threads(10);
+//#pragma  omp parallel for
+//    for (int i = 0; i < vec.size(); ++i) {
+//        if(vec.at(i) % 9 == 0)
+//#pragma omp atomic
+//            counter++;
+//    }
+//
+//    cout << counter << " multiplies of 9" << endl;
+//    counter = 0;
+//
+//    for (int i = 0; i < vec.size(); ++i) {
+//        if(vec.at(i) % 9 == 0)
+//#pragma omp atomic
+//            counter++;
+//    }
+//    cout << counter << " multiplies of 9" << endl;
 
 
 // Task 11
@@ -407,13 +417,15 @@ int main() {
 //    vector<int > vec(size);
 //    std::for_each(vec.begin(), vec.end(),[](int& x){x=1+rand()%size;});
 //    int maxMultOfSeven = -1;
+//#pragma omp parallel
+//#pragma omp for
 //    for (int i = 0; i < vec.size(); ++i) {
 //        if (vec.at(i) % 7 == 0 && vec.at(i) > maxMultOfSeven)
 //#pragma omp critical
 //            maxMultOfSeven = vec.at(i);
 //    }
 //    cout << maxMultOfSeven << " max multiplies of 7." << endl;
-//
+
 
     // Task 12
 
@@ -427,7 +439,7 @@ int main() {
 //    printf("HelloWorld!\n");
 ////    cout << "Hello World!" << endl;
 //    }
-
+//
 //#pragma omp parallel
 //    {
 //        for(int i=omp_get_num_threads()-1; i>=0; i--)
@@ -451,8 +463,8 @@ int main() {
 
 
 // Task 13
-//
-//vector<int> vector = {1,1,1,0,0,0}; // 52
+
+//vector<int> vector = {1,1,1,0,0,0}; // 56
 //
 //  int number = 0;
 //#pragma omp parallel for shared(vector)
@@ -466,7 +478,7 @@ int main() {
 
 // Task 14
 
-
+//
 //int number = 3;
 //int square = 0;
 //    #pragma omp parallel for shared(square)
@@ -495,7 +507,7 @@ int main() {
 //        };
 //    }
 
-
+////////////////////////
 
 
 //#pragma omp parallel shared(num) //В этот момент создается 4 нити, переменная num у них будет общей
