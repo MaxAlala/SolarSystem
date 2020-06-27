@@ -1,0 +1,22 @@
+[
+{
+  "directory": "/home/northlight/SolarSystem/cpp/camera_calibration/stereo-calibration-master",
+  "command": "/usr/bin/g++    -I/home/northlight/SolarSystem/cpp/camera_calibration/stereo-calibration-master -I/usr/include/opencv -I/home/northlight/SolarSystem/cpp/camera_calibration/stereo-calibration-master/./include -I/usr/local/include -I/usr/local/include/opencv2 -I/home/northlight/SolarSystem/cpp/camera_calibration/stereo-calibration-master/$(OpenCV_INCLUDE_DIRS)  -g3 -gdwarf-2   -o CMakeFiles/calibrate.dir/calib_intrinsic.cpp.o -c /home/northlight/SolarSystem/cpp/camera_calibration/stereo-calibration-master/calib_intrinsic.cpp",
+  "file": "/home/northlight/SolarSystem/cpp/camera_calibration/stereo-calibration-master/calib_intrinsic.cpp"
+},
+{
+  "directory": "/home/northlight/SolarSystem/cpp/camera_calibration/stereo-calibration-master",
+  "command": "/usr/bin/g++    -I/home/northlight/SolarSystem/cpp/camera_calibration/stereo-calibration-master -I/usr/include/opencv -I/home/northlight/SolarSystem/cpp/camera_calibration/stereo-calibration-master/./include -I/usr/local/include -I/usr/local/include/opencv2 -I/home/northlight/SolarSystem/cpp/camera_calibration/stereo-calibration-master/$(OpenCV_INCLUDE_DIRS)  -g3 -gdwarf-2   -o CMakeFiles/read.dir/read_images.cpp.o -c /home/northlight/SolarSystem/cpp/camera_calibration/stereo-calibration-master/read_images.cpp",
+  "file": "/home/northlight/SolarSystem/cpp/camera_calibration/stereo-calibration-master/read_images.cpp"
+},
+{
+  "directory": "/home/northlight/SolarSystem/cpp/camera_calibration/stereo-calibration-master",
+  "command": "/usr/bin/g++    -I/home/northlight/SolarSystem/cpp/camera_calibration/stereo-calibration-master -I/usr/include/opencv -I/home/northlight/SolarSystem/cpp/camera_calibration/stereo-calibration-master/./include -I/usr/local/include -I/usr/local/include/opencv2 -I/home/northlight/SolarSystem/cpp/camera_calibration/stereo-calibration-master/$(OpenCV_INCLUDE_DIRS)  -g3 -gdwarf-2   -o CMakeFiles/calibrate_stereo.dir/calib_stereo.cpp.o -c /home/northlight/SolarSystem/cpp/camera_calibration/stereo-calibration-master/calib_stereo.cpp",
+  "file": "/home/northlight/SolarSystem/cpp/camera_calibration/stereo-calibration-master/calib_stereo.cpp"
+},
+{
+  "directory": "/home/northlight/SolarSystem/cpp/camera_calibration/stereo-calibration-master",
+  "command": "/usr/bin/g++    -I/home/northlight/SolarSystem/cpp/camera_calibration/stereo-calibration-master -I/usr/include/opencv -I/home/northlight/SolarSystem/cpp/camera_calibration/stereo-calibration-master/./include -I/usr/local/include -I/usr/local/include/opencv2 -I/home/northlight/SolarSystem/cpp/camera_calibration/stereo-calibration-master/$(OpenCV_INCLUDE_DIRS)  -g3 -gdwarf-2   -o CMakeFiles/undistort_rectify.dir/undistort_rectify.cpp.o -c /home/northlight/SolarSystem/cpp/camera_calibration/stereo-calibration-master/undistort_rectify.cpp",
+  "file": "/home/northlight/SolarSystem/cpp/camera_calibration/stereo-calibration-master/undistort_rectify.cpp"
+}
+]

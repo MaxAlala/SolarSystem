@@ -17,21 +17,41 @@
 #include <boost/regex.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/type_index.hpp>
-
+#include <memory>
 //extern int globa;
 // some features with class
+
+
+class Item {
+public:
+    std::shared_ptr<Item> s_ptr;
+    Item * ptr;
+    int x;
+    Item(int x ):x(x) {
+        std::cout << "Item acquired \n";
+    }
+
+    ~Item() {
+        std::cout << "item destroyed \n";
+        if(ptr) delete ptr;
+    }
+
+};
 using namespace std;
-class A{
+
+class A {
 private:
     int priv = 1999;
 public:
     mutable int x = 10;
     int y = 5;
-    void doWork(int){
+
+    void doWork(int) {
 
     }
-    void doWork() const{
-        if(true){
+
+    void doWork() const {
+        if (true) {
             x = 66 + 5;
         }
     }
@@ -39,99 +59,100 @@ protected:
     int prot = 5;
 };
 
-class B final: public A{
+class B final : public A {
 private:
     int z;
 
 public:
-//    using A::doWork;
+    //    using A::doWork;
 
-    void doWork(){
+    void doWork() {
 
     }
 
 
     using A::prot; // cant do it with private
-    void  virtual method() final {
+
+    void virtual method() final {
         cout << y;
         prot = 555;
-    }    void  virtual method( ) const final {
+    }
+
+    void virtual method() const final {
         cout << y;
-//        prot = 555;
+        //        prot = 555;
     }
 };
 
-istream & operator>>(istream& ifs, B& b)
-{
+istream & operator>>(istream& ifs, B& b) {
     ifs >> b.x >> b.y;
     return ifs;
 }
-ostream & operator<<(ostream& ifs, B& b)
-{
+
+ostream & operator<<(ostream& ifs, B& b) {
     ifs << b.x << " " << b.y << endl;
     return ifs;
 }
 
-void threadFunction(int &x){
+void threadFunction(int &x) {
     x = 50000;
 }
 
-int main( int argc, char* argv[])
-{
-    
-/*    Object o;
-    Object &o_r = o;
-    int z = 10;
-    cout << !z << "no Z" << endl;
-    int xx = 1234;
-    int &xxr = xx;
+int main(int argc, char* argv[]) {
 
-    int x = (1,024);
-    if(x > 0 or x == 20 )cout << "hello! \n";
+    /*    Object o;
+        Object &o_r = o;
+        int z = 10;
+        cout << !z << "no Z" << endl;
+        int xx = 1234;
+        int &xxr = xx;
 
-    B b;
-    b.A::doWork(5);// error without using A::doWork*/
-//    int xx = 4;
-//    cout << sizeof xx; //!!!
-//    testing::InitGoogleTest(&argc, argv);
-//
-/*char *char_ar = "qweqwe";
-char *char_ar2 = "q22qweqwerqwer";
-char_ar2 = char_ar;
-cout << char_ar2 << endl;
-    int * integer ;
-    *integer = 5555;// stop, what?
-    double dob = double (5);
-    const class B b{};*/
-//    b.prot = 55;
-//    b.method();
+        int x = (1,024);
+        if(x > 0 or x == 20 )cout << "hello! \n";
+
+        B b;
+        b.A::doWork(5);// error without using A::doWork*/
+    //    int xx = 4;
+    //    cout << sizeof xx; //!!!
+    //    testing::InitGoogleTest(&argc, argv);
+    //
+    /*char *char_ar = "qweqwe";
+    char *char_ar2 = "q22qweqwerqwer";
+    char_ar2 = char_ar;
+    cout << char_ar2 << endl;
+        int * integer ;
+     *integer = 5555;// stop, what?
+        double dob = double (5);
+        const class B b{};*/
+    //    b.prot = 55;
+    //    b.method();
 
 
     ////STL
-//    vector<int> vec = {1,2,3,4,-5,-7};
-//    countPositiveNumbers(vec);
-//    vector<Object> vec_obj = {
-//            Object("Greta", 60),
-//            Object("Ingvar", 110),
-//            Object("Inga", 65),
-//            Object("Anton", 111),
-//    };
-//    countHeavyObjects(vec_obj);
-//    sort(vec_obj);
-//    findByName(vec_obj, "Ingaa");
-//    vector<Object> result;
-//    copyIfWeightLessThan(vec_obj, result, 80);
-//    removeIfWeightLessThan(vec_obj, 80);
+    //    vector<int> vec = {1,2,3,4,-5,-7};
+    //    countPositiveNumbers(vec);
+    //    vector<Object> vec_obj = {
+    //            Object("Greta", 60),
+    //            Object("Ingvar", 110),
+    //            Object("Inga", 65),
+    //            Object("Anton", 111),
+    //    };
+    //    countHeavyObjects(vec_obj);
+    //    sort(vec_obj);
+    //    findByName(vec_obj, "Ingaa");
+    //    vector<Object> result;
+    //    copyIfWeightLessThan(vec_obj, result, 80);
+    //    removeIfWeightLessThan(vec_obj, 80);
     ////multithreading
-//    createThreadWillClassMethod();
-//    useMutex();
-//    callDeadLock();
-//    recursive_mutex_f(5);
+    //    createThreadWillClassMethod();
+    //    useMutex();
+    //    callDeadLock();
+    //    recursive_mutex_f(5);
     ////lambda and function<int(int,int)>
 
 
     ////feature place
-//    testField();
+    //    testField();
     ////List
     /* nsOfList::List<Object> list;
      Object o("max", 65);
@@ -181,32 +202,32 @@ cout << char_ar2 << endl;
     cout << &(*ptr) << '\n';
     cout << ptr.get()<< '\n';
     cout << x<< '\n';
-*/
+     */
 
-//    RUN_ALL_TESTS();
+    //    RUN_ALL_TESTS();
 
-//    useSameMemorzNew();
-//    battleField();
-//    planetPopulation();
-//    fstream myfile;
-//    myfile.open ("filename.dat");
-//    myfile << "Writing this to a file.\n";
-//    myfile << "000";
-//    myfile.close();
-//    useTrueTypeRec();
-//
-////////////////// MyString
-//String string1("Max");
-//String string2("Max2");
-//String string3("Max3");
-//String string4("Max4");
-//    cout << string4.HowMany() << "\n";
-//    string4 = string3;
-//    cout << string4 << "\n";
-//    string1.swap(string2);
-//    cout << string1;
+    //    useSameMemorzNew();
+    //    battleField();
+    //    planetPopulation();
+    //    fstream myfile;
+    //    myfile.open ("filename.dat");
+    //    myfile << "Writing this to a file.\n";
+    //    myfile << "000";
+    //    myfile.close();
+    //    useTrueTypeRec();
+    //
+    ////////////////// MyString
+    //String string1("Max");
+    //String string2("Max2");
+    //String string3("Max3");
+    //String string4("Max4");
+    //    cout << string4.HowMany() << "\n";
+    //    string4 = string3;
+    //    cout << string4 << "\n";
+    //    string1.swap(string2);
+    //    cout << string1;
 
-//    useHtmlBuilder();
+    //    useHtmlBuilder();
 
     struct // no tag
     {
@@ -219,9 +240,7 @@ cout << char_ar2 << endl;
 
     cout << R"(Jim "King" Tutt uses "\n" instead of endl.)" << '\n';
 
-
-    union one4all
-    {
+    union one4all {
         int int_val;
         long long_val;
         double double_val;
@@ -250,15 +269,15 @@ cout << char_ar2 << endl;
     int cats;
     (cats = 17), 240;
 
-    cats = (17,240); //240
+    cats = (17, 240); //240
 
-    int y = 0;
-    for (x = 1; y != x; ++x) // continue while y is not equal to x
-        for (cin >> x; x == 0; cin >> x) // continue while x is 0
-
-            for (char ch = 'a'; ch <= 'z'; ch++)
-    cout << ch;
-    for (int x : {3, 5, 2, 8, 6})
+//    int y = 0;
+//    for (x = 1; y != x; ++x) // continue while y is not equal to x
+//        for (cin >> x; x == 0; cin >> x) // continue while x is 0
+//
+//            for (char ch = 'a'; ch <= 'z'; ch++)
+//                cout << ch;
+    for (int x :{3, 5, 2, 8, 6})
         cout << x << " ";
 
     char ch = 'q';
@@ -267,34 +286,19 @@ cout << char_ar2 << endl;
 
     cout << ch++ << " " << ch + 1 << endl;
 
-//    ar2[r][c] == *(*(ar2 + r) + c) // same thing
+    //    ar2[r][c] == *(*(ar2 + r) + c) // same thing
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    Item * item = new Item(5);
+//    std::shared_ptr<Item> ptr1(item);
+    auto ptr1 = std::make_shared<Item>(6);
+    (*ptr1).x = 5;
+    {
+        
+        std::shared_ptr<Item> ptr2(ptr1);
+        cout << ptr2.get()->x << "\n";
+        std::cout << "Killing one shared pointer\n";
+    }
+    ptr1.get().s_ptr = ptr1;
 
 
     return 0;

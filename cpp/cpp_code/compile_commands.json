@@ -1,0 +1,82 @@
+[
+{
+  "directory": "/home/northlight/SolarSystem/cpp/cpp_code",
+  "command": "/usr/bin/g++    -I/usr/include/opencv   -std=c++11 -std=c++11 -pthread -g3 -gdwarf-2   -std=gnu++14 -o CMakeFiles/cpp_code.dir/main.cpp.o -c /home/northlight/SolarSystem/cpp/cpp_code/main.cpp",
+  "file": "/home/northlight/SolarSystem/cpp/cpp_code/main.cpp"
+},
+{
+  "directory": "/home/northlight/SolarSystem/cpp/cpp_code",
+  "command": "/usr/bin/g++    -I/usr/include/opencv   -std=c++11 -std=c++11 -pthread -g3 -gdwarf-2   -std=gnu++14 -o CMakeFiles/cpp_code.dir/STL.cpp.o -c /home/northlight/SolarSystem/cpp/cpp_code/STL.cpp",
+  "file": "/home/northlight/SolarSystem/cpp/cpp_code/STL.cpp"
+},
+{
+  "directory": "/home/northlight/SolarSystem/cpp/cpp_code",
+  "command": "/usr/bin/g++    -I/usr/include/opencv   -std=c++11 -std=c++11 -pthread -g3 -gdwarf-2   -std=gnu++14 -o CMakeFiles/cpp_code.dir/multithreading.cpp.o -c /home/northlight/SolarSystem/cpp/cpp_code/multithreading.cpp",
+  "file": "/home/northlight/SolarSystem/cpp/cpp_code/multithreading.cpp"
+},
+{
+  "directory": "/home/northlight/SolarSystem/cpp/cpp_code",
+  "command": "/usr/bin/g++    -I/usr/include/opencv   -std=c++11 -std=c++11 -pthread -g3 -gdwarf-2   -std=gnu++14 -o CMakeFiles/cpp_code.dir/features.cpp.o -c /home/northlight/SolarSystem/cpp/cpp_code/features.cpp",
+  "file": "/home/northlight/SolarSystem/cpp/cpp_code/features.cpp"
+},
+{
+  "directory": "/home/northlight/SolarSystem/cpp/cpp_code",
+  "command": "/usr/bin/g++    -I/usr/include/opencv   -std=c++11 -std=c++11 -pthread -g3 -gdwarf-2   -std=gnu++14 -o CMakeFiles/cpp_code.dir/MyString.cpp.o -c /home/northlight/SolarSystem/cpp/cpp_code/MyString.cpp",
+  "file": "/home/northlight/SolarSystem/cpp/cpp_code/MyString.cpp"
+},
+{
+  "directory": "/home/northlight/SolarSystem/cpp/cpp_code",
+  "command": "/usr/bin/g++    -I/usr/include/opencv   -std=c++11 -std=c++11 -pthread -g3 -gdwarf-2   -std=gnu++14 -o CMakeFiles/cpp_code.dir/tests/Test.cpp.o -c /home/northlight/SolarSystem/cpp/cpp_code/tests/Test.cpp",
+  "file": "/home/northlight/SolarSystem/cpp/cpp_code/tests/Test.cpp"
+},
+{
+  "directory": "/home/northlight/SolarSystem/cpp/cpp_code",
+  "command": "/usr/bin/g++    -I/usr/include/opencv   -std=c++11 -std=c++11 -pthread -g3 -gdwarf-2   -std=gnu++14 -o CMakeFiles/cpp_code.dir/List.cpp.o -c /home/northlight/SolarSystem/cpp/cpp_code/List.cpp",
+  "file": "/home/northlight/SolarSystem/cpp/cpp_code/List.cpp"
+},
+{
+  "directory": "/home/northlight/SolarSystem/cpp/cpp_code",
+  "command": "/usr/bin/g++    -I/usr/include/opencv   -std=c++11 -std=c++11 -pthread -g3 -gdwarf-2   -std=gnu++14 -o CMakeFiles/cpp_code.dir/patterns/Adapter.cpp.o -c /home/northlight/SolarSystem/cpp/cpp_code/patterns/Adapter.cpp",
+  "file": "/home/northlight/SolarSystem/cpp/cpp_code/patterns/Adapter.cpp"
+},
+{
+  "directory": "/home/northlight/SolarSystem/cpp/cpp_code",
+  "command": "/usr/bin/g++    -I/usr/include/opencv   -std=c++11 -std=c++11 -pthread -g3 -gdwarf-2   -std=gnu++14 -o CMakeFiles/cpp_code.dir/cpp_extra/CppTopics.cpp.o -c /home/northlight/SolarSystem/cpp/cpp_code/cpp_extra/CppTopics.cpp",
+  "file": "/home/northlight/SolarSystem/cpp/cpp_code/cpp_extra/CppTopics.cpp"
+},
+{
+  "directory": "/home/northlight/SolarSystem/cpp/cpp_code",
+  "command": "/usr/bin/g++    -I/usr/include/opencv   -std=c++11 -std=c++11 -pthread -g3 -gdwarf-2   -std=gnu++14 -o CMakeFiles/cpp_code.dir/feature2.cpp.o -c /home/northlight/SolarSystem/cpp/cpp_code/feature2.cpp",
+  "file": "/home/northlight/SolarSystem/cpp/cpp_code/feature2.cpp"
+},
+{
+  "directory": "/home/northlight/SolarSystem/cpp/cpp_code",
+  "command": "/usr/bin/g++    -I/usr/include/opencv   -std=c++11 -std=c++11 -pthread -g3 -gdwarf-2   -std=gnu++14 -o CMakeFiles/cpp_code.dir/Vector.cpp.o -c /home/northlight/SolarSystem/cpp/cpp_code/Vector.cpp",
+  "file": "/home/northlight/SolarSystem/cpp/cpp_code/Vector.cpp"
+},
+{
+  "directory": "/home/northlight/SolarSystem/cpp/cpp_code",
+  "command": "/usr/bin/g++    -I/usr/include/opencv   -std=c++11 -std=c++11 -pthread -g3 -gdwarf-2   -std=gnu++14 -o CMakeFiles/cpp_code.dir/Student.cpp.o -c /home/northlight/SolarSystem/cpp/cpp_code/Student.cpp",
+  "file": "/home/northlight/SolarSystem/cpp/cpp_code/Student.cpp"
+},
+{
+  "directory": "/home/northlight/SolarSystem/cpp/cpp_code",
+  "command": "/usr/bin/g++    -I/usr/include/opencv   -std=c++11 -std=c++11 -pthread -g3 -gdwarf-2   -std=gnu++14 -o CMakeFiles/cpp_code.dir/Stack.cpp.o -c /home/northlight/SolarSystem/cpp/cpp_code/Stack.cpp",
+  "file": "/home/northlight/SolarSystem/cpp/cpp_code/Stack.cpp"
+},
+{
+  "directory": "/home/northlight/SolarSystem/cpp/cpp_code",
+  "command": "/usr/bin/g++    -I/usr/include/opencv   -std=c++11 -std=c++11 -pthread -g3 -gdwarf-2   -std=gnu++14 -o CMakeFiles/cpp_code.dir/Array.cpp.o -c /home/northlight/SolarSystem/cpp/cpp_code/Array.cpp",
+  "file": "/home/northlight/SolarSystem/cpp/cpp_code/Array.cpp"
+},
+{
+  "directory": "/home/northlight/SolarSystem/cpp/cpp_code",
+  "command": "/usr/bin/g++    -I/usr/include/opencv   -std=c++11 -std=c++11 -pthread -g3 -gdwarf-2   -std=gnu++14 -o CMakeFiles/cpp_code.dir/Queue.cpp.o -c /home/northlight/SolarSystem/cpp/cpp_code/Queue.cpp",
+  "file": "/home/northlight/SolarSystem/cpp/cpp_code/Queue.cpp"
+},
+{
+  "directory": "/home/northlight/SolarSystem/cpp/cpp_code",
+  "command": "/usr/bin/g++    -I/usr/include/opencv   -std=c++11 -std=c++11 -pthread -g3 -gdwarf-2   -std=gnu++14 -o CMakeFiles/cpp_code.dir/OpenCV.cpp.o -c /home/northlight/SolarSystem/cpp/cpp_code/OpenCV.cpp",
+  "file": "/home/northlight/SolarSystem/cpp/cpp_code/OpenCV.cpp"
+}
+]

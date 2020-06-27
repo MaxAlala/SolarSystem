@@ -1,0 +1,3 @@
+/home/northlight/SolarSystem/cpp/cpp_code/cbp/CMakeFiles/edit_cache.dir
+/home/northlight/SolarSystem/cpp/cpp_code/cbp/CMakeFiles/rebuild_cache.dir
+/home/northlight/SolarSystem/cpp/cpp_code/cbp/CMakeFiles/cpp_code.dir

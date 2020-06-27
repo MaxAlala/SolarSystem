@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+   <FileVersion major="1" minor="6" />
+   <Project>
+      <Option title="cpp_code" />
+      <Option makefile_is_custom="1" />
+      <Option compiler="gcc" />
+      <Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\..\;CMake Files\..\..\..\..\..\opt\;CMake Files\..\..\..\..\..\opt\ros\;CMake Files\..\..\..\..\..\opt\ros\kinetic\;CMake Files\..\..\..\..\..\opt\ros\kinetic\share\;CMake Files\..\..\..\..\..\opt\ros\kinetic\share\OpenCV-3.3.1-dev\;" />
+      <Build>
+      <Target title="all">
+         <Option working_dir="/home/northlight/SolarSystem/cpp/cpp_code/cbp" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/northlight/SolarSystem/cpp/cpp_code/cbp/Makefile&quot;  VERBOSE=1 all" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/northlight/SolarSystem/cpp/cpp_code/cbp/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/northlight/SolarSystem/cpp/cpp_code/cbp/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/northlight/SolarSystem/cpp/cpp_code/cbp/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="edit_cache">
+         <Option working_dir="/home/northlight/SolarSystem/cpp/cpp_code/cbp" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/northlight/SolarSystem/cpp/cpp_code/cbp/Makefile&quot;  VERBOSE=1 edit_cache" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/northlight/SolarSystem/cpp/cpp_code/cbp/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/northlight/SolarSystem/cpp/cpp_code/cbp/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/northlight/SolarSystem/cpp/cpp_code/cbp/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="rebuild_cache">
+         <Option working_dir="/home/northlight/SolarSystem/cpp/cpp_code/cbp" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/northlight/SolarSystem/cpp/cpp_code/cbp/Makefile&quot;  VERBOSE=1 rebuild_cache" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/northlight/SolarSystem/cpp/cpp_code/cbp/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/northlight/SolarSystem/cpp/cpp_code/cbp/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/northlight/SolarSystem/cpp/cpp_code/cbp/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="cpp_code">
+         <Option output="/home/northlight/SolarSystem/cpp/cpp_code/cbp/cpp_code" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/northlight/SolarSystem/cpp/cpp_code/cbp" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/opt/ros/kinetic/include/opencv-3.3.1-dev" />
+            <Add directory="/opt/ros/kinetic/include/opencv-3.3.1-dev/opencv" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/northlight/SolarSystem/cpp/cpp_code/cbp/Makefile&quot;  VERBOSE=1 cpp_code" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/northlight/SolarSystem/cpp/cpp_code/cbp/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/northlight/SolarSystem/cpp/cpp_code/cbp/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/northlight/SolarSystem/cpp/cpp_code/cbp/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="cpp_code/fast">
+         <Option output="/home/northlight/SolarSystem/cpp/cpp_code/cbp/cpp_code" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/northlight/SolarSystem/cpp/cpp_code/cbp" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/opt/ros/kinetic/include/opencv-3.3.1-dev" />
+            <Add directory="/opt/ros/kinetic/include/opencv-3.3.1-dev/opencv" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/northlight/SolarSystem/cpp/cpp_code/cbp/Makefile&quot;  VERBOSE=1 cpp_code/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/northlight/SolarSystem/cpp/cpp_code/cbp/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/northlight/SolarSystem/cpp/cpp_code/cbp/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/northlight/SolarSystem/cpp/cpp_code/cbp/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      </Build>
+      <Unit filename="/home/northlight/SolarSystem/cpp/cpp_code/Array.cpp">
+         <Option target="cpp_code"/>
+      </Unit>
+      <Unit filename="/home/northlight/SolarSystem/cpp/cpp_code/Array.h">
+         <Option target="cpp_code"/>
+      </Unit>
+      <Unit filename="/home/northlight/SolarSystem/cpp/cpp_code/List.cpp">
+         <Option target="cpp_code"/>
+      </Unit>
+      <Unit filename="/home/northlight/SolarSystem/cpp/cpp_code/List.h">
+         <Option target="cpp_code"/>
+      </Unit>
+      <Unit filename="/home/northlight/SolarSystem/cpp/cpp_code/MoveSemantic.h">
+         <Option target="cpp_code"/>
+      </Unit>
+      <Unit filename="/home/northlight/SolarSystem/cpp/cpp_code/MyString.cpp">
+         <Option target="cpp_code"/>
+      </Unit>
+      <Unit filename="/home/northlight/SolarSystem/cpp/cpp_code/MyString.h">
+         <Option target="cpp_code"/>
+      </Unit>
+      <Unit filename="/home/northlight/SolarSystem/cpp/cpp_code/OpenCV.cpp">
+         <Option target="cpp_code"/>
+      </Unit>
+      <Unit filename="/home/northlight/SolarSystem/cpp/cpp_code/OpenCV.h">
+         <Option target="cpp_code"/>
+      </Unit>
+      <Unit filename="/home/northlight/SolarSystem/cpp/cpp_code/Queue.cpp">
+         <Option target="cpp_code"/>
+      </Unit>
+      <Unit filename="/home/northlight/SolarSystem/cpp/cpp_code/Queue.h">
+         <Option target="cpp_code"/>
+      </Unit>
+      <Unit filename="/home/northlight/SolarSystem/cpp/cpp_code/STL.cpp">
+         <Option target="cpp_code"/>
+      </Unit>
+      <Unit filename="/home/northlight/SolarSystem/cpp/cpp_code/STL.h">
+         <Option target="cpp_code"/>
+      </Unit>
+      <Unit filename="/home/northlight/SolarSystem/cpp/cpp_code/Stack.cpp">
+         <Option target="cpp_code"/>
+      </Unit>
+      <Unit filename="/home/northlight/SolarSystem/cpp/cpp_code/Stack.h">
+         <Option target="cpp_code"/>
+      </Unit>
+      <Unit filename="/home/northlight/SolarSystem/cpp/cpp_code/Student.cpp">
+         <Option target="cpp_code"/>
+      </Unit>
+      <Unit filename="/home/northlight/SolarSystem/cpp/cpp_code/Student.h">
+         <Option target="cpp_code"/>
+      </Unit>
+      <Unit filename="/home/northlight/SolarSystem/cpp/cpp_code/Vector.cpp">
+         <Option target="cpp_code"/>
+      </Unit>
+      <Unit filename="/home/northlight/SolarSystem/cpp/cpp_code/Vector.h">
+         <Option target="cpp_code"/>
+      </Unit>
+      <Unit filename="/home/northlight/SolarSystem/cpp/cpp_code/cppSerializationProgram.h">
+         <Option target="cpp_code"/>
+      </Unit>
+      <Unit filename="/home/northlight/SolarSystem/cpp/cpp_code/cpp_extra/CppTopics.cpp">
+         <Option target="cpp_code"/>
+      </Unit>
+      <Unit filename="/home/northlight/SolarSystem/cpp/cpp_code/cpp_extra/CppTopics.h">
+         <Option target="cpp_code"/>
+      </Unit>
+      <Unit filename="/home/northlight/SolarSystem/cpp/cpp_code/feature2.cpp">
+         <Option target="cpp_code"/>
+      </Unit>
+      <Unit filename="/home/northlight/SolarSystem/cpp/cpp_code/feature2.h">
+         <Option target="cpp_code"/>
+      </Unit>
+      <Unit filename="/home/northlight/SolarSystem/cpp/cpp_code/features.cpp">
+         <Option target="cpp_code"/>
+      </Unit>
+      <Unit filename="/home/northlight/SolarSystem/cpp/cpp_code/features.h">
+         <Option target="cpp_code"/>
+      </Unit>
+      <Unit filename="/home/northlight/SolarSystem/cpp/cpp_code/main.cpp">
+         <Option target="cpp_code"/>
+      </Unit>
+      <Unit filename="/home/northlight/SolarSystem/cpp/cpp_code/multithreading.cpp">
+         <Option target="cpp_code"/>
+      </Unit>
+      <Unit filename="/home/northlight/SolarSystem/cpp/cpp_code/multithreading.h">
+         <Option target="cpp_code"/>
+      </Unit>
+      <Unit filename="/home/northlight/SolarSystem/cpp/cpp_code/patterns/Adapter.cpp">
+         <Option target="cpp_code"/>
+      </Unit>
+      <Unit filename="/home/northlight/SolarSystem/cpp/cpp_code/patterns/Adapter.h">
+         <Option target="cpp_code"/>
+      </Unit>
+      <Unit filename="/home/northlight/SolarSystem/cpp/cpp_code/tests/Test.cpp">
+         <Option target="cpp_code"/>
+      </Unit>
+      <Unit filename="/home/northlight/SolarSystem/cpp/cpp_code/tests/Test.h">
+         <Option target="cpp_code"/>
+      </Unit>
+      <Unit filename="/home/northlight/SolarSystem/cpp/cpp_code/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\" />
+      </Unit>
+      <Unit filename="/home/northlight/SolarSystem/cpp/cpp_code/../../../../../opt/ros/kinetic/share/OpenCV-3.3.1-dev/OpenCVConfig-version.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\opt\ros\kinetic\share\OpenCV-3.3.1-dev\" />
+      </Unit>
+      <Unit filename="/home/northlight/SolarSystem/cpp/cpp_code/../../../../../opt/ros/kinetic/share/OpenCV-3.3.1-dev/OpenCVConfig.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\opt\ros\kinetic\share\OpenCV-3.3.1-dev\" />
+      </Unit>
+      <Unit filename="/home/northlight/SolarSystem/cpp/cpp_code/../../../../../opt/ros/kinetic/share/OpenCV-3.3.1-dev/OpenCVModules.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\opt\ros\kinetic\share\OpenCV-3.3.1-dev\" />
+      </Unit>
+      <Unit filename="/home/northlight/SolarSystem/cpp/cpp_code/../../../../../opt/ros/kinetic/share/OpenCV-3.3.1-dev/OpenCVModules-release.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\opt\ros\kinetic\share\OpenCV-3.3.1-dev\" />
+      </Unit>
+   </Project>
+</CodeBlocks_project_file>
