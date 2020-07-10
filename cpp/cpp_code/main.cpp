@@ -18,22 +18,23 @@
 #include <boost/lambda/lambda.hpp>
 #include <boost/type_index.hpp>
 #include <memory>
+#include <map>
 //extern int globa;
 // some features with class
-
 
 class Item {
 public:
     std::shared_ptr<Item> s_ptr;
     Item * ptr;
     int x;
-    Item(int x ):x(x) {
+
+    Item(int x) : x(x) {
         std::cout << "Item acquired \n";
     }
 
     ~Item() {
         std::cout << "item destroyed \n";
-        if(ptr) delete ptr;
+        if (ptr) delete ptr;
     }
 
 };
@@ -271,12 +272,12 @@ int main(int argc, char* argv[]) {
 
     cats = (17, 240); //240
 
-//    int y = 0;
-//    for (x = 1; y != x; ++x) // continue while y is not equal to x
-//        for (cin >> x; x == 0; cin >> x) // continue while x is 0
-//
-//            for (char ch = 'a'; ch <= 'z'; ch++)
-//                cout << ch;
+    //    int y = 0;
+    //    for (x = 1; y != x; ++x) // continue while y is not equal to x
+    //        for (cin >> x; x == 0; cin >> x) // continue while x is 0
+    //
+    //            for (char ch = 'a'; ch <= 'z'; ch++)
+    //                cout << ch;
     for (int x :{3, 5, 2, 8, 6})
         cout << x << " ";
 
@@ -289,17 +290,52 @@ int main(int argc, char* argv[]) {
     //    ar2[r][c] == *(*(ar2 + r) + c) // same thing
 
     Item * item = new Item(5);
-//    std::shared_ptr<Item> ptr1(item);
+    //    std::shared_ptr<Item> ptr1(item);
     auto ptr1 = std::make_shared<Item>(6);
     (*ptr1).x = 5;
     {
-        
+
         std::shared_ptr<Item> ptr2(ptr1);
         cout << ptr2.get()->x << "\n";
         std::cout << "Killing one shared pointer\n";
     }
-    ptr1.get().s_ptr = ptr1;
+    ptr1->s_ptr = ptr1;
+
+    std::map<int, std::string> spaceMap;
+    spaceMap.insert(std::make_pair(3, "asteroid"));
+    std::map<int, std::string>::const_iterator it;
+    it = spaceMap.begin();
+
+    while (it != spaceMap.end()) {
+
+        std::cout << it->first << " == " << it -> second << "\n";
+        it++;
+    }
 
 
+    std::list<int> space_list;
+    for (int c = 0; c < 5; c++)
+        space_list.push_back(c);
+
+    std::list<int>::const_iterator ci;
+    ci = min_element(space_list.begin(), space_list.end());
+    std::cout << *ci << " min elem \n";
+    ci = max_element(space_list.begin(), space_list.end());
+    std::cout << *ci << " max elem \n";
+
+    for(ci = space_list.begin(); ci != space_list.end(); ci++)
+        std::cout << *ci << endl;
+        
+    std::reverse(space_list.begin(), space_list.end());
+    
+    for(ci = space_list.begin(); ci != space_list.end(); ci++)
+        std::cout << *ci << endl;
+
+    char *char_ar = new char[7];
+    
+    strcpy(char_ar, "hello!"); // plus /0
+    std::cout << char_ar;
+    delete[] char_ar;
+//    string str(5); // DOESNT WORK!
     return 0;
 }
