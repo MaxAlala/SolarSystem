@@ -323,19 +323,27 @@ int main(int argc, char* argv[]) {
     ci = max_element(space_list.begin(), space_list.end());
     std::cout << *ci << " max elem \n";
 
-    for(ci = space_list.begin(); ci != space_list.end(); ci++)
+    for (ci = space_list.begin(); ci != space_list.end(); ci++)
         std::cout << *ci << endl;
-        
+
     std::reverse(space_list.begin(), space_list.end());
-    
-    for(ci = space_list.begin(); ci != space_list.end(); ci++)
+
+    for (ci = space_list.begin(); ci != space_list.end(); ci++)
         std::cout << *ci << endl;
 
     char *char_ar = new char[7];
-    
+
     strcpy(char_ar, "hello!"); // plus /0
     std::cout << char_ar;
     delete[] char_ar;
-//    string str(5); // DOESNT WORK!
+
+    // for_each through an array
+    int student_array[7] = {1, 2, 3, 4, 5, 6, 7};
+    for (const auto & elem : student_array)
+        std::cout << elem << " ";
+    std::cout << "\n";
+
+
+    //    string str(5); // DOESNT WORK!
     return 0;
 }
