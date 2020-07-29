@@ -1,0 +1,14 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+./include/someClass.h
+
+/home/northlight/SolarSystem/cpp/opencv_projects/src/someClass.cpp
+someClass.h
+/home/northlight/SolarSystem/cpp/opencv_projects/src/someClass.h
+

@@ -343,7 +343,11 @@ int main(int argc, char* argv[]) {
         std::cout << elem << " ";
     std::cout << "\n";
 
-
+    
+    int b1;
+    int b2;
+    b2 = 1 + (b1=2);
+    cout << b2 << endl;
     //    string str(5); // DOESNT WORK!
     return 0;
 }

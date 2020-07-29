@@ -1,4 +1,4 @@
-project( opencv_projects )
+project( opencv_projects C CXX)
 
 cmake_minimum_required(VERSION 3.0)
 
@@ -42,7 +42,7 @@ set(CMAKE_CURRENT_SOURCE_DIR /home/northlight/SolarSystem/cpp/opencv_projects)
 set(EXTRA_CXX_FLAGS "${EXTRA_CXX_FLAGS} -DOPENCV_TRAITS_ENABLE_DEPRECATED")
   
   set(EXTRA_CXX_FLAGS "${EXTRA_CXX_FLAGS} -Wall -Wpedantic -Wno-narrowing -Wno-deprecated -std=c++14 -march=nocona")
-  
+  find_package(Eigen3 REQUIRED)
 find_package(OpenCV REQUIRED PATHS /usr/local/share/OpenCV NO_DEFAULT_PATH)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 
@@ -71,6 +71,9 @@ message(STATUS "OpenCV_LIBS = ${OpenCV_LIBS}")
 message(STATUS "OPENCV_PROJECTS_SRC = ${OPENCV_PROJECTS_SRC}")
 link_directories(/opt/ros/kinetic/lib)
 
+
+set(OPENCV_PROJ src/someClass.cpp)
+add_library(opencv_projects  SHARED ${OPENCV_PROJ})
 ##############################ZED
 target_link_libraries( opencv_projects PUBLIC
                        ${Boost_LIBRARIES}
@@ -85,9 +88,21 @@ target_link_libraries( opencv_projects PUBLIC
 
 set_target_properties(opencv_projects PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
 set_target_properties(opencv_projects PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
+#
+#add_executable(track_object apps/track_object.cpp)
+#target_link_libraries( track_object 
+#                       opencv_projects
+#### ROS for NODE
+##                       -I/opt/ros/kinetic/include -L/opt/ros/kinetic/lib
+##-lroscpp -lrostime -lrosconsole -lroscpp_serialization -lxmlrpcpp -lcpp_common -lrosconsole_log4cxx -lrosconsole_backend_interface
+##-linteractive_markers
+#)
+#
+#set_target_properties( track_object PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
+#  set_target_properties(track_object PROPERTIES LINKER_LANGUAGE CXX)
 
-add_executable(track_object apps/track_object.cpp)
-target_link_libraries( detect_object
+add_executable(chess apps/chess.cpp)
+target_link_libraries( chess
                        opencv_projects
 ### ROS for NODE
 #                       -I/opt/ros/kinetic/include -L/opt/ros/kinetic/lib
@@ -95,5 +110,17 @@ target_link_libraries( detect_object
 #-linteractive_markers
 )
 
-set_target_properties( track_object PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
- 
+set_target_properties( chess PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
+ set_target_properties(chess PROPERTIES LINKER_LANGUAGE CXX)
+
+add_executable(fiveDofArmKinematics apps/fiveDofArmKinematics.cpp)
+target_link_libraries( fiveDofArmKinematics
+                       opencv_projects
+### ROS for NODE
+#                       -I/opt/ros/kinetic/include -L/opt/ros/kinetic/lib
+#-lroscpp -lrostime -lrosconsole -lroscpp_serialization -lxmlrpcpp -lcpp_common -lrosconsole_log4cxx -lrosconsole_backend_interface
+#-linteractive_markers
+)
+
+set_target_properties( fiveDofArmKinematics PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
+ set_target_properties(fiveDofArmKinematics PROPERTIES LINKER_LANGUAGE CXX)
