@@ -20,3 +20,5 @@
 !/cpp/opencv_projects/CMakeLists.txt
 !/cpp/opencv_projects/include/
 /cpp/CMakeFiles/
+/cpp/cpp_code/CMakeFiles/
+

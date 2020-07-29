@@ -26,12 +26,14 @@ strncat
 strcmp
 strncmp
 strlen
-
+ * 
 
 */
 // elipsis cstdarg va_list, va_start, va_arg, va_end
 
 #include <initializer_list>
+
+int INTEGER_FROM_FEATURES = 99999;
 double sum(std::initializer_list<double> il);
 double average(const std::initializer_list<double> & ril);
 double sum(std::initializer_list<double> il)

@@ -207,8 +207,6 @@ gmock/gmock.h
 -
 multithreading.h
 /home/northlight/SolarSystem/cpp/cpp_code/multithreading.h
-features.h
-/home/northlight/SolarSystem/cpp/cpp_code/features.h
 List.h
 /home/northlight/SolarSystem/cpp/cpp_code/List.h
 STL.h

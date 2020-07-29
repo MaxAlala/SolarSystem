@@ -7,7 +7,7 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 #include "multithreading.h"
-#include "features.h"
+//#include "features.h"
 #include "List.h"
 #include "STL.h"
 #include "MyString.h"
@@ -21,7 +21,8 @@
 #include <map>
 //extern int globa;
 // some features with class
-
+extern int INTEGER_FROM_FEATURES;
+   
 class Item {
 public:
     std::shared_ptr<Item> s_ptr;
@@ -343,11 +344,15 @@ int main(int argc, char* argv[]) {
         std::cout << elem << " ";
     std::cout << "\n";
 
-    
+    INTEGER_FROM_FEATURES = 66;
+    cout << "integer from feature is " << INTEGER_FROM_FEATURES << endl;
     int b1;
     int b2;
     b2 = 1 + (b1=2);
     cout << b2 << endl;
     //    string str(5); // DOESNT WORK!
+    
+        INTEGER_FROM_FEATURES = 66;
+    cout << "integer from feature is " << INTEGER_FROM_FEATURES << endl;
     return 0;
 }
