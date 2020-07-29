@@ -1,7 +1,0 @@
-#ifndef ENUMS_CONSTANTS_H
-#define ENUMS_CONSTANTS_H
-enum CurrentX{
-    TWO_ELEM_REGIME,
-    ALL_ELEM_REGIME
-};
-#endif // ENUMS_CONSTANTS_H
