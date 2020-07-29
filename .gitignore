@@ -14,3 +14,8 @@
 /**/*.xml
 /cpp/cpp_code/lib/
 /cpp/cpp_code/build/
+/cpp/opencv_projects/*
+!/cpp/opencv_projects/src/
+!/cpp/opencv_projects/apps/
+!/cpp/opencv_projects/CMakeLists.txt
+!/cpp/opencv_projects/include/
