@@ -129,3 +129,18 @@ target_link_libraries( track_object
 )
 set_target_properties( track_object PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 set_target_properties( track_object PROPERTIES LINKER_LANGUAGE CXX)
+
+add_executable(dense_optical_flow apps/DenseOpticalFlow.cpp)
+target_link_libraries( dense_optical_flow
+                       opencv_projects
+)
+set_target_properties( dense_optical_flow PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
+set_target_properties( dense_optical_flow PROPERTIES LINKER_LANGUAGE CXX)
+
+add_executable(dense_optical_flow_gpu apps/dense_optical_flow_gpu.cpp)
+target_link_libraries( dense_optical_flow_gpu
+                       opencv_projects
+)
+set_target_properties( dense_optical_flow_gpu PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
+set_target_properties( dense_optical_flow_gpu PROPERTIES LINKER_LANGUAGE CXX)
+

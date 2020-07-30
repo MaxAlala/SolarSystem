@@ -7,6 +7,9 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    database = QSqlDatabase::addDatabase("Q{SQL");
+    database.setHostName("127.0.0.1");
+
     QPixmap pix(":/img/earth.jpg");
     int w = ui->earth_image->width();
     int h = ui->earth_image->height();

@@ -4,6 +4,9 @@
 #include <QMainWindow>
 #include "dialog.h"
 #include "mainwindow2.h"
+#include <QSqlQuery>
+#include <QSqlDatabase>
+#include <QSqlTableModel>
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -27,5 +30,6 @@ private:
     Ui::MainWindow *ui;
     Dialog * dialog;
     MainWindow2 *ui2;
+    QSqlDatabase database;
 };
 #endif // MAINWINDOW_H
