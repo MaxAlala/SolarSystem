@@ -21,4 +21,11 @@
 !/cpp/opencv_projects/include/
 /cpp/CMakeFiles/
 /cpp/cpp_code/CMakeFiles/
+/cpp/cpp_code-build/
+/**/Makefile
+/**/CMakeCache.txt
+/**/cmake_install.cmake
+/**/CMakeFiles
+/**/nbproject
+/**/lib/*
 

@@ -144,3 +144,13 @@ target_link_libraries( dense_optical_flow_gpu
 set_target_properties( dense_optical_flow_gpu PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 set_target_properties( dense_optical_flow_gpu PROPERTIES LINKER_LANGUAGE CXX)
 
+add_executable(server apps/server.cpp)
+
+set_target_properties( server PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
+set_target_properties( server PROPERTIES LINKER_LANGUAGE CXX)
+
+add_executable(client apps/client.cpp)
+
+set_target_properties( client PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
+set_target_properties( client PROPERTIES LINKER_LANGUAGE CXX)
+
