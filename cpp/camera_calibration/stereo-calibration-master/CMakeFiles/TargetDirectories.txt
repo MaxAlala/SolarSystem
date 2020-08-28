@@ -1,6 +1,0 @@
-/home/northlight/SolarSystem/cpp/camera_calibration/stereo-calibration-master/CMakeFiles/edit_cache.dir
-/home/northlight/SolarSystem/cpp/camera_calibration/stereo-calibration-master/CMakeFiles/rebuild_cache.dir
-/home/northlight/SolarSystem/cpp/camera_calibration/stereo-calibration-master/CMakeFiles/calibrate.dir
-/home/northlight/SolarSystem/cpp/camera_calibration/stereo-calibration-master/CMakeFiles/read.dir
-/home/northlight/SolarSystem/cpp/camera_calibration/stereo-calibration-master/CMakeFiles/calibrate_stereo.dir
-/home/northlight/SolarSystem/cpp/camera_calibration/stereo-calibration-master/CMakeFiles/undistort_rectify.dir
