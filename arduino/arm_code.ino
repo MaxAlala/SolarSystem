@@ -1,9 +1,35 @@
+
 //If you found my video helpful, please SUBSCRIBE:  https://www.youtube.com/channel/UCKp1MzuAceJnDqAvsZl_46g
 //The code belongs to the following tutorial video: https://youtu.be/AR0un3kg-iM
 //example s 2000 4000 == 2000 steps (5 revolution with 400 step/rev microstepping) and 400 steps/s == 1 rev/sec speed
 
 #include <AccelStepper.h>
 #include <Servo.h>
+
+#include <PS3USB.h>
+#include <Thread.h>
+
+// Satisfy the IDE, which needs to see the include statment in the ino too.
+#ifdef dobogusinclude
+#include <spi4teensy3.h>
+#endif
+#include <SPI.h>
+//#define DEBUG_REGIME 1 // slows the program == motors work slower
+#define JOYSTICKACTIVATION // comment if want to remove joystick
+#define JOYSTICKDEBUG // prints joystick logs
+/////////////////////////// PS3 through USB settings
+
+
+USB Usb;
+/* You can create the instance of the class in two ways */
+PS3USB PS3(&Usb); // This will just create the instance
+//PS3USB PS3(&Usb,0x00,0x15,0x83,0x3D,0x0A,0x57); // This will also store the bluetooth address - this can be obtained from the dongle when running the sketch
+
+bool printAngle;
+uint8_t state = 0;
+
+int isJoystickActivated = 0;
+///////////////////////////// END OF PS3 SETTINGS
 // 1 == 0 -8000 8000
 // 2
 // 3 -- 0 -25000 25000
@@ -18,21 +44,30 @@ struct command
   int rotation_speed = 0;
   int axis = 0;
 };
-const int current_step_multiplier[5] = {3,2,2,2,1};// where 1 is 8, 2 is 16, the logic is clear?
-const int max_speed [5] = {1600, 3200, 3200, 1600, 800};
-const long stepsToHome[5] = { -14200, -31000, 62000, -12400, -850}; // step == 1.8 / 4 
+const int numberOfSteppers = 6;
+const int commandsNum = numberOfSteppers;
+int shouldPermanentlyRun[numberOfSteppers] = {0, 0, 0, 0, 0};
+int shouldPermanentlyRunSpeed[numberOfSteppers] = {3200, 3200, 3200, 1600, 1600};
+int stepperDistanceWasSet[numberOfSteppers] = {0, 0, 0, 0, 0, 0};
+const int current_step_multiplier[numberOfSteppers] = {3, 2, 2, 2, 2, 1}; // where 1 is 800, 2 is 1600, the logic is clear?
+const int max_speed [numberOfSteppers] = {3200, 3200, 3200, 3200, 3200,1600};
+int speed_var = 1600;
+//const int max_speed [5] = {speed_var, speed_var, speed_var, speed_var, speed_var};
+
+/////////////////////////////// ?      31000  -62000 ?        ?
+const long stepsToHome[numberOfSteppers] = { -14200, 64000, -70000, 20000, 8000, 800}; // step == 1.8 / 4
 ////////////////////////                    -29500
 ////////////////////////                    30000 to reach limit, 32000 to get back
-bool isSwitchActivated[5] = { false, false, false, false, false}; // step == 1.8 / 4 
+bool isSwitchActivated[numberOfSteppers] = { false, false, false, false, false}; // step == 1.8 / 4
+int startHomingFrom = 1; // skip 1 axis
 
 
-
-//steps per degree == 
-// 1 axis == 8000/45 == 178 steps per 1 degree
+//steps per degree ==
+// 1 axis == 8000/90 == 88 steps per 1 degree
 // 2 axis == 22000/45 == 488 steps per 1 degree
 // 3 axis == 31000/45 == 688 steps per 1 degree
 // 4 axis == 6400/90 == 71 steps per 1 degree
-// 5 axis == 500/45 = 11 steps per 1 degree
+// 5 axis == 2500/45 = 11 steps per 1 degree
 struct stepper_parameters
 {
   bool isDual;
@@ -51,8 +86,7 @@ struct stepper_parameters
   int max_speed = 400;
   int change_direction = false;
 };
-const int numberOfSteppers = 5;
-const int commandsNum = numberOfSteppers;
+
 bool mcpn_flag = false;
 int  mcpn_dir[] = {0, 0, 0, 0, 0};
 stepper_parameters steppers[numberOfSteppers];
@@ -115,7 +149,7 @@ bool newData, runallowed = false; // booleans for new data from serial, and runa
 
 Servo servo1;
 
-const int home_switch[numberOfSteppers] = {22, 23, 24, 25, 26};
+const int home_switch[numberOfSteppers] = {22, 23, 24, 25, 26, 27};
 
 // s -1000 400 -1500 400 1500 400
 // s -1000 500 2500 1000 6000 1000
@@ -123,7 +157,7 @@ const int home_switch[numberOfSteppers] = {22, 23, 24, 25, 26};
 
 
 void setDefaultParametersForSwitches() {
-  for (int i = 0; i < 5; i++)
+  for (int i = 0; i < numberOfSteppers; i++)
   {
     isSwitchActivated[i] = false;
   }
@@ -147,7 +181,19 @@ void setDefaultParametersForSteppers() {
     }
   }
 }
-
+void stopMovement() {
+  for (int i = 0; i < numberOfSteppers; i++)
+  {
+    if (steppers[i].isDual)
+    {
+      steppers[i].stepper1->moveTo( steppers[i].stepper1->currentPosition());
+      steppers[i].stepper2->moveTo( steppers[i].stepper1->currentPosition());
+    } else
+    {
+      steppers[i].stepper1->moveTo( steppers[i].stepper1->currentPosition());
+    }
+  }
+}
 void enableSteppers()
 {
   for (int i = 0; i < numberOfSteppers; i++)
@@ -165,8 +211,25 @@ void enableSteppers()
 
 void runSteppers()
 {
+
   for (int i = 0; i < numberOfSteppers; i++)
   {
+    //    if(shouldPermanentlyRun[i] == 1)
+    //    {
+    //         Serial.println("IN HERE!!!1111111111111111111111111 ");
+    //
+    //   //    steppers[i].stepper1->setMaxSpeed(shouldPermanentlyRunSpeed[i]);
+    //    //   steppers[i].stepper1->setSpeed(shouldPermanentlyRunSpeed[i]);
+    //    //   steppers[i].stepper1->runSpeed();
+    //
+    //    }else if(shouldPermanentlyRun[i] == -1)
+    //    {
+    //
+    //         Serial.println("IN HERE!!!------------------------1111111111111111111111111 ");
+    //   //    steppers[i].stepper1->setMaxSpeed(-shouldPermanentlyRunSpeed[i]);
+    //   //    steppers[i].stepper1->setSpeed(-shouldPermanentlyRunSpeed[i]);
+    //   //    steppers[i].stepper1->runSpeed();
+    //    }
     if (steppers[i].isDual)
     {
       steppers[i].stepper1->run();
@@ -200,14 +263,14 @@ void setSpeedAndAcceleration()///
   {
     if (steppers[i].isDual)
     {
-      steppers[i].stepper1->setAcceleration(steppers[i].max_acc);
-      steppers[i].stepper1->setMaxSpeed(steppers[i].max_speed);
-      steppers[i].stepper2->setAcceleration(steppers[i].max_acc);
-      steppers[i].stepper2->setMaxSpeed(steppers[i].max_speed);
+      steppers[i].stepper1->setAcceleration(max_speed[i]);
+      steppers[i].stepper1->setMaxSpeed(max_speed[i]);
+      steppers[i].stepper2->setAcceleration(max_speed[i]);
+      steppers[i].stepper2->setMaxSpeed(max_speed[i]);
     } else
     {
-      steppers[i].stepper1->setAcceleration(steppers[i].max_acc);
-      steppers[i].stepper1->setMaxSpeed(steppers[i].max_speed);
+      steppers[i].stepper1->setAcceleration(max_speed[i]);
+      steppers[i].stepper1->setMaxSpeed(max_speed[i]);
     }
   }
 }
@@ -261,7 +324,7 @@ void getIndexArray(int* separatorIndex , String data, char separator, int &found
 void parseValue(String data, char separator, command * com)
 {
   int found = 0;
-  int * separatorIndex = new int[10];
+  int * separatorIndex = new int[numberOfSteppers*2];
   getIndexArray(separatorIndex, data, separator, found);
   int counter = 0;
   for (int i = 0; i < found; i++)
@@ -281,9 +344,317 @@ void parseValue(String data, char separator, command * com)
   }
 }
 
+
+
+void setLargeMovement(int axis, int sign)
+{
+  //steppers[axis].stepper1->setAcceleration(max_speed[axis]);
+  steppers[axis].stepper1->moveTo(100000 * sign);
+  //steppers[axis].stepper1->setMaxSpeed(max_speed[axis]);
+  stepperDistanceWasSet[axis] = 1;
+}
+
+void stopStepperSaveCurrentPosition(int axis)
+{
+  //steppers[axis].stepper1->setMaxSpeed(max_speed[axis]);
+  //steppers[axis].stepper1->setAcceleration(max_speed[axis]);
+  steppers[axis].stepper1->setCurrentPosition(steppers[axis].stepper1->currentPosition());
+  stepperDistanceWasSet[axis] = 0;
+}
+
+void debugAxisTargetCurrentToGoPositions(int axis)
+{
+  Serial.print("Debugging of axis: ");
+  Serial.println(axis);
+  Serial.println("TARGET POSITION & CURRENT POSITION & DISTANCE TO GO: ");
+  Serial.println(steppers[axis].stepper1->targetPosition());
+  Serial.println(steppers[axis].stepper1->currentPosition());
+  Serial.println(steppers[axis].stepper1->distanceToGo());
+}
+void checkJoystickButtons()
+{
+  Usb.Task();
+  runallowed = true; //allow running
+  if (PS3.PS3Connected || PS3.PS3NavigationConnected) {
+
+    if (PS3.getButtonClick(PS))
+    {
+      Serial.print(F("\r\nPS, state is: "));
+
+      if (isJoystickActivated == 0)
+        isJoystickActivated = 1; else if (isJoystickActivated == 1)
+        isJoystickActivated = 2; else if (isJoystickActivated == 2)
+        isJoystickActivated = 0;
+      Serial.println(isJoystickActivated);
+    }
+    /////////////////////////////////////////// ANGLE CONTROL STATE
+    //Serial.println(isJoystickActivated);
+    if (isJoystickActivated == 1)
+    {
+      // dont display init position or will be the mess
+      if (PS3.getAnalogHat(LeftHatX) > 137 || PS3.getAnalogHat(LeftHatX) < 117 || PS3.getAnalogHat(LeftHatY) > 137 || PS3.getAnalogHat(LeftHatY) < 117 || PS3.getAnalogHat(RightHatX) > 137 || PS3.getAnalogHat(RightHatX) < 117 || PS3.getAnalogHat(RightHatY) > 137 || PS3.getAnalogHat(RightHatY) < 117) {
+#ifdef JOYSTICKDEBUG
+        Serial.print(F("\r\nLeftHatX: "));
+        Serial.print(PS3.getAnalogHat(LeftHatX));
+        Serial.print(F("\tLeftHatY: "));
+        Serial.println(PS3.getAnalogHat(LeftHatY));
+#endif
+        if (PS3.getAnalogHat(LeftHatY) == 0)
+        {
+
+          if (stepperDistanceWasSet[0] == 0)
+          {
+            setLargeMovement(0, -1);
+          }
+        }
+        else if (PS3.getAnalogHat(LeftHatY) == 255)
+        {
+
+          if (stepperDistanceWasSet[0] == 0)
+          {
+            setLargeMovement(0, 1);
+          }
+        } else {
+          stopStepperSaveCurrentPosition(0);
+        }
+
+        //debugAxisTargetCurrentToGoPositions(0);
+
+        if (PS3.PS3Connected) { // The Navigation controller only have one joystick
+#ifdef JOYSTICKDEBUG
+          Serial.print(F("\tRightHatX: "));
+          Serial.print(PS3.getAnalogHat(RightHatX));
+          Serial.print(F("\tRightHatY: "));
+          Serial.print(PS3.getAnalogHat(RightHatY));
+#endif
+        }
+        //////////// SECOND AXIS
+        if (PS3.getAnalogHat(RightHatY) == 0)
+        {
+#ifdef DEBUG_REGIME
+          Serial.println("1 is ZERO");
+#endif
+          if (stepperDistanceWasSet[1] == 0)
+          {
+            setLargeMovement(1, 1);
+          }
+        }
+        else if (PS3.getAnalogHat(RightHatY) == 255)
+        {
+          if (stepperDistanceWasSet[1] == 0)
+          {
+            setLargeMovement(1, -1);
+          }
+        } else {
+          stopStepperSaveCurrentPosition(1);
+        }
+        //debugAxisTargetCurrentToGoPositions(1);
+        //////////////////// END SECOND AXIS
+      }
+
+      /////////////////////////5 axis
+      if (PS3.getButtonPress(TRIANGLE))
+      {
+#ifdef JOYSTICKDEBUG
+        Serial.print(F("\r\nTraingle"));
+#endif JOYSTICKDEBUG
+        setLargeMovement(4, 1);
+      } else if (PS3.getButtonPress(CROSS))
+      {
+#ifdef JOYSTICKDEBUG
+        Serial.print(F("\r\nCross"));
+#endif JOYSTICKDEBUG
+        setLargeMovement(4, -1);
+      } else
+      {
+        stopStepperSaveCurrentPosition(4);
+      }
+      /////////////////////////5 axis end
+
+      /////////////////////////6 axis
+      if (PS3.getButtonPress(SQUARE))
+      {
+        #ifdef JOYSTICKDEBUG
+        Serial.print(F("\r\nSquare"));
+        #endif JOYSTICKDEBUG
+        setLargeMovement(5, -1);
+      }else if (PS3.getButtonPress(CIRCLE))
+      {
+      #ifdef JOYSTICKDEBUG
+        Serial.print(F("\r\nCircle"));
+      #endif JOYSTICKDEBUG
+      setLargeMovement(5, 1);
+      }else
+      {
+        stopStepperSaveCurrentPosition(5);
+      }
+      
+      /////////////////////////3 axis
+      if (PS3.getButtonPress(UP)) {
+#ifdef JOYSTICKDEBUG
+        Serial.print(F("\r\nUp"));
+#endif JOYSTICKDEBUG
+        setLargeMovement(2, 1);
+        //        PS3.setLedOff();
+        //        PS3.setLedOn(LED4);
+      } else if (PS3.getButtonPress(DOWN)) {
+#ifdef JOYSTICKDEBUG
+        Serial.print(F("\r\nDown"));
+#endif JOYSTICKDEBUG
+        setLargeMovement(2, -1);
+        //        PS3.setLedOff();
+        //        PS3.setLedOn(LED2);
+      } else
+      {
+        stopStepperSaveCurrentPosition(2);
+      }
+      /////////////////////////3 axis end
+      /////////////////////////4 axis
+      if (PS3.getButtonPress(LEFT)) {
+#ifdef JOYSTICKDEBUG
+        Serial.print(F("\r\nLeft"));
+#endif JOYSTICKDEBUG
+        setLargeMovement(3, -1);
+        //        PS3.setLedOff();
+        //        PS3.setLedOn(LED3);
+      } else if (PS3.getButtonPress(RIGHT)) {
+#ifdef JOYSTICKDEBUG
+        Serial.print(F("\r\nRight"));
+#endif JOYSTICKDEBUG
+        setLargeMovement(3, 1);
+        //        PS3.setLedOff();
+        //        PS3.setLedOn(LED1);
+      } else
+      {
+        stopStepperSaveCurrentPosition(3);
+      }
+      /////////////////////////4 axis end
+
+      // Analog button values can be read from almost all buttons
+      if (PS3.getAnalogButton(L2) || PS3.getAnalogButton(R2)) {
+#ifdef JOYSTICKDEBUG
+        Serial.print(F("\r\nL2: "));
+        Serial.print(PS3.getAnalogButton(L2));
+#endif
+        if (!PS3.PS3NavigationConnected) {
+#ifdef JOYSTICKDEBUG
+          Serial.print(F("\tR2: "));
+          Serial.print(PS3.getAnalogButton(R2));
+#endif
+        }
+      }
+
+      if (PS3.getButtonClick(L1))
+        Serial.print(F("\r\nL1"));
+      if (PS3.getButtonClick(L3))
+        Serial.print(F("\r\nL3"));
+      if (PS3.getButtonClick(R1))
+        Serial.print(F("\r\nR1"));
+      if (PS3.getButtonClick(R3))
+        Serial.print(F("\r\nR3"));
+
+      if (PS3.getButtonClick(SELECT)) {
+        Serial.print(F("\r\nSelect - "));
+        PS3.printStatusString();
+      }
+      if (PS3.getButtonClick(START)) {
+        Serial.print(F("\r\nStart"));
+        printAngle = !printAngle;
+      }
+      if (printAngle) {
+        Serial.print(F("\r\nPitch: "));
+        Serial.print(PS3.getAngle(Pitch));
+        Serial.print(F("\tRoll: "));
+        Serial.print(PS3.getAngle(Roll));
+      }
+      /////////////////////////////////////////// XYZ CONTROL STATE
+    } else if (isJoystickActivated == 2)
+    {
+      //    Serial.println("State 2 == XYZ.");
+      int coordinateStep = 10;
+      ////////////////////////////////////X COORDINATE
+      if (PS3.getButtonPress(UP)) {
+#ifdef JOYSTICKDEBUG
+        Serial.println(F("\r\nUp"));
+#endif JOYSTICKDEBUG
+        Serial.print("X ");
+        Serial.println(coordinateStep);
+
+        //setLargeMovement(2, 1);
+        //        PS3.setLedOff();
+        //        PS3.setLedOn(LED4);
+
+      } else if (PS3.getButtonPress(DOWN)) {
+#ifdef JOYSTICKDEBUG
+        Serial.println(F("\r\nDown"));
+#endif JOYSTICKDEBUG
+        Serial.print("X -");
+        Serial.println(coordinateStep);
+
+        //setLargeMovement(2, -1);
+        //        PS3.setLedOff();
+        //        PS3.setLedOn(LED2);
+      }
+      /////////////////////////3 axis end
+      /////////////////////////4 axis
+      ////////////////////////////////////Y COORDINATE
+      if (PS3.getButtonPress(LEFT)) {
+#ifdef JOYSTICKDEBUG
+        Serial.print(F("\r\nLeft"));
+#endif JOYSTICKDEBUG
+        setLargeMovement(3, -1);
+        //        PS3.setLedOff();
+        //        PS3.setLedOn(LED3);
+      } else if (PS3.getButtonPress(RIGHT)) {
+#ifdef JOYSTICKDEBUG
+        Serial.print(F("\r\nRight"));
+#endif JOYSTICKDEBUG
+        setLargeMovement(3, 1);
+        //        PS3.setLedOff();
+        //        PS3.setLedOn(LED1);
+      } else
+      {
+        stopStepperSaveCurrentPosition(3);
+      }
+      ////////////////////////////////////Z COORDINATE
+      if (PS3.getButtonPress(TRIANGLE))
+      {
+#ifdef JOYSTICKDEBUG
+        Serial.print(F("\r\nTraingle"));
+#endif JOYSTICKDEBUG
+        setLargeMovement(4, 1);
+      } else if (PS3.getButtonPress(CROSS))
+      {
+#ifdef JOYSTICKDEBUG
+        Serial.print(F("\r\nCross"));
+#endif JOYSTICKDEBUG
+        setLargeMovement(4, -1);
+      } else
+      {
+        stopStepperSaveCurrentPosition(4);
+      }
+    }
+  }
+}
+
+Thread threadCheckJoystick = Thread();
 void setup()
 {
+#ifdef JOYSTICKACTIVATION
+  threadCheckJoystick.onRun(checkJoystickButtons);
+  threadCheckJoystick.setInterval(50);
 
+  /////////////////////////// PS3 settings
+#if !defined(__MIPSEL__)
+  while (!Serial); // Wait for serial port to connect - used on Leonardo, Teensy and other boards with built-in USB CDC serial connection
+#endif
+  if (Usb.Init() == -1) {
+    Serial.print(F("\r\nOSC did not start"));
+    while (1); //halt
+  }
+  Serial.print(F("\r\nPS3 Bluetooth Library Started"));
+#endif
+  /////////////////////////// end of PS3 settings
   steppers[0].dir_pin1 = 40;
   steppers[0].step_pin1 = 41;
   steppers[0].isDual = false;
@@ -297,7 +668,7 @@ void setup()
   //  steppers[1].step_pin2 = 27;
   steppers[1].isDual = false;
   steppers[1].max_speed = 800;
-  steppers[1].change_direction = true;
+  steppers[1].change_direction = false;
   steppers[2].dir_pin1 = 36;
   steppers[2].step_pin1 = 37;
   //  steppers[2].dir_pin2 = 12;
@@ -319,8 +690,13 @@ void setup()
   steppers[4].increment_step = 20;
   steppers[4].max_speed = 400;
   steppers[4].change_direction = false;
+  steppers[5].dir_pin1 = 42;
+  steppers[5].step_pin1 = 43;
+  steppers[5].isDual = false;
+  steppers[5].increment_step = 20;
+  steppers[5].max_speed = 400;
+  steppers[5].change_direction = false;
 
-  
   steppers[0].stepper1 = new AccelStepper(1, steppers[0].step_pin1, steppers[0].dir_pin1);
   steppers[1].stepper1 = new AccelStepper(1, steppers[1].step_pin1, steppers[1].dir_pin1);
   //  steppers[1].stepper2 = new AccelStepper(1, steppers[1].step_pin2, steppers[1].dir_pin2);
@@ -328,6 +704,7 @@ void setup()
   //  steppers[2].stepper2 = new AccelStepper(1, steppers[2].step_pin2, steppers[2].dir_pin2);
   steppers[3].stepper1 = new AccelStepper(1, steppers[3].step_pin1, steppers[3].dir_pin1);
   steppers[4].stepper1 = new AccelStepper(1, steppers[4].step_pin1, steppers[4].dir_pin1);
+   steppers[5].stepper1 = new AccelStepper(1, steppers[5].step_pin1, steppers[5].dir_pin1);
   //  steppers[4].stepper2 = new AccelStepper(1, steppers[4].step_pin2, steppers[4].dir_pin2);
   Serial.begin(115200); //define baud rate
   Serial.println("Testing Accelstepper"); //print a message
@@ -343,8 +720,16 @@ void setup()
 
 }
 bool homeWasFind = false;
+
 void loop()
 {
+
+  /////////////////////////// PS3 settings
+#ifdef JOYSTICKACTIVATION
+  if (threadCheckJoystick.shouldRun()) threadCheckJoystick.run();
+#endif
+
+  //Serial.println("BEYOND!");
 
   checkSerial(); //check serial port for new commands
   continuousRun2(); //method to handle the motor
@@ -354,30 +739,23 @@ void loop()
   // delay(1000);
 }
 
-
 bool shouldSteppersGo()
 {
   bool shouldSteppersGo = 0;
+#ifdef DEBUG_REGIME
+  if ( steppers[0].stepper1->distanceToGo() != 0)
+  {
+    Serial.print("shouldstepgo ZERO AXIS distance to go: \n");
+    Serial.println(steppers[0].stepper1->distanceToGo());
+  }
+#endif
   for ( int i = 0; i < numberOfSteppers; i++)
   {
     //    if (steppers[i].stepper1->distanceToGo() > 20 || steppers[i].stepper1->distanceToGo() < -20)
     if (steppers[i].stepper1->distanceToGo() != 0)
     {
-      // Serial.print("current position: " + String(steppers[i].stepper1->currentPosition()) + " distance to go: " + String(steppers[i].stepper1->distanceToGo()) + " axis: " + String(i)  + "\n" );
-
       shouldSteppersGo = 1;
       break;
-    }
-    else { // finish your movement, WHY SHOULD STEpper gi to the current position??? If it is already hear
-      if (steppers[i].isDual) {
-        steppers[i].command1.angle = steppers[i].stepper1->currentPosition();
-        steppers[i].command2.angle = steppers[i].stepper1->currentPosition();
-        //        steppers[i].stepper1->moveTo(steppers[i].command1.angle);
-        //        steppers[i].stepper2->moveTo(steppers[i].command2.angle);
-      } else {
-        steppers[i].command1.angle = steppers[i].stepper1->currentPosition();
-        steppers[i].stepper1->moveTo(steppers[i].command1.angle);
-      }
     }
   }
   return shouldSteppersGo;
@@ -388,7 +766,7 @@ bool isEqualToReceivedPosition()
   bool isEqualToReceivedPosition = 1;
   for ( int i = 0; i < numberOfSteppers; i++)
   {
-    if (steppers[i].stepper1->currentPosition() != steppers[i].command1.angle)
+    if (steppers[i].stepper1->distanceToGo() != 0)
     {
       //  Serial.print("current position: " + String(steppers[i].stepper1->currentPosition()) + " Angle to reach: " + String(steppers[i].command1.angle) + " axis: " + String(i)  );
       isEqualToReceivedPosition = 0;
@@ -399,34 +777,32 @@ bool isEqualToReceivedPosition()
 }
 
 
-
-
 void continuousRun2() //method for the motor
 {
-  if (runallowed == true)
-  {
-    if (isEqualToReceivedPosition() == 0) { // check if we should enable steppers
-      enableSteppers();
-      while (shouldSteppersGo()) { // run untill condition
-        if (mcpn_flag == true)checkSerial();
-        runSteppers();
-      }
-    } else
-    {
-      runallowed = false;
-      disableSteppers();
+  enableSteppers();
+  while (shouldSteppersGo()) { // run untill condition
+    if (mcpn_flag == true) {
+      Serial.println("mcpn_flag is true, checking Serial port. ");
+      checkSerial(); // check serial to check if i need to stop.
     }
-  } else return;
+    runSteppers();
+#ifdef JOYSTICKACTIVATION
+    if (isJoystickActivated == 1)
+      if (threadCheckJoystick.shouldRun()) threadCheckJoystick.run();
+#endif
+  }
+  //  if (shouldSteppersGo() == false)
+  //    disableSteppers();
 }
 
 int pirateNumStep = 2;
 bool isAllSwitchesAreActivated() {
   //numberOfSteppers
-  for (int i = 0; i < numberOfSteppers; i++)
+  for (int i = startHomingFrom; i < numberOfSteppers; i++)
   {
-    if(i != 0) {
-      if (!digitalRead(home_switch[i])) return false; 
-    }else if (digitalRead(home_switch[i])) return false;
+    if (i != 0 && i != 3 && i != 5) {
+      if (!digitalRead(home_switch[i])) return false;
+    } else if (digitalRead(home_switch[i])) return false;
   }
   Serial.println("all switches are activated.");
 
@@ -447,67 +823,7 @@ void checkSerial() //method for receiving the commands
   if (newData == true) //if we received something (see above)
   {
 
-    //////get data from esp3266 == short command
-    //    String controlMsgStile = "AXIS";
-    //    if (receivedCommand.substring(0, 4).equals(controlMsgStile)) {
-    //      Serial.print("COMMAND was received: " + receivedCommand);
-    //      command com = getValues(receivedCommand, ' ');
-    //      Serial.println("Parsed commands: " + String(com.axis) + " " + String(com.angle));
-    //      //Serial.println(com.axis.toInt());
-    //      int speed1 = 400;
-    //      int speed2 = 1600;
-    //      int speed3 = 1600;
-    //      int speed4 = 400;
-    //      int speed5 = 400;
 
-    //      switch (com.axis)
-    //      {
-    //        case 1:
-    //          Serial.println("hello1 ");
-    //          receivedMMdistance = com.angle; //value for the steps
-    //          receivedDelay = speed1; //value for the speed
-    //          Serial.println(receivedMMdistance);
-    //          stepper.setMaxSpeed(receivedDelay); //set speed
-    //          stepper.moveTo(receivedMMdistance); //set distance
-    //          break;
-    //        case 2:
-    //          Serial.println("hello2 ");
-    //          receivedMMdistance2 = com.angle; //value for the steps
-    //          receivedDelay2 = speed2; //value for the speed
-    //          receivedMMdistance2_1 = receivedMMdistance2; //value for the steps
-    //          receivedDelay2_1 = receivedDelay2; //value for the speed
-    //          stepper2.setMaxSpeed(receivedDelay2); //set speed
-    //          stepper2.moveTo(receivedMMdistance2); //set distance
-    //          stepper2_1.setMaxSpeed(receivedDelay2_1); //set speed
-    //          stepper2_1.moveTo(receivedMMdistance2_1); //set distance
-    //          break;
-    //        case 3:
-    //          receivedMMdistance3_1 = com.angle; //value for the steps
-    //          receivedDelay3_1 = speed3; //value for the speed
-    //          receivedMMdistance3 = -receivedMMdistance3_1; //value for the steps
-    //          receivedDelay3 = receivedDelay3_1; //value for the speed
-    //          stepper3.setMaxSpeed(receivedDelay3); //set speed
-    //          stepper3.moveTo(receivedMMdistance3); //set distance
-    //          stepper3_1.setMaxSpeed(receivedDelay3_1); //set speed
-    //          stepper3_1.moveTo(receivedMMdistance3_1); //set distance
-    //          break;
-    //        case 4:
-    //          receivedMMdistance4 = com.angle; //value for the steps
-    //          receivedDelay4 = speed4; //value for the speed
-    //          stepper4.setMaxSpeed(receivedDelay4); //set speed
-    //          stepper4.moveTo(receivedMMdistance4); //set distance
-    //          break;
-    //        case 5:
-    //          receivedMMdistance5 = com.angle; //value for the steps
-    //          receivedDelay5 = speed5; //value for the speed
-    //          stepper5.setMaxSpeed(receivedDelay5); //set speed
-    //          stepper5.moveTo(receivedMMdistance5); //set distance
-    //          break;
-    //        case 6:
-    //          break;
-    //      }
-    //
-    //    }
     //START - MEASURE
     if (receivedCommand.startsWith("mcp") || receivedCommand.startsWith("mcn")) //this is the measure part
     {
@@ -655,31 +971,26 @@ void checkSerial() //method for receiving the commands
       // assign received angles and speed to each stepper
       for (int i = 0; i < commandsNum; i++)
       {
-        if ( steppers[i].change_direction == true){
-          steppers[i].command1.angle = -coms[i].angle;
-          steppers[i].command2.angle = -coms[i].angle;
-        }else
-        {
-          steppers[i].command1.angle = coms[i].angle;
-          steppers[i].command2.angle = coms[i].angle;
+        if ( steppers[i].change_direction == true) {
+          coms[i].angle = -coms[i].angle;
+
         }
-        
-        steppers[i].command1.rotation_speed = coms[i].rotation_speed;
-        steppers[i].command2.rotation_speed = coms[i].rotation_speed;
-        Serial.print(String(steppers[i].command1.angle) + " " + String(steppers[i].command1.rotation_speed) + " ");
+
+        //        steppers[i].command1.rotation_speed = coms[i].rotation_speed;
+        //        steppers[i].command2.rotation_speed = coms[i].rotation_speed;
       }
       for (int i = 0; i < numberOfSteppers; i++) // asign move position where to go
       {
         if (steppers[i].isDual)
         {
-          steppers[i].stepper1->moveTo(steppers[i].command1.angle);
-          steppers[i].stepper2->moveTo(steppers[i].command2.angle);
-          steppers[i].stepper1->setMaxSpeed(steppers[i].command1.rotation_speed);
-          steppers[i].stepper2->setMaxSpeed(steppers[i].command2.rotation_speed);
+          steppers[i].stepper1->moveTo(coms[i].angle);
+          steppers[i].stepper2->moveTo(coms[i].angle);
+          steppers[i].stepper1->setMaxSpeed(coms[i].rotation_speed);
+          steppers[i].stepper2->setMaxSpeed(coms[i].rotation_speed);
         } else
         {
-          steppers[i].stepper1->moveTo(steppers[i].command1.angle);
-          steppers[i].stepper1->setMaxSpeed(steppers[i].command1.rotation_speed);
+          steppers[i].stepper1->moveTo(coms[i].angle);
+          steppers[i].stepper1->setMaxSpeed(coms[i].rotation_speed);
         }
       }
     }
@@ -716,12 +1027,12 @@ void checkSerial() //method for receiving the commands
     }
     if (receivedCommand.startsWith("h")) //immediately stops the motor
     {
-      int increment = 80;
-      int incrementValue [5] = {increment, increment, -increment, increment, increment};
+      int increment = 40;
+      int incrementValue [numberOfSteppers] = {-increment, -increment, increment, -increment, -increment, -increment};
 
       runallowed = false; //disable running
 
-      long initial_homing[5] = {1, 1, -1, 1, 1};
+      long initial_homing[numberOfSteppers] = {-1, -1, 1, -1, -1, -1};
 
       setDefaultParametersForSteppers();
 
@@ -732,100 +1043,55 @@ void checkSerial() //method for receiving the commands
         // 4 + cw - ccw [800 -800] stoper=[ -805 830.]  homing cw
         // 5 + cw - ccw [1200 -1200] stoper=[ -1800 1650.] homing cw
         Serial.println("HALLO1!. ");
-        for (int i = 0; i < numberOfSteppers; i++)
+        for (int i = startHomingFrom; i < numberOfSteppers; i++)
         {
-          if (i != 0) // new buttons have reverse behavior, 0 button is an old one
+          if (i != 0 && i != 3 && i != 5) // new buttons have reverse behavior, 0 axis button is an old one
           {
-
-//            if(!digitalRead(home_switch[i]))
-//            isSwitchActivated[i] = true;
             if (!digitalRead(home_switch[i]))
             {
-              if (steppers[i].isDual)
               {
-                steppers[i].stepper1->moveTo(initial_homing[i]);
-                steppers[i].stepper2->moveTo(initial_homing[i]);
+                if ( steppers[i].change_direction == true) {
+                  steppers[i].stepper1->moveTo(-initial_homing[i]);
+                } else  steppers[i].stepper1->moveTo(initial_homing[i]);
                 initial_homing[i] += incrementValue[i]; // add 1
                 steppers[i].stepper1->run();
-                steppers[i].stepper2->run();
-                //            Serial.println("move to: " + String(initial_homing[i]) + ". increment value: " + String(incrementValue[i]));
-              } else
+                }
+            }
+          }
+          else
+          {
+            if (digitalRead(home_switch[i])) // if an old button
+            {
               {
-                if ( steppers[i].change_direction == true){
+                if ( steppers[i].change_direction == true) {
                   steppers[i].stepper1->moveTo(-initial_homing[i]);
-                }else  steppers[i].stepper1->moveTo(initial_homing[i]);
+                } else  steppers[i].stepper1->moveTo(initial_homing[i]);
                 initial_homing[i] += incrementValue[i]; // add 1
                 steppers[i].stepper1->run();
-                //              Serial.println("move to: " + String(initial_homing[i]) + ". increment value: " + String(incrementValue[i]));
-              }
+                }
             }
-          }
-          else 
-          {
-//                      if(digitalRead(home_switch[i]))
-//            isSwitchActivated[i] = true;
-//           
-          if (digitalRead(home_switch[i])) // if an old button
-          {
-            if (steppers[i].isDual)
-            {
-              steppers[i].stepper1->moveTo(initial_homing[i]);
-              steppers[i].stepper2->moveTo(initial_homing[i]);
-              initial_homing[i] += incrementValue[i]; // add 1
-              steppers[i].stepper1->run();
-              steppers[i].stepper2->run();
-              //                Serial.println("move to: " + String(initial_homing[i]) + ". increment value: " + String(incrementValue[i]));
-            } else
-            {
-              if ( steppers[i].change_direction == true){
-                  steppers[i].stepper1->moveTo(-initial_homing[i]);
-              }else  steppers[i].stepper1->moveTo(initial_homing[i]);
-              initial_homing[i] += incrementValue[i]; // add 1
-              steppers[i].stepper1->run();
-              //              Serial.println("move to: " + String(initial_homing[i]) + ". increment value: " + String(incrementValue[i]));
-            }
-          }
           }
         }
       }
+
       Serial.println("Setting default parameters. 787 line. ");
       setDefaultParametersForSteppers();
-//      setDefaultParametersForSwitches();
-      for (int i = 0; i < 5; i++) Serial.println("end " + String(i + 1) + " was reached. ");
-
-      // 1 + cw - ccw [4000 -2000]   stoper = [ 1650 -3550.] homing ccw
-      // 2 + cw - ccw [16000 -16000] stoper = [-22800 21200.] homing cw
-      // 3 + cw - ccw [40000 -40000] stoper = [ -15700. 15700.] homing cw
-      // 4 + cw - ccw [800 -800]     stoper=[ -805 830.]  homing cw
-      // 5 + cw - ccw [1200 -1200]   stoper=[ -1800 1650.] homing cw
-      //      stepper.moveTo(-2025); //ccw
-      //      stepper2.moveTo(-21200); //ccw
-      //      stepper2_1.moveTo(-21200); // cww
-      //      stepper3_1.moveTo(13800); // cw
-      //      stepper3.moveTo(-13800); // cw
-      //      stepper4.moveTo(-770); // cww
-      //      stepper5.moveTo(-1650); // cww
+      //      setDefaultParametersForSwitches();
+      for (int i = 0; i < numberOfSteppers; i++) Serial.println("end " + String(i + 1) + " was reached. ");
+      
       //go home
-      for (int i = 0; i < numberOfSteppers; i++)
+      for (int i = startHomingFrom; i < numberOfSteppers; i++)
       {
-        if (steppers[i].isDual)
         {
-          steppers[i].command1.angle = stepsToHome[i];
-          steppers[i].command2.angle = stepsToHome[i];
-          steppers[i].stepper1->moveTo(steppers[i].command1.angle);
-          steppers[i].stepper2->moveTo(steppers[i].command2.angle);
-        } else
-        {
-          if ( steppers[i].change_direction == true){
-            steppers[i].command1.angle = -stepsToHome[i];
-          }else
-          { 
-          steppers[i].command1.angle = stepsToHome[i];
+          if ( steppers[i].change_direction == true) {
+              steppers[i].stepper1->moveTo(-stepsToHome[i]);
+          } else
+          {
+              steppers[i].stepper1->moveTo(stepsToHome[i]);
           }
-          steppers[i].stepper1->moveTo(steppers[i].command1.angle);
         }
       }
-      runallowed = true; //disable running
+      
       while (!isEqualToReceivedPosition())
       {
         runSteppers();
@@ -836,14 +1102,12 @@ void checkSerial() //method for receiving the commands
       setDefaultParametersForSteppers();
     }
 
-    //    //SET ACCELERATION
-        if (receivedCommand.startsWith("reset")) //Setting up a new acceleration value
-        {
-          runallowed = false; //we still keep running disabled, since we just update a variable
-          setDefaultParametersForSteppers();
-          receivedAcceleration = Serial.parseFloat(); //receive the acceleration from serial
-          Serial.println("Set default parameters."); //confirm update by message   
-        }
+    //    //SET DEFAULT PARAMETERS
+    if (receivedCommand.startsWith("reset"))
+    {
+      setDefaultParametersForSteppers();
+      Serial.println("Set default parameters."); //confirm update by message
+    }
 
   }
   //after we went through the above tasks, newData becomes false again, so we are ready to receive new commands again.
